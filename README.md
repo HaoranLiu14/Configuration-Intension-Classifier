@@ -1,7 +1,7 @@
 # CIC
-This is the source code for CIC.
+This is the source code of Configuration Intention Classifier (CIC) from paper "Deep Understanding of Configuration Intention".
 
-## text -> vector
+## Text -> Tector
 This part of work is supported by [bert-as-service](https://github.com/hanxiao/bert-as-service).
 1. server side
 There are 2 choices of converting texts to vectors. the parameter `max_len` should be a concrete number like 20, 30, etc.
