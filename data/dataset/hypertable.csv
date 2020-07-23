@@ -1,0 +1,171 @@
+name,default,description,label,software
+CephBroker.MonAddr,,Ceph monitor address to connect to,environment,hypertable
+CephBroker.Port,,Port number on which to listen (read by CephBroker only),environment,hypertable
+CephBroker.Workers,20,"Number of Ceph broker worker threads created, maybe",performance,hypertable
+Comm.DispatchDelay,0,[TESTING ONLY] Delay dispatching of read requests by this number of milliseconds,others,hypertable
+Comm.UsePoll,FALSE,Use poll() interface,manageability,hypertable
+FsBroker.DisableFileRemoval,FALSE,Rename files with .deleted extension instead of removing (for testing),others,hypertable
+FsBroker.Hdfs.NameNode.Host,default,"Name of host on which HDFS NameNode is running (NOTE: this property is deprecated, useHdfsBroker.Hadoop.ConfDir instead)",environment,hypertable
+FsBroker.Hdfs.NameNode.Port,0,"Port number on which HDFS NameNode is running(NOTE: this property is deprecated, use HdfsBroker.Hadoop.ConfDir instead)",environment,hypertable
+FsBroker.Host,localhost,Host on which the FS broker is running (read by clients only),environment,hypertable
+FsBroker.Local.DirectIO,FALSE,Read and write files using direct i/o,manageability,hypertable
+FsBroker.Local.Port,15863,Port number on which to listen (read by LocalBroker only),environment,hypertable
+FsBroker.Local.Reactors,,Number of local broker communication reactor threads created,performance,hypertable
+FsBroker.Local.Root,,"Root of file and directory hierarchy for local broker (if relative path, then is relative to the Hypertable data directory root)",environment,hypertable
+FsBroker.Local.Workers,20,Number of local broker worker threads created,performance,hypertable
+FsBroker.Port,15863,Port number on which FS broker is listening (read by clients only),environment,hypertable
+FsBroker.Timeout,,"Length of time, in milliseconds, to wait before timing out FS Broker requests. This takes precedence over Hypertable.Request.Timeout",reliability,hypertable
+HdfsBroker.Hadoop.ConfDir,,Hadoop configuration directory (e.g. /etc/hadoop/conf or /usr/lib/hadoop/conf),environment,hypertable
+HdfsBroker.Port,,Port number on which to listen (read by HdfsBroker only),environment,hypertable
+HdfsBroker.Reactors,,Number of HDFS broker communication reactor threads created,performance,hypertable
+HdfsBroker.SyncBlock,TRUE,Pass SYNC_BLOCK flag to Filesystem.create() when creating files,others,hypertable
+HdfsBroker.Workers,,Number of HDFS broker worker threads created,performance,hypertable
+HdfsBroker.fs.default.name,,"Hadoop Filesystem default name, same as fs.default.name property in Hadoop config (e.g. hdfs://localhost:9000)(NOTE: this property is deprecated, use HdfsBroker.Hadoop.ConfDir instead)",others,hypertable
+Hyperspace.Checkpoint.Size,1000000,Run BerkeleyDB checkpoint when logs exceed this size limit,reliability,hypertable
+Hyperspace.Client.Datagram.SendPort,0,Client UDP send port for keepalive packets,environment,hypertable
+Hyperspace.GracePeriod,60000,Hyperspace Grace period (see Chubby paper),reliability,hypertable
+Hyperspace.KeepAlive.Interval,10000,Hyperspace Keepalive interval (see Chubby paper),reliability,hypertable
+Hyperspace.Lease.Interval,60000,Hyperspace Lease interval (see Chubby paper),reliability,hypertable
+Hyperspace.LogGc.Interval,60000,Check for unused BerkeleyDB log files after this much time,reliability,hypertable
+Hyperspace.LogGc.MaxUnusedLogs,200,Number of unused BerkeleyDB to keep around in case of lagging replicas,reliability,hypertable
+Hyperspace.Maintenance.Interval,60000,"Hyperspace maintenance interval (checkpoint BerkeleyDB, log cleanup etc)",reliability,hypertable
+Hyperspace.Replica.Dir,,"Root of hyperspace file and directory heirarchy in local filesystem (if relative path, then is relative to the Hypertable data directory root)",environment,hypertable
+Hyperspace.Replica.Host,,Hostname of Hyperspace replica,environment,hypertable
+Hyperspace.Replica.Port,15861,Port number on which Hyperspace is or should be listening for requests,environment,hypertable
+Hyperspace.Replica.Reactors,,Number of Hyperspace Master communication reactor threads created,performance,hypertable
+Hyperspace.Replica.Replication.Port,15862,Hyperspace replication port,environment,hypertable
+Hyperspace.Replica.Replication.Timeout,10000,Hyperspace replication master dies if it doesn't receive replication acknowledgement within this period,reliability,hypertable
+Hyperspace.Replica.Workers,20,Number of Hyperspace Replica worker threads created,performance,hypertable
+Hyperspace.Session.Reconnect,FALSE,Reconnect to Hyperspace on session expiry,reliability,hypertable
+Hyperspace.Timeout,30000,Timeout (millisec) for hyperspace requests (preferred to Hypertable.Request.Timeout,reliability,hypertable
+Hypertable.Client.Workers,20,Number of client worker threads created,performance,hypertable
+Hypertable.Cluster.Name,,Name of cluster used in Monitoring UI and admin notification messages,others,hypertable
+Hypertable.CommitLog.Compressor,quicklz,"Commit log compressor to use (zlib, lzo, quicklz, snappy, bmz, none)",environment,hypertable
+Hypertable.CommitLog.RollLimit,100000000,Roll commit log (close current fragment file and create a new one) after writing this many bytes,debuggability,hypertable
+Hypertable.CommitLog.SkipErrors,FALSE,Skip over any corruption encountered in the commit log,reliability,hypertable
+Hypertable.Connection.Retry.Interval,10000,"Average time, in milliseconds, between connection retry atempts",reliability,hypertable
+Hypertable.DataDirectory,directory,Hypertable data directory root,environment,hypertable
+Hypertable.Directory,hypertable,Top-level hypertable directory name,environment,hypertable
+Hypertable.Failover.GracePeriod,30000,Master will wait this many milliseconds before trying to recover a RangeServer,reliability,hypertable
+Hypertable.Failover.Quorum.Percentage,90,Percentage of live RangeServers required for failover to proceed,reliability,hypertable
+Hypertable.Failover.RecoverInSeries,FALSE,Carry out USER log recovery for failed servers in series,reliability,hypertable
+Hypertable.Failover.Timeout,300000,Timeout (milliseconds) for failover operations,reliability,hypertable
+Hypertable.HqlInterpreter.Mutator.NoLogSync,FALSE,Suspends CommitLog sync operation on updates until command completion,reliability,hypertable
+Hypertable.LoadBalancer.BalanceDelay.Initial,86400,Amount of time (seconds) to wait after start up before running balancer,reliability,hypertable
+Hypertable.LoadBalancer.BalanceDelay.NewServer,60,Amount of time (seconds) to wait before running balancer when a new RangeServer is detected,reliability,hypertable
+Hypertable.LoadBalancer.Crontab,*,Crontab entry to control when load balancer is run,performance,hypertable
+Hypertable.LoadBalancer.Enable,TRUE,Enable automatic load balancing,performance,hypertable
+Hypertable.LoadBalancer.LoadavgThreshold,0.25,Servers with loadavg above this much above the mean will be considered by the load balancer to be overloaded,performance,hypertable
+Hypertable.LoadMetrics.Interval,3600,"Period of time, in seconds, between writing metrics to sys/RS_METRICS",reliability,hypertable
+Hypertable.LocationCache.MaxEntries,1000000,Size of range location cache in number of entries,performance,hypertable
+Hypertable.LogFlushMethod.Meta,SYNC,"This is a string property that can take either the value FLUSH or SYNC. It controls the flush method for writes to the METADATA commit log. When running Hypertable on top of HDFS, a value of FLUSH causes hflush() to be used and a value of SYNC causes hsync() to be used.",debuggability,hypertable
+Hypertable.LogFlushMethod.User,FLUSH,"This is a string property that can take either the value FLUSH or SYNC. It controls the flush method for writes to the user data commit log. When running Hypertable on top of HDFS, a value of FLUSH causes hflush() to be used and a value of SYNC causes hsync() to be used.",debuggability,hypertable
+Hypertable.Logging.Level,info,Set system wide logging level (default: info),debuggability,hypertable
+Hypertable.Master.DiskThreshold.Percentage,90,Stop assigning ranges to RangeServers if disk usage is above this threshold,reliability,hypertable
+Hypertable.Master.Gc.Interval,300000,Garbage collection interval in milliseconds by Master,reliability,hypertable
+Hypertable.Master.Host,,Host on which Hypertable Master is running,environment,hypertable
+Hypertable.Master.Locations.IncludeMasterHash,FALSE,Includes master hash (host:port) in RangeServer location id,manageability,hypertable
+Hypertable.Master.NotificationInterval,3600,Notification interval (in seconds) of abnormal state,reliability,hypertable
+Hypertable.Master.Port,15864,Port number on which Hypertable Master is or should be listening,environment,hypertable
+Hypertable.Master.Reactors,,Number of Hypertable Master communication reactor threads created,performance,hypertable
+Hypertable.Master.Split.SoftLimitEnabled,TRUE,Enable aggressive splitting of tables with little data to spread out ranges,performance,hypertable
+Hypertable.Master.Workers,100,Number of Hypertable Master worker threads created,performance,hypertable
+Hypertable.Metadata.Replication,-1,Replication factor for commit log files,reliability,hypertable
+Hypertable.MetaLog.HistorySize,30,Number of old MetaLog files to retain for historical purposes,debuggability,hypertable
+Hypertable.MetaLog.MaxFileSize,100MB,Maximum size a MetaLog file can grow before it is compacted,performance,hypertable
+Hypertable.MetaLog.SkipErrors,FALSE,Skipping errors instead of throwing exceptions on metalog errors,reliability,hypertable
+Hypertable.Metrics.Ganglia.Disable,FALSE,Disable publishing of metrics to Ganglia,manageability,hypertable
+Hypertable.Metrics.Ganglia.Port,15860,UDP Port on which Hypertable gmond python extension module listens for metrics,environment,hypertable
+Hypertable.Monitoring.Disable,FALSE,Disables the generation of monitoring statistics,reliability,hypertable
+Hypertable.Monitoring.Interval,30000,Monitoring statistics gathering interval (in milliseconds),reliability,hypertable
+Hypertable.Mutator.FlushDelay,0,Number of milliseconds to wait prior to flushing scatter buffers (for testing),reliability,hypertable
+Hypertable.Mutator.ScatterBuffer.FlushLimit.Aggregate,50000000,Amount of updates (bytes) accumulated for all servers to trigger a scatter buffer flush,performance,hypertable
+Hypertable.Mutator.ScatterBuffer.FlushLimit.PerServer,10000000,Amount of updates (bytes) accumulated for a single server to trigger a scatter buffer flush,reliability,hypertable
+Hypertable.Network.Interface,,Use this interface for network communication,environment,hypertable
+Hypertable.RangeLocator.MaxErrorQueueLength,4,Maximum numbers of errors to be stored,reliability,hypertable
+Hypertable.RangeLocator.MetadataReadaheadCount,10,Number of rows that the RangeLocator fetches from the METADATA,manageability,hypertable
+Hypertable.RangeLocator.MetadataRetryInterval,3000,Retry interval when connecting to a RangeServer to fetch metadata,reliability,hypertable
+Hypertable.RangeLocator.RootMetadataRetryInterval,3000,Retry interval when connecting to the Root RangeServer,reliability,hypertable
+Hypertable.RangeServer.AccessGroup.CellCache.PageSize,524288,Page size for CellCache pool allocator,performance,hypertable
+Hypertable.RangeServer.AccessGroup.CellCache.ScannerCacheSize,1024,CellCache scanner cache size,performance,hypertable
+Hypertable.RangeServer.AccessGroup.GarbageThreshold.Percentage,20,Perform major compaction when garbage accounts for this percentage of the data,performance,hypertable
+Hypertable.RangeServer.AccessGroup.MaxMemory,1000000000,Maximum bytes consumed by an Access Group,reliability,hypertable
+Hypertable.RangeServer.AccessGroup.ShadowCache,FALSE,Enable CellStore shadow caching,manageability,hypertable
+Hypertable.RangeServer.BlockCache.Compressed,TRUE,Controls whether or not block cache stores compressed blocks,performance,hypertable
+Hypertable.RangeServer.BlockCache.MaxMemory,RAM),Maximum (target) size of block cache,performance,hypertable
+Hypertable.RangeServer.BlockCache.MinMemory,0,Minimum size of block cache,performance,hypertable
+Hypertable.RangeServer.CellStore.DefaultBlockSize,65536,Default block size for cell stores,performance,hypertable
+Hypertable.RangeServer.CellStore.DefaultBloomFilter,rows,Default bloom filter for cell stores,performance,hypertable
+Hypertable.RangeServer.CellStore.DefaultCompressor,snappy,Default compressor for cell stores,manageability,hypertable
+Hypertable.RangeServer.CellStore.Merge.RunLengthThreshold,5,Trigger a merge if an adjacent run of merge candidate CellStores exceeds this length,reliability,hypertable
+Hypertable.RangeServer.CellStore.SkipBad,FALSE,"Skip over corrupt cell stores. NOTE: This property should only be used in certain disaster recovery scenarios, such as when the filesystem has become corrupt. This property leads to leaked files and hides the extent of the data loss. It is better to manually remove corrupt files and use the Hypertable.RangeServer.CellStore.SkipNotFound to skip over them.",reliability,hypertable
+Hypertable.RangeServer.CellStore.SkipNotFound,FALSE,Skip over cell stores that are non-existent,reliability,hypertable
+Hypertable.RangeServer.CellStore.TargetSize.Minimum,10MB,Merging compaction target CellStore size during normal activity period,reliability,hypertable
+Hypertable.RangeServer.CellStore.TargetSize.Maximum,50MB,Merging compaction target CellStore size during low activity period,reliability,hypertable
+Hypertable.RangeServer.ClockSkew.Max,3000000,Maximum amount of clock skew (microseconds) the system will tolerate,reliability,hypertable
+Hypertable.RangeServer.CommitInterval,50,Default minimum group commit interval in milliseconds,reliability,hypertable
+Hypertable.RangeServer.CommitLog.Compressor,quicklz,"Commit log compressor to use (zlib, lzo, quicklz, snappy, bmz, none)",environment,hypertable
+Hypertable.RangeServer.CommitLog.DfsBroker.Host,,Host of FS Broker to use for Commit Log,environment,hypertable
+Hypertable.RangeServer.CommitLog.DfsBroker.Port,,Port of FS Broker to use for Commit Log,environment,hypertable
+Hypertable.RangeServer.CommitLog.FragmentRemoval.RangeReferenceRequired,TRUE,Only remove linked log fragments if they're part of a transfer log referenced by a range,manageability,hypertable
+Hypertable.RangeServer.CommitLog.PruneThreshold.Max,,Upper threshold for amount of outstanding commit log before pruning,reliability,hypertable
+Hypertable.RangeServer.CommitLog.PruneThreshold.Max.MemoryPercentage,50,Upper threshold in terms of % RAM for amount of outstanding commit log before pruning,reliability,hypertable
+Hypertable.RangeServer.CommitLog.PruneThreshold.Min,1000000000,Lower threshold for amount of outstanding commit log before pruning,reliability,hypertable
+Hypertable.RangeServer.ControlFile.CheckInterval,30000,Minimum time interval (milliseconds) to check for control files in run/ directory,reliability,hypertable
+Hypertable.RangeServer.Data.DefaultReplication,-1,Default replication for data,reliability,hypertable
+Hypertable.RangeServer.Failover.FlushLimit.Aggregate,100000000,Amount of updates (bytes) accumulated for all range to trigger a replay buffer flush,reliability,hypertable
+Hypertable.RangeServer.Failover.FlushLimit.PerRange,10000000,Amount of updates (bytes) accumulated for a single range to trigger a replay buffer flu\ sh,reliability,hypertable
+Hypertable.RangeServer.IgnoreClockSkewErrors,FALSE,Ignore clock skew errors,reliability,hypertable
+Hypertable.RangeServer.LoadSystemTablesOnly,FALSE,Instructs the RangeServer to only load system tables (for debugging),debuggability,hypertable
+Hypertable.RangeServer.LowMemoryLimit.Percentage,10,Amount of memory to free in low memory condition as percentage of RangeServer memory limit,performance,hypertable
+Hypertable.RangeServer.LowActivityPeriod,*,Crontab-style entry specifying the low activity period. This property can be specified multiple times to specify multiple low activity periods. The RangeServer performs more aggressive maintenance during this period.,manageability,hypertable
+Hypertable.RangeServer.Maintenance.Interval,30000,Maintenance scheduling interval in milliseconds,reliability,hypertable
+Hypertable.RangeServer.Maintenance.LowMemoryPrioritization,TRUE,Use low memory prioritization algorithm for freeing memory in low memory mode,performance,hypertable
+Hypertable.RangeServer.Maintenance.MaxAppQueuePause,120000,"Each time application queue is paused, keep it paused for no more than this many milliseconds",reliability,hypertable
+Hypertable.RangeServer.Maintenance.MergesPerInterval,,Limit on number of merging tasks to create per maintenance interval,reliability,hypertable
+Hypertable.RangeServer.Maintenance.MergingCompaction.Delay,900000,Millisecond delay before scheduling merging compactions in non-low memory mode,reliability,hypertable
+Hypertable.RangeServer.Maintenance.MoveCompactionsPerInterval,2,Limit on number of major compactions due to move per maintenance interval,reliability,hypertable
+Hypertable.RangeServer.Maintenance.InitializationPerInterval,,Limit on number of initialization tasks to create per maintenance interval,reliability,hypertable
+Hypertable.RangeServer.MaintenanceThreads,,"Number of maintenance threads. Default is max(1.5*drive-count, number-of-cores).",performance,hypertable
+Hypertable.RangeServer.MemoryLimit,,Absolute RangeServer memory limit,performance,hypertable
+Hypertable.RangeServer.MemoryLimit.EnsureUnused,,Amount of unused physical memory,others,hypertable
+Hypertable.RangeServer.MemoryLimit.EnsureUnused.Percentage,,Amount of unused physical memory specified as percentage of physical RAM,others,hypertable
+Hypertable.RangeServer.MemoryLimit.Percentage,60,RangeServer memory limit specified as percentage of physical RAM,performance,hypertable
+Hypertable.RangeServer.Monitoring.DataDirectories,/,Comma-separated list of directory mount points of disk volumes to monitor,environment,hypertable
+Hypertable.RangeServer.Port,15865,Port number on which range servers are or should be listening,environment,hypertable
+Hypertable.RangeServer.ProxyName,Value:,Use this value for the proxy name (if set) instead of reading from run dir.,environment,hypertable
+Hypertable.RangeServer.QueryCache.EnableMutexStatistics,TRUE,Enables waiter statistics on query cache mutex,performance,hypertable
+Hypertable.RangeServer.QueryCache.MaxMemory,50000000,Maximum size of query cache,performance,hypertable
+Hypertable.RangeServer.Range.MaximumSize,3000000000,Maximum size of a range in bytes before updates get throttled,reliability,hypertable
+Hypertable.RangeServer.Range.MetadataSplitSize,,Size of METADATA range in bytes before splitting (for testing),others,hypertable
+Hypertable.RangeServer.Range.RowSize.Unlimited,FALSE,Marks range active and unsplittable upon encountering row overflow condition. Can cause ranges to grow extremely large. Use with caution!,reliability,hypertable
+Hypertable.RangeServer.Range.SplitOff,high,Portion of range to split off (high or low),manageability,hypertable
+Hypertable.RangeServer.Range.SplitSize,536870912,Size of range in bytes before splitting,manageability,hypertable
+Hypertable.RangeServer.Range.RowSize.Unlimited,FALSE,Marks range active and unsplittable upon encountering row overflow condition. Can cause ranges to grow extremely large. Use with caution!,reliability,hypertable
+Hypertable.RangeServer.Reactors,,Number of Range Server communication reactor threads created,performance,hypertable
+Hypertable.RangeServer.ReadyStatus,WARNING,"Status code indicating RangeServer is ready for operation. By setting this property to OK the RangeServer startup script will wait until all deferred initialization (loading of CellStores) is complete, before returning.",environment,hypertable
+Hypertable.RangeServer.Scanner.BufferSize,1000000,Size of transfer buffer for scan results,performance,hypertable
+Hypertable.RangeServer.Scanner.Ttl,1800000,Number of milliseconds of inactivity before destroying scanners,reliability,hypertable
+Hypertable.RangeServer.Testing.MaintenanceNeeded.PauseInterval,0,"TESTING: After update, if range needs maintenance, pause for this number of milliseconds",others,hypertable
+Hypertable.RangeServer.Timer.Interval,20000,"Timer interval in milliseconds (reaping scanners, purging commit logs, etc.)",reliability,hypertable
+Hypertable.RangeServer.UpdateCoalesceLimit,5000000,Amount of update data to coalesce into single commit log sync,reliability,hypertable
+Hypertable.RangeServer.UpdateDelay,0,Number of milliseconds to wait before carrying out an update (TESTING),others,hypertable
+Hypertable.RangeServer.Workers,50,Number of Range Server worker threads created,performance,hypertable
+Hypertable.Request.Timeout,600000,"Length of time, in milliseconds, before timing out requests (system wide)",reliability,hypertable
+Hypertable.Scanner.QueueSize,5,Size of Scanner ScanBlock queue,performance,hypertable
+Hypertable.Silent,FALSE,Disable verbose output (system wide),manageability,hypertable
+Hypertable.Verbose,FALSE,Enable verbose output (system wide),manageability,hypertable
+Qfs.Broker.Reactors,,Number of QFS broker reactor threads,performance,hypertable
+Qfs.Broker.Workers,20,Number of worker threads for QFS broker,performance,hypertable
+Qfs.MetaServer.Name,localhost,Hostname of QFS meta server,environment,hypertable
+Qfs.MetaServer.Port,20000,Port number for QFS meta server,environment,hypertable
+ThriftBroker.API.Logging,FALSE,Enable or disable Thrift API logging,debuggability,hypertable
+ThriftBroker.Future.Capacity,50000000,Capacity of result queue (in bytes) for Future objects,performance,hypertable
+ThriftBroker.Hyperspace.Session.Reconnect,TRUE,ThriftBroker will reconnect to Hyperspace on session expiry,reliability,hypertable
+ThriftBroker.Mutator.FlushInterval,1000,Maximum flush interval in milliseconds,reliability,hypertable
+ThriftBroker.NextThreshold,512000,Total size threshold for (size of cell data) for thrift broker next calls,performance,hypertable
+ThriftBroker.Port,15867,Port number for thrift broker,environment,hypertable
+ThriftBroker.SlowQueryLog.Enable,FALSE,Enable slow query logging,debuggability,hypertable
+ThriftBroker.SlowQueryLog.LatencyThreshold,10000,Latency threshold (ms) above which a query is considered slow,others,hypertable
+ThriftBroker.Timeout,,Timeout (ms) for thrift broker,reliability,hypertable
+ThriftBroker.Workers,50,Number of worker threads for thrift broker,performance,hypertable

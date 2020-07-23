@@ -1,0 +1,44 @@
+name,software,description,label
+daemonize,redis,By default Redis does not run as a daemon. Use 'yes' if you need it.,manageability
+pidfile,redis,"When running daemonized, Redis writes a pid file in /var/run/redis.pid by default. You can specify a custom pid file location here.",environment
+port,redis,"Accept connections on the specified port, default is 6379. If port 0 is specified Redis will not listen on a TCP socket.",environment
+bind,redis,"By default Redis listens for connections from all the network interfaces available on the server. It is possible to listen to just one or multiple interfaces using the ""bind"" configuration directive, followed by one or more IP addresses.",manageability
+unixsocket,redis,"Specify the path for the unix socket that will be used to listen for incoming connections. There is no default, so Redis will not listen on a unix socket when not specified.",environment
+timeout,redis,Close the connection after a client is idle for N seconds (0 to disable),reliability
+loglevel,redis,Specify the server verbosity level.,debuggability
+logfile,redis,Specify the log file name. Also the empty string can be used to force Redis to log on the standard output.,debuggability
+syslog-enabled,redis,"To enable logging to the system logger, just set 'syslog-enabled' to yes, and optionally update the other syslog parameters to suit your needs.",debuggability
+syslog-ident,redis,Specify the syslog identity.,others
+syslog-facility,redis,Specify the syslog facility. Must be USER or between LOCAL0-LOCAL7.,manageability
+databases,redis,Set the number of databases.,manageability
+save,redis,Save the DB on disk,manageability
+rdbcompression,redis,Compress string objects using LZF when dump .rdb databases,manageability
+rdbchecksum,redis,"This makes the format more resistant to corruption but there is a performance hit to pay (around 10%) when saving and loading RDB files, so you can disable it for maximum performances.",performance
+dbfilename,redis,The filename where to dump the DB,others
+dir,redis,The working directory.,environment
+slaveof,redis,Master-Slave replication. Use slaveof to make a Redis instance a copy of another Redis server.,reliability
+masterauth,redis,"If the master is password protected (using the ""requirepass"" configuration directive below) it is possible to tell the slave to authenticate before starting the replication synchronization process, otherwise the master will refuse the slave request.",security
+slave-read-only,redis,read only slaves are not designed to be exposed to untrusted clients on the internet. It's just a protection layer against misuse of the instance.,security
+repl-ping-slave-period,redis,Slaves send PINGs to server in a predefined interval.,reliability
+repl-timeout,redis,The following option sets the replication timeout.,reliability
+repl-disable-tcp-nodelay,redis,Disable TCP_NODELAY on the slave socket after SYNC,reliability
+repl-backlog-size,redis,Set the replication backlog size.,reliability
+repl-backlog-ttl,redis,"The following option configures the amount of seconds that need to elapse, starting from the time the last slave disconnected, for the backlog buffer to be freed.",reliability
+slave-priority,redis,The slave priority is an integer number published by Redis in the INFO output. It is used by Redis Sentinel in order to select a slave to promote into a master if the master is no longer working correctly.,reliability
+maxclients,redis,Set the max number of connected clients at the same time.,performance
+maxmemory,redis,Don't use more memory than the specified amount of bytes.,reliability
+maxmemory-policy,redis,how Redis will select what to remove when maxmemory is reached.,performance
+maxmemory-samples,redis,"LRU and minimal TTL algorithms are not precise algorithms but approximated algorithms (in order to save memory), so you can select as well the sample size to check.",performance
+appendfilename,redis,The name of the append only file,others
+appendfsync,redis,The fsync() call tells the Operating System to actually write data on disk instead to wait for more data in the output buffer.,performance
+no-appendfsync-on-rewrite,redis,"If you have latency problems turn this to ""yes"". Otherwise leave it as ""no"" that is the safest pick from the point of view of durability.",security
+auto-aof-rewrite-percentage,redis,Redis is able to automatically rewrite the log file implicitly calling BGREWRITEAOF when the AOF log size grows by the specified percentage.,debuggability
+auto-aof-rewrite-min-size,redis,"you need to specify a minimal size for the AOF file to be rewritten, this is useful to avoid rewriting the AOF file even if the percentage increase is reached but it is still pretty small.",reliability
+lua-time-limit,redis,If the maximum execution time is reached Redis will log that a script is still in execution after the maximum allowed time and will start to reply to queries with an error.,debuggability
+slowlog-log-slower-than,redis,"the execution time, in microseconds, to exceed in order for the command to get logged",debuggability
+slowlog-max-len,redis,the length of the slow log,debuggability
+hash-max-ziplist-entries,redis,"Hashes are encoded using a memory efficient data structure when they have a small number of entries, and the biggest entry does not exceed a given threshold.",performance
+set-max-intset-entries,redis,The following configuration setting sets the limit in the size of the set in order to use this special memory saving encoding.,reliability
+activerehashing,redis,Active rehashing uses 1 millisecond every 100 milliseconds of CPU time in order to help rehashing the main Redis hash table,performance
+hz,redis,"By default ""hz"" is set to 10. Raising the value will use more CPU when Redis is idle, but at the same time will make Redis more responsive when there are many keys expiring at the same time, and timeouts may be handled with more precision.",performance
+aof-rewrite-incremental-fsync,redis,"When a child rewrites the AOF file, if the following option is enabled the file will be fsync-ed every 32 MB of data generated.",reliability

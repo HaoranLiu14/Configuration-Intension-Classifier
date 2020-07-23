@@ -1,0 +1,224 @@
+name,software,description,label
+data_directory,postgresql,Specifies the directory to use for data storage.,environment
+config_file,postgresql,Specifies the main server configuration file,environment
+hba_file,postgresql,Specifies the configuration file for host-based authentication,security
+ident_file,postgresql,Specifies the configuration file for user name mapping,environment
+external_pid_file,postgresql,Specifies the name of an additional process-ID (PID) file that the server should create for use by server administration programs.,environment
+listen_addresses ,postgresql,Specifies the TCP/IP address(es) on which the server is to listen for connections from client applications. ,environment
+port,postgresql,The TCP port the server listens on,environment
+max_connections,postgresql,Determines the maximum number of concurrent connections to the database server.,performance
+superuser_reserved_connections,postgresql,Determines the number of connection slots that are reserved for connections,reliability
+unix_socket_directories,postgresql,Specifies the directory of the Unix-domain socket(s) on which the server is to listen,environment
+unix_socket_group,postgresql,Sets the owning group of the Unix-domain socket(s),security
+unix_socket_permissions,postgresql,Sets the access permissions of the Unix-domain socket(s). ,security
+bonjour,postgresql,Enables advertising the server's existence via Bonjour. ,manageability
+bonjour_name,postgresql,Specifies the Bonjour service name.,others
+tcp_keepalives_idle,postgresql,Specifies the number of seconds of inactivity after which TCP should send a keepalive message to the client.,reliability
+tcp_keepalives_interval,postgresql,Specifies the number of seconds after which a TCP keepalive message should be retransmitted the client should be retransmitted.,reliability
+tcp_keepalives_count,postgresql,Specifies the number of TCP keepalives that can be lost before the server's connection to the client is considered dead. ,reliability
+authentication_timeout,postgresql,"Maximum time to complete client authentication, in seconds.",reliability
+ssl,postgresql,Enables SSL connections. ,security
+ssl_ca_file,postgresql,Specifies the name of the file containing the SSL server certificate authority,security
+ssl_cert_file,postgresql,Specifies the name of the file containing the SSL server certificate. ,environment
+ssl_crl_file,postgresql,Specifies the name of the file containing the SSL server certificate revocation list ,environment
+ssl_key_file,postgresql,Specifies the name of the file containing the SSL server private key. ,environment
+ssl_ciphers,postgresql,Specifies a list of SSL cipher suites that are allowed to be used on secure connections.,security
+ssl_prefer_server_ciphers,postgresql,"Specifies whether to use the server's SSL cipher preferences, rather than the client's. The default is true",security
+ssl_ecdh_curve,postgresql,Specifies the name of the curve to use in ECDH key exchange.,security
+password_encryption,postgresql,this parameter determines whether the password is to be encrypted.,security
+krb_server_keyfile,postgresql,Sets the location of the Kerberos server key file. ,environment
+krb_caseins_users,postgresql,Sets whether GSSAPI user names should be treated case-insensitively. ,security
+db_user_namespace,postgresql,This parameter enables per-database user names.,manageability
+shared_buffers,postgresql,Sets the amount of memory the database server uses for shared memory buffers. ,performance
+huge_pages,postgresql,Enables/disables the use of huge memory pages.,performance
+temp_buffers,postgresql,Sets the maximum number of temporary buffers used by each database session.,performance
+max_prepared_transactions,postgresql,Sets the maximum number of transactions that can be in the prepared state simultaneously,performance
+work_mem,postgresql,Specifies the amount of memory to be used by internal sort operations and hash tables before writing,performance
+maintenance_work_mem,postgresql,Specifies the maximum amount of memory to be used by maintenance operations,performance
+autovacuum_work_mem,postgresql,Specifies the maximum amount of memory to be used by each autovacuum worker process.,performance
+max_stack_depth,postgresql,Specifies the maximum safe depth of the server's execution stack. ,reliability
+dynamic_shared_memory_type,postgresql,Specifies the dynamic shared memory implementation that the server should use. ,performance
+temp_file_limit,postgresql,Specifies the maximum amount of disk space that a process can use for temporary files,performance
+max_files_per_process,postgresql,Sets the maximum number of simultaneously open files allowed to each server subprocess.,performance
+vacuum_cost_delay,postgresql,"The length of time, in milliseconds, that the process will sleep when the cost limit has been exceeded.",reliability
+vacuum_cost_page_hit,postgresql,The estimated cost for vacuuming a buffer found in the shared buffer cache.,others
+vacuum_cost_page_miss,postgresql,The estimated cost for vacuuming a buffer that has to be read from disk.,others
+vacuum_cost_page_dirty,postgresql,The estimated cost charged when vacuum modifies a block that was previously clean.,others
+vacuum_cost_limit,postgresql,The accumulated cost that will cause the vacuuming process to sleep. ,others
+bgwriter_delay,postgresql,Specifies the delay between activity rounds for the background writer.,manageability
+bgwriter_lru_maxpages,postgresql,"In each round, no more than this many buffers will be written by the background writer. Setting this to zero disables background writing.",performance
+bgwriter_lru_multiplier,postgresql,The number of dirty buffers  needed by server processes during recent rounds.,performance
+bgwriter_flush_after,postgresql,limit the amount of dirty data in the kernel's page cache,reliability
+effective_io_concurrency,postgresql,Sets the number of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.,performance
+max_worker_processes,postgresql,Sets the maximum number of background processes that the system can support.,performance
+max_parallel_workers_per_gather,postgresql,Sets the maximum number of workers that can be started by a single Gather node. ,performance
+backend_flush_after,postgresql,"Whenever more than backend_flush_after bytes have been written by a single backend, attempt to force the OS to issue these writes to the underlying storage.",reliability
+old_snapshot_threshold,postgresql,Sets the minimum time that a snapshot can be used without risk ,reliability
+fsync,postgresql,"While turning off fsync is often a performance benefit, this can result in unrecoverable data corruption in the event of a power failure or system crash.",performance
+synchronous_commit,postgresql,Specifies whether transaction commit will wait for WAL records to be written to disk before the command returns a success indication to the client.,reliability
+wal_sync_method,postgresql,Method used for forcing WAL updates out to disk.,reliability
+full_page_writes,postgresql,"When this parameter is on, the PostgreSQL server writes the entire content of each disk page to WAL during the first modification of that page after a checkpoint. ",reliability
+wal_log_hints,postgresql,"When this parameter is on, the PostgreSQL server writes the entire content",debugability
+wal_compression,postgresql,"When this parameter is on, the PostgreSQL server compresses a full page image ",performance
+wal_buffers,postgresql,The amount of shared memory used for WAL data that has not yet been written to disk.,performance
+wal_writer_delay,postgresql,Specifies how often the WAL writer flushes WAL.,reliability
+wal_writer_flush_after,postgresql,Specifies how often the WAL writer flushes WAL.,reliability
+commit_delay ,postgresql,This can improve  group commit throughput,performance
+commit_siblings,postgresql,A larger value makes it more probable,performance
+checkpoint_timeout,postgresql,"Maximum time between automatic WAL checkpoints, in seconds.",reliability
+checkpoint_completion_target,postgresql,Specifies the target of checkpoint completion,manageability
+checkpoint_flush_after ,postgresql,"Whenever more than checkpoint_flush_after bytes have been written while performing a checkpoint, attempt to force the OS to issue these writes to the underlying storage.",reliability
+checkpoint_warning,postgresql,Write a message to the server log if checkpoints caused by the filling of checkpoint segment files happen closer together than this many seconds ,debugability
+max_wal_size,postgresql,Maximum size to let the WAL grow to between automatic WAL checkpoints.,reliability
+min_wal_size,postgresql,"As long as WAL disk usage stays below this setting, old WAL files are always recycled for future use at a checkpoint, rather than removed. ",reliability
+archive_mode,postgresql,"When archive_mode is enabled, completed WAL segments are sent to archive storage by setting archive_command.",manageability
+archive_command,postgresql,The local shell command to execute to archive a completed WAL file segment.,environment
+archive_timeout,postgresql," To limit how old unarchived data can be, you can set archive_timeout to force the server to switch to a new WAL segment file periodically. ",reliability
+max_wal_senders,postgresql,Specifies the maximum number of concurrent connections from standby servers or streaming base backup clients ,reliability
+max_replication_slots ,postgresql,Specifies the maximum number of replication slots  that the server can support.,reliability
+wal_keep_segments,postgresql,"Specifies the minimum number of past log file segments kept in the pg_xlog directory, in case a standby server needs to fetch them for streaming replication.",reliability
+wal_sender_timeout,postgresql,Terminate replication connections that are inactive longer than the specified number of milliseconds.,reliability
+track_commit_timestamp,postgresql,Record commit time of transactions. ,manageability
+synchronous_standby_names,postgresql,Specifies a list of standby servers that can support synchronous replication,reliability
+vacuum_defer_cleanup_age,postgresql,Specifies the number of transactions by which VACUUM and HOT updates will defer cleanup of dead row versions.This allows more time for queries on the standby to complete without incurring conflicts due to early cleanup of rows. ,reliability
+hot_standby,postgresql,Specifies whether or not you can connect and run queries during recovery,reliability
+max_standby_archive_delay,postgresql,this parameter determines how long the standby server should wait before ,reliability
+max_standby_streaming_delay ,postgresql,"When Hot Standby is active, this parameter determines how long the standby server should wait before canceling standby queries that conflict with about-to-be-applied WAL entries",reliability
+wal_receiver_status_interval ,postgresql,Specifies the minimum frequency for the WAL receiver process ,reliability
+hot_standby_feedback ,postgresql,"Specifies whether or not a hot standby will send feedback to the primary or upstream standby about queries currently executing on the standby. This parameter can be used to eliminate query cancels caused by leanup records, but can cause database bloat on the primary for some workloads. ",reliability
+wal_receiver_timeout,postgresql,Terminate replication connections that are inactive longer than the specified number of milliseconds.,reliability
+wal_retrieve_retry_interval,postgresql,Specify how long the standby server should wait when WAL data is not available,reliability
+enable_bitmapscan,postgresql,Enables or disables the query planner's use of bitmap-scan plan types.,manageability
+enable_hashagg ,postgresql,Enables or disables the query planner's use of hashed aggregation plan types.,manageability
+enable_hashjoin,postgresql,Enables or disables the query planner's use of hash-join plan types.,manageability
+enable_indexscan ,postgresql,Enables or disables the query planner's use of index-scan plan types.,manageability
+enable_indexonlyscan,postgresql,Enables or disables the query planner's use of index-only-scan plan types,manageability
+enable_material,postgresql,Enables or disables the query planner's use of materialization.,manageability
+enable_mergejoin ,postgresql,Enables or disables the query planner's use of merge-join plan types. ,manageability
+enable_nestloop,postgresql,Enables or disables the query planner's use of nested-loop join plans.,manageability
+enable_seqscan ,postgresql,Enables or disables the query planner's use of sequential scan plan types. ,manageability
+enable_sort,postgresql,Enables or disables the query planner's use of explicit sort steps. ,manageability
+enable_tidscan,postgresql,Enables or disables the query planner's use of TID scan plan types,manageability
+seq_page_cost,postgresql,Sets the planner's estimate of the cost of a disk page fetch that is part of a series of sequential fetches.,performance
+random_page_cost,postgresql,Sets the planner's estimate of the cost of a non-sequentially-fetched disk page,manageability
+cpu_tuple_cost ,postgresql,Sets the planner's estimate of the cost of processing each row during a query. ,performance
+cpu_index_tuple_cost,postgresql,Sets the planner's estimate of the cost of processing each index entry,manageability
+cpu_operator_cost,postgresql,estimate of the cost of processing each operator or function,manageability
+parallel_setup_cost,postgresql,estimate of the cost of launching parallel worker processes,manageability
+parallel_tuple_cost,postgresql,estimate of the cost of transferring one tuple,manageability
+min_parallel_relation_size ,postgresql,Sets the minimum size of relations to be considered for parallel scan,performance
+effective_cache_size ,postgresql,assumption about the effective size of the disk cache,performance
+geqo ,postgresql,Enables or disables genetic query optimization.,performance
+geqo_threshold,postgresql,Use genetic query optimization to plan queries with at least this many FROM items involved.,performance
+geqo_effort,postgresql,"Controls the trade-off between planning time and query plan quality in GEQO. This variable must be an integer in the range from 1 to 10. The default value is five. Larger values increase the time spent doing query planning, but also increase the likelihood that an efficient query plan will be chosen.",performance
+geqo_pool_size ,postgresql,"Controls the pool size used by GEQO, that is the number of individuals in the genetic population.",performance
+geqo_seed,postgresql,Controls the initial value of the random number generator used by GEQO to select random paths through the join order search space.,manageability
+log_destination,postgresql,Set this parameter to a list of desired log destinations separated by commas.,debugability
+logging_collector,postgresql,This parameter enables the logging collector,debugability
+log_directory,postgresql,this parameter determines the directory in which log files will be created,environment
+log_filename,postgresql,sets the file names of the created log files,debugability
+log_file_mode,postgresql,sets the permissions for log files,security
+log_rotation_age,postgresql,determines the maximum lifetime of an individual log file. ,reliability
+log_rotation_size,postgresql,determines the maximum size of an individual log file,debugability
+log_truncate_on_rotation,postgresql,"When logging_collector is enabled, this parameter will cause PostgreSQL to truncate",reliability
+syslog_facility,postgresql,determines the syslog facility to be used,debugability
+syslog_ident,postgresql,determines the program name used to identify PostgreSQL messages in syslog logs,debugability
+syslog_sequence_numbers,postgresql,"When logging to syslog and this is on (the default), then each message will be prefixed by an increasing sequence number ",debugability
+syslog_split_messages ,postgresql,"When logging to syslog is enabled, this parameter determines how messages are delivered to syslog.",debugability
+event_source,postgresql,determines the program name used to identify PostgreSQL messages in the log,debugability
+client_min_messages ,postgresql,Controls which message levels are sent to the client. ,manageability
+log_min_messages,postgresql,Controls which message levels are written to the server log.,debugability
+log_min_error_statement,postgresql,Controls which SQL statements that cause an error condition are recorded in the server log.,debugability
+log_min_duration_statement,postgresql,Causes the duration of each completed statement to be logged if the statement ran for at least thespecified number of milliseconds. ,debugability
+debug_print_plan,postgresql,These parameters enable various debugging output to be emitted. ,debugability
+debug_pretty_print ,postgresql,"When set, debug_pretty_print indents the messages produced ",debugability
+log_checkpoints,postgresql,Causes checkpoints and restartpoints to be logged in the server log.,debugability
+log_connections,postgresql,Causes each attempted connection to the server to be logged,debugability
+log_disconnections,postgresql,Causes session terminations to be logged,debugability
+log_duration,postgresql,Causes the duration of every completed statement to be logged. ,debugability
+log_error_verbosity,postgresql,Controls the amount of detail written in the server log for each message that is logged.,debugability
+log_hostname,postgresql, Turning this parameter on causes logging of the host name as well.,debugability
+log_line_prefix ,postgresql,This is a printf-style string that is output at the beginning of each log line. ,debugability
+log_lock_waits,postgresql,Controls whether a log message is produced,debugability
+log_statement,postgresql,Controls which SQL statements are logged. ,debugability
+log_replication_commands,postgresql,Causes each replication command to be logged in the server log. ,debugability
+log_temp_files ,postgresql,Controls logging of temporary file names and sizes. ,debugability
+log_timezone ,postgresql,Sets the time zone used for timestamps written in the server log.,debugability
+cluster_name,postgresql,Sets the cluster name that appears in the process title for all server processes in this cluster,others
+update_process_title,postgresql,Enables updating of the process title every time a new SQL command is received by the server.,manageability
+track_activities,postgresql,Enables the collection of information on the currently executing command of each session,debugability
+track_activity_query_size,postgresql,Specifies the number of bytes reserved to track the currently executing command for each active session,debugability
+track_counts ,postgresql,Enables collection of statistics on database activity. ,debugability
+track_io_timing,postgresql,Enables timing of database I/O calls.,debugability
+track_functions,postgresql,Enables tracking of function call counts and time used.,debugability
+stats_temp_directory,postgresql,Sets the directory to store temporary statistics data in,others
+autovacuum,postgresql,Controls whether the server should run the autovacuum launcher daemon.,reliability
+log_autovacuum_min_duration,postgresql,Causes each action executed by autovacuum to be logged if it ran for at least the specified number of milliseconds.,debugability
+autovacuum_max_workers ,postgresql,Specifies the maximum number of autovacuum processes ,performance
+autovacuum_naptime ,postgresql,Specifies the minimum delay between autovacuum runs on any given database. ,reliability
+autovacuum_vacuum_threshold ,postgresql,Specifies the minimum number of updated or deleted tuples needed to trigger a VACUUM in any one table.,others
+autovacuum_analyze_threshold,postgresql,"Specifies the minimum number of inserted, updated or deleted tuples needed to trigger an ANALYZE in any one table. ",others
+autovacuum_vacuum_scale_factor ,postgresql,Specifies a fraction of the table size to add to autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM. ,manageability
+autovacuum_analyze_scale_factor ,postgresql,Specifies a fraction of the table size to add to autovacuum_analyze_threshold when deciding whether to trigger an ANALYZE. ,manageability
+autovacuum_freeze_max_age,postgresql,Specifies the maximum age (in transactions) that a table's pg_class.relfrozenxid field can attain before a VACUUM operation is forced to prevent transaction ID wraparound within the table.,reliability
+autovacuum_multixact_freeze_max_age ,postgresql,Specifies the maximum age (in multixacts) that a table's pg_class.relminmxid field can attain before a VACUUM operation is forced to prevent multixact ID wraparound within the table. ,reliability
+autovacuum_vacuum_cost_delay,postgresql,Specifies the cost delay value that will be used in automatic VACUUM operations.,reliability
+autovacuum_vacuum_cost_limit,postgresql,Specifies the cost limit value that will be used in automatic VACUUM operations.,performance
+search_path,postgresql,This variable specifies the order in which schemas are searched,others
+row_security ,postgresql,This variable controls whether to raise an error in lieu of applying a row security policy.,security
+default_tablespace,postgresql,This variable specifies the default tablespace in which to create objects,others
+temp_tablespaces,postgresql,This variable specifies tablespaces in which to create temporary objects (temp tables and indexes on temp tables) when a CREATE command does not explicitly specify a tablespace. ,reliability
+check_function_bodies,postgresql,"When set to off, it disables validation of the function body string",security
+default_transaction_isolation ,postgresql,This parameter controls the default isolation level of each new transaction.,reliability
+default_transaction_read_only,postgresql,This parameter controls the default read-only status of each new transaction. ,reliability
+default_transaction_deferrable,postgresql,This parameter controls the default deferrable status of each new transaction. ,reliability
+session_replication_role,postgresql,Controls firing of replication-related triggers and rules for the current session.,reliability
+statement_timeout ,postgresql,Abort any statement that takes more than the specified number of milliseconds.,reliability
+lock_timeout,postgresql,Abort any statement that waits longer than the specified number of milliseconds ,reliability
+idle_in_transaction_session_timeout,postgresql,Terminate any session with an open transaction that has been idle for longer than the specified duration in milliseconds.,reliability
+vacuum_freeze_table_age ,postgresql,VACUUM performs an aggressive scan if the table's pg_class.relfrozenxid field has reached the age specified by this setting. ,reliability
+vacuum_freeze_min_age,postgresql,Specifies the cutoff age (in transactions) that VACUUM should use to decide whether to freeze row versions while scanning a table. ,reliability
+vacuum_multixact_freeze_table_age,postgresql,VACUUM performs an aggressive scan if the table's pg_class.relminmxid field has reached the age specified by this setting. ,reliability
+vacuum_multixact_freeze_min_age,postgresql,Specifies the cutoff age (in multixacts) that VACUUM should use to decide whether to replace multixact IDs with a newer transaction ID or multixact ID while scanning a table.,reliability
+bytea_output ,postgresql,Sets the output format for values of type bytea. ,manageability
+xmlbinary,postgresql,Sets how binary values are to be encoded in XML.,others
+xmloption,postgresql,Sets whether DOCUMENT or CONTENT is implicit when converting between XML and character string values. ,manageability
+gin_pending_list_limit ,postgresql,Sets the maximum size of the GIN pending list which is used when fastupdate is enabled.,reliability
+DateStyle,postgresql,"Sets the display format for date and time values, as well as the rules for interpreting ambiguous date input values",manageability
+IntervalStyle,postgresql,Sets the display format for interval values,manageability
+TimeZone,postgresql,Sets the time zone for displaying and interpreting time stamps.,manageability
+timezone_abbreviations ,postgresql,Sets the collection of time zone abbreviations that will be accepted by the server for datetime input.,manageability
+extra_float_digits,postgresql,This parameter adjusts the number of digits displayed for floating-point values,manageability
+client_encoding,postgresql,Sets the client-side encoding (character set),others
+lc_messages,postgresql,Sets the language in which messages are displayed.,manageability
+lc_monetary ,postgresql,Sets the locale to use for formatting monetary amounts,manageability
+lc_numeric,postgresql,Sets the locale to use for formatting numbers,manageability
+lc_time,postgresql,Sets the locale to use for formatting dates and times,manageability
+default_text_search_config ,postgresql,Selects the text search configuration that is used by those variants of the text search functions that do not have an explicit argument specifying the configuration. ,manageability
+local_preload_libraries,postgresql,This variable specifies one or more shared libraries that are to be preloaded at connection start. ,manageability
+session_preload_libraries,postgresql,This variable specifies one or more shared libraries that are to be preloaded at connection start.,manageability
+shared_preload_libraries,postgresql,This variable specifies one or more shared libraries to be preloaded at server start.,performance
+dynamic_library_path ,postgresql,the system will search this path for the required file,environment
+gin_fuzzy_search_limit,postgresql,Soft upper limit of the size of the set returned by GIN index scans.,performance
+deadlock_timeout,postgresql,"This is the amount of time, in milliseconds, to wait on a lock before checking to see if there is a deadlock condition. ",reliability
+max_locks_per_transaction,postgresql,This parameter controls the average number of object locks allocated for each transaction; individual transactions can lock more objects as long as the locks of all transactions fit in the lock table. ,others
+max_pred_locks_per_transaction,postgresql,This parameter controls the average number of object locks allocated for each transaction; individual transactions can lock more objects as long as the locks of all transactions fit in the lock table. ,others
+exit_on_error,postgresql,"If true, any error will terminate the current session.",reliability
+restart_after_crash ,postgresql,"When set to true, which is the default, PostgreSQL will automatically reinitialize after a backend crash.",reliability
+allow_system_table_mods ,postgresql,Allows modification of the structure of system tables.,security
+ignore_system_indexes,postgresql,Ignore system indexes when reading system tables (but still update the indexes when modifying the tables). This is useful when recovering from damaged system indexes.,reliability
+post_auth_delay ,postgresql,"If nonzero, a delay of this many seconds occurs when a new server process is started, after it conducts the authentication procedure. This is intended to give developers an opportunity to attach to the server process with a debugger. ",debugability
+pre_auth_delay ,postgresql,"If nonzero, a delay of this many seconds occurs just after a new server process is forked, before it conducts the authentication procedure.",security
+trace_notify,postgresql,Generates a great amount of debugging output for the LISTEN and NOTIFY commands.,debugability
+trace_recovery_messages,postgresql,Enables logging of recovery-related debugging output that otherwise would not be logged. ,debugability
+trace_sort,postgresql,"If on, emit information about resource usage during sort operations.",debugability
+trace_locks,postgresql,"If on, emit information about lock usage.",debugability
+trace_lwlocks,postgresql,"If on, emit information about lightweight lock usage.",debugability
+trace_userlocks ,postgresql,"If on, emit information about user lock usage. Output is the same as for trace_locks, only for advisory locks.",debugability
+trace_lock_oidmin,postgresql,"If set, do not trace locks for tables below this OID. (use to avoid output on system tables)",debugability
+trace_lock_table,postgresql,Unconditionally trace locks on this table,debugability
+debug_deadlocks,postgresql,"If set, dumps information about all current locks when a deadlock timeout occurs.",debugability
+log_btree_build_stats,postgresql,"If set, logs system resource usage statistics (memory and CPU) on various B-tree operations.",performance
+wal_debug,postgresql,"If on, emit WAL-related debugging output.",debugability
+ignore_checksum_failure,postgresql,"Detection of a checksum failure during a read normally causes PostgreSQL to report an error, aborting the current transaction. v However, it may allow you to get past the error and retrieve undamaged tuples that might still be present in the table if the block header is still sane. ",reliability
+zero_damaged_pages,postgresql,"Setting zero_damaged_pages to on causes the system to instead report a warning, zero out the damaged page in memory, and continue processing. ",reliability

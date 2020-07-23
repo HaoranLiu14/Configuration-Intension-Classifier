@@ -1,0 +1,116 @@
+name,software,description,label
+cluster_name,cassandra,The name of the cluster. This is mainly used to prevent machines in one logical cluster from joining another.,others
+num_tokens,cassandra,"This defines the number of tokens randomly assigned to this node on the ring The more tokens, relative to other nodes, the larger the proportion of data that this node will store. ",performance
+allocate_tokens_for_keyspace,cassandra,Triggers automatic allocation of num_tokens tokens for this node. The allocation algorithm attempts to choose tokens in a way that optimizes replicated load over the nodes in the datacenter for the replication strategy used by the specified keyspace.,performance
+initial_token,cassandra,"initial_token allows you to specify tokens manually. While you can use it with vnodes (num_tokens > 1, above) in which case you should provide a comma-separated list it��s primarily used when adding nodes to legacy clusters that do not have vnodes enabled.",manageability
+hinted_handoff_enabled,cassandra,"If a write is made and a replica node for the key is down (and hinted_handoff_enabled == true), Cassandra will write a hint.",reliability
+hinted_handoff_disabled_datacenters,cassandra,"When hinted_handoff_enabled is true, a black list of data centers that will not perform hinted handoff",reliability
+max_hint_window_in_ms,cassandra,"this defines the maximum amount of time a dead host will have hints generated. After it has been dead this long, new hints for it will not be created until it has been seen alive and gone down again.",reliability
+hinted_handoff_throttle_in_kb,cassandra,"Maximum throttle in KBs per second, per delivery thread. This will be reduced proportionally to the number of nodes in the cluster. ",performance
+max_hints_delivery_threads,cassandra,"Number of threads with which to deliver hints; Consider increasing this number when you have multi-dc deployments, since cross-dc handoff tends to be slower",performance
+hints_directory,cassandra,"Directory where Cassandra should store hints. If not set, the default directory is $CASSANDRA_HOME/data/hints.",environment
+hints_flush_period_in_ms,cassandra,How often hints should be flushed from the internal buffers to disk. Will not trigger fsync.,reliability
+max_hints_file_size_in_mb,cassandra,"Maximum size for a single hints file, in megabytes.",performance
+hints_compression,cassandra,"Compression to apply to the hint files. If omitted, hints files will be written uncompressed. LZ4, Snappy, and Deflate compressors are supported.",performance
+batchlog_replay_throttle_in_kb,cassandra,"Maximum throttle in KBs per second, total. This will be reduced proportionally to the number of nodes in the cluster.",performance
+authenticator,cassandra,"Authentication backend, implementing IAuthenticator; used to identify users Out of the box, Cassandra provides org.apache.cassandra.auth.{AllowAllAuthenticator, PasswordAuthenticator}.",security
+authorizer,cassandra,"Authorization backend, implementing IAuthorizer; used to limit access/provide permissions Out of the box, Cassandra provides org.apache.cassandra.auth.{AllowAllAuthorizer, CassandraAuthorizer}.",security
+role_manager,cassandra,"Part of the Authentication & Authorization backend, implementing IRoleManager; used to maintain grants and memberships between roles. ",security
+roles_validity_in_ms,cassandra,"Validity period for roles cache (fetching granted roles can be an expensive operation depending on the role manager, CassandraRoleManager is one example) Granted roles are cached for authenticated sessions in AuthenticatedUser and after the period specified here, become eligible for (async) reload.",security
+roles_update_interval_in_ms,cassandra,"Refresh interval for roles cache (if enabled). After this interval, cache entries become eligible for refresh. Upon next access, an async reload is scheduled and the old value returned until it completes. ",reliability
+permissions_validity_in_ms,cassandra,"Validity period for permissions cache (fetching permissions can be an expensive operation depending on the authorizer, CassandraAuthorizer is one example).",performance
+permissions_update_interval_in_ms,cassandra,"Refresh interval for permissions cache (if enabled). After this interval, cache entries become eligible for refresh.",reliability
+credentials_validity_in_ms,cassandra,"Please note, credentials are cached in their encrypted form, so while activating this cache may reduce the number of queries made to the underlying table, it may not bring a significant reduction in the latency of individual authentication attempts.",security
+credentials_update_interval_in_ms,cassandra,"Refresh interval for credentials cache (if enabled). After this interval, cache entries become eligible for refresh. ",reliability
+partitioner,cassandra,The partitioner is responsible for distributing groups of rows (by partition key) across nodes in the cluster. You should leave this alone for new clusters. ,manageability
+data_file_directories,cassandra,Directories where Cassandra should store data on disk.,environment
+commitlog_directory,cassandra,"commit log. when running on magnetic HDD, this should be a separate spindle than the data directories.",environment
+cdc_enabled,cassandra,Enable / disable CDC functionality on a per-node basis.,reliability
+cdc_raw_directory,cassandra,CommitLogSegments are moved to this directory on flush if cdc_enabled: true and the segment contains mutations for a CDC-enabled table.,environment
+disk_failure_policy,cassandra,Policy for data disk failures,reliability
+commit_failure_policy,cassandra,Policy for commit disk failures,reliability
+prepared_statements_cache_size_mb,cassandra,Maximum size of the native protocol prepared statement cache,performance
+key_cache_size_in_mb,cassandra,"The key cache is fairly tiny for the amount of time it saves, so it��s worthwhile to use it at large numbers. The row cache saves even more time, but must contain the entire row, so it is extremely space-intensive. ",performance
+key_cache_save_period,cassandra,"Saved caches greatly improve cold-start speeds, and is relatively cheap in terms of I/O for the key cache. Row cache saving is much more expensive and has limited use.",performance
+key_cache_keys_to_save,cassandra,"Number of keys from the key cache to save Disabled by default, meaning all keys are going to be saved",performance
+row_cache_class_name,cassandra,Row cache implementation class name.,performance
+row_cache_size_in_mb,cassandra,Maximum size of the row cache in memory. ,performance
+row_cache_save_period,cassandra,"Duration in seconds after which Cassandra should save the row cache.  Saved caches greatly improve cold-start speeds, and is relatively cheap in terms of I/O for the key cache. Row cache saving is much more expensive and has limited use.",performance
+row_cache_keys_to_save,cassandra,"Number of keys from the row cache to save. Specify 0 (which is the default), meaning all keys are going to be saved",performance
+counter_cache_size_in_mb,cassandra,Maximum size of the counter cache in memory.,performance
+counter_cache_save_period,cassandra,Duration in seconds after which Cassandra should save the counter cache (keys only). Caches are saved to saved_caches_directory as specified in this configuration file.,performance
+counter_cache_keys_to_save,cassandra,"Number of keys from the counter cache to save Disabled by default, meaning all keys are going to be saved",performance
+saved_caches_directory,cassandra,"saved caches If not set, the default directory is $CASSANDRA_HOME/data/saved_caches.",environment
+commitlog_sync,cassandra,This window should be kept short because the writer threads will be unable to do extra work while waiting.,debuggability
+commitlog_segment_size_in_mb,cassandra,"The size of the individual commitlog file segments. A commitlog segment may be archived, deleted, or recycled once all the data in it (potentially from each columnfamily in the system) has been flushed to sstables.",others
+commitlog_compression,cassandra,"Compression to apply to the commit log. If omitted, the commit log will be written uncompressed.",performance
+concurrent_reads,cassandra,concurrent_reads should be set to (16 * number_of_drives) in order to allow the operations to enqueue low enough in the stack that the OS and drives can reorder them.,performance
+concurrent_writes,cassandra,"since writes are almost never IO bound, the ideal number of concurrent_writes is dependent on the number of cores in your system; (8 * number_of_cores) is a good rule of thumb.",performance
+concurrent_materialized_view_writes,cassandra,"For materialized view writes, as there is a read involved, so this should be limited by the less of concurrent reads or concurrent writes.",performance
+file_cache_size_in_mb,cassandra,Maximum memory to use for sstable chunk cache and buffer pooling.,performance
+memtable_heap_space_in_mb,cassandra,"Total permitted memory to use for memtables. Cassandra will stop accepting writes when the limit is exceeded until a flush completes, and will trigger a flush based on memtable_cleanup_threshold ",reliability
+memtable_cleanup_threshold,cassandra,"Ratio of occupied non-flushing memtable size to total permitted size that will trigger a flush of the largest memtable. Larger mct will mean larger flushes and hence less compaction, but also less concurrent flush activity which can make it difficult to keep your disks fed under heavy write load.",reliability
+memtable_allocation_type,cassandra,Specify the way Cassandra allocates and manages memtable memory. ,manageability
+commitlog_total_space_in_mb,cassandra,Total space to use for commit logs on disk.,manageability
+memtable_flush_writers,cassandra,This sets the number of memtable flush writer threads per disk as well as the total number of memtables that can be flushed concurrently. These are generally a combination of compute and IO bound.,performance
+cdc_total_space_in_mb,cassandra,Total space to use for change-data-capture logs on disk.,manageability
+cdc_free_space_check_interval_ms,cassandra,"When we hit our cdc_raw limit and the CDCCompactor is either running behind or experiencing backpressure, we check at the following interval to see if any new space for cdc-tracked tables has been made available.",reliability
+index_summary_capacity_in_mb,cassandra,A fixed memory pool size in MB for for SSTable index summaries. ,performance
+index_summary_resize_interval_in_minutes,cassandra,How frequently index summaries should be resampled. This is done periodically to redistribute memory from the fixed-size pool to sstables proportional their recent read rates.,performance
+trickle_fsync,cassandra,"Whether to, when doing sequential writing, fsync() at intervals in order to force the operating system to flush the dirty buffers. Enable this to avoid sudden dirty buffer flushing from impacting read latencies. ",reliability
+storage_port,cassandra,"TCP port, for commands and data For security reasons, you should not expose this port to the internet. Firewall it if needed.",security
+ssl_storage_port,cassandra,"SSL port, for encrypted communication. ",security
+listen_address,cassandra,Address or interface to bind to and tell other Cassandra nodes to connect to. You _must_ change this if you want multiple nodes to be able to communicate!,environment
+listen_interface,cassandra,"Set listen_address OR listen_interface, not both. Interfaces must correspond to a single address, IP aliasing is not supported.",environment
+listen_interface_prefer_ipv6,cassandra,If you choose to specify the interface by name and the interface has an ipv4 and an ipv6 address you can specify which should be chosen using listen_interface_prefer_ipv6.,environment
+broadcast_address,cassandra,Address to broadcast to other Cassandra nodes Leaving this blank will set it to the same value as listen_address,environment
+listen_on_broadcast_address,cassandra,"When using multiple physical network interfaces, set this to true to listen on broadcast_address in addition to the listen_address, allowing nodes to communicate in both interfaces. ",manageability
+internode_authenticator,cassandra,"Internode authentication backend, implementing IInternodeAuthenticator; used to allow/disallow connections from peer nodes.",security
+start_native_transport,cassandra,Whether to start the native transport server.,manageability
+native_transport_port,cassandra,"port for the CQL native transport to listen for clients on For security reasons, you should not expose this port to the internet. ",security
+native_transport_port_ssl,cassandra,Setting native_transport_port_ssl to a different value from native_transport_port will use encryption for native_transport_port_ssl while keeping native_transport_port unencrypted.,security
+native_transport_max_threads,cassandra,The maximum threads for handling requests (note that idle threads are stopped after 30 seconds so there is not corresponding minimum setting).,performance
+native_transport_max_frame_size_in_mb,cassandra,The maximum size of allowed frame. Frame (requests) larger than this will be rejected as invalid.,reliability
+native_transport_max_concurrent_connections,cassandra,The maximum number of concurrent client connections. ,performance
+native_transport_max_concurrent_connections_per_ip,cassandra,The maximum number of concurrent client connections per source ip.,performance
+rpc_address,cassandra,The address or interface to bind the native transport server to.,environment
+rpc_interface,cassandra,"Set rpc_address OR rpc_interface, not both. Interfaces must correspond to a single address, IP aliasing is not supported.",environment
+rpc_interface_prefer_ipv6,cassandra,If you choose to specify the interface by name and the interface has an ipv4 and an ipv6 address you can specify which should be chosen using rpc_interface_prefer_ipv6.,manageability
+broadcast_rpc_address,cassandra,RPC address to broadcast to drivers and other Cassandra nodes. ,environment
+rpc_keepalive,cassandra,enable or disable keepalive on rpc/native connections,manageability
+incremental_backups,cassandra,Set to true to have Cassandra create a hard link to each sstable flushed or streamed locally in a backups/ subdirectory of the keyspace data. Removing these links is the operator��s responsibility.,reliability
+snapshot_before_compaction,cassandra,"Whether or not to take a snapshot before each compaction. Be careful using this option, since Cassandra won��t clean up the snapshots for you. Mostly useful if you��re paranoid when there is a data format change.",reliability
+auto_snapshot,cassandra,Whether or not a snapshot is taken of the data before keyspace truncation or dropping of column families. ,reliability
+column_index_size_in_kb,cassandra,Granularity of the collation index of rows within a partition. ,manageability
+column_index_cache_size_in_kb,cassandra,Per sstable indexed key cache entries (the collation index in memory mentioned above) exceeding this size will not be held on heap.,performance
+compaction_throughput_mb_per_sec,cassandra,Throttles compaction to the given total throughput across the entire system.,performance
+sstable_preemptive_open_interval_in_mb,cassandra,"This helps to smoothly transfer reads between the sstables, reducing page cache churn and keeping hot rows hot",performance
+read_request_timeout_in_ms,cassandra,How long the coordinator should wait for read operations to complete,reliability
+range_request_timeout_in_ms,cassandra,How long the coordinator should wait for seq or index scans to complete,reliability
+write_request_timeout_in_ms,cassandra,How long the coordinator should wait for writes to complete,reliability
+counter_write_request_timeout_in_ms,cassandra,How long the coordinator should wait for counter writes to complete,reliability
+cas_contention_timeout_in_ms,cassandra,How long a coordinator should continue to retry a CAS operation that contends with other proposals for the same row,reliability
+truncate_request_timeout_in_ms,cassandra,How long the coordinator should wait for truncates to complete ,reliability
+request_timeout_in_ms,cassandra,"The default timeout for other, miscellaneous operations",reliability
+slow_query_log_timeout_in_ms,cassandra,How long before a node logs slow queries. ,reliability
+cross_node_timeout,cassandra,Enable operation timeout information exchange between nodes to accurately measure request timeouts.,reliability
+endpoint_snitch,cassandra,Set this to a class that implements IEndpointSnitch.,others
+dynamic_snitch_update_interval_in_ms,cassandra,controls how often to perform the more expensive part of host score calculation,performance
+dynamic_snitch_reset_interval_in_ms,cassandra,"controls how often to reset all host scores, allowing a bad host to possibly recover",reliability
+internode_compression,cassandra,internode_compression controls whether traffic between nodes is compressed,performance
+inter_dc_tcp_nodelay,cassandra,"Enable or disable tcp_nodelay for inter-dc communication. Disabling it will result in larger (but fewer) network packets being sent, reducing overhead from the TCP protocol itself, at the cost of increasing latency if you block for cross-datacenter responses",performance
+tracetype_query_ttl,cassandra,TTL for different trace types used during logging of the repair process.,reliability
+enable_user_defined_functions,cassandra,"If unset, all GC Pauses greater than gc_log_threshold_in_ms will log at INFO level UDFs (user defined functions) are disabled by default.",debuggability
+enable_scripted_user_defined_functions,cassandra,Enables scripted UDFs (JavaScript UDFs).,manageability
+transparent_data_encryption_options,cassandra,Enables encrypting data at-rest (on disk). ,security
+batch_size_warn_threshold_in_kb,cassandra,Log WARN on any multiple-partition batch size exceeding this value.,debuggability
+batch_size_fail_threshold_in_kb,cassandra,Fail any multiple-partition batch exceeding this value.,reliability
+compaction_large_partition_warning_threshold_mb,cassandra,Log a warning when compacting partitions larger than this value,debuggability
+gc_log_threshold_in_ms,cassandra,GC Pauses greater than 200 ms will be logged at INFO level This threshold can be adjusted to minimize logging if necessary,debuggability
+gc_warn_threshold_in_ms,cassandra,GC Pauses greater than gc_warn_threshold_in_ms will be logged at WARN level ,debuggability
+max_value_size_in_mb,cassandra,Maximum size of any value in SSTables. Safety measure to detect SSTable corruption early. ,security
+back_pressure_enabled,cassandra,"Back-pressure settings # If enabled, the coordinator will apply the back-pressure strategy specified below to each mutation sent to replicas, with the aim of reducing pressure on overloaded replicas.",performance
+otc_coalescing_window_us,cassandra,How many microseconds to wait for coalescing. ,reliability
+otc_coalescing_enough_coalesced_messages,cassandra,Do not try to coalesce messages if we already got that many messages. This should be more than 2 and less than 128.,reliability
+otc_backlog_expiration_interval_ms,cassandra,How many milliseconds to wait between two expiration runs on the backlog (queue) of the OutboundTcpConnection.,reliability
+ideal_consistency_level,cassandra,Track a metric per keyspace indicating whether replication achieved the ideal consistency level for writes without timing out. This is different from the consistency level requested by each write which may be lower in order to facilitate availability.,reliability

@@ -1,0 +1,630 @@
+name,default,description,label,software
+run_external_periodic_tasks,TRUE,Some periodic tasks can be run in a separate process. Should we run them here?,manageability,ironic
+backdoor_port,<None>,"Enable eventlet backdoor.  Acceptable values are 0, <port>, and <start>:<end>, where 0 results in listening on a random tcp port number; <port> results in listening on the specified port  number (and not enabling backdoor if that port is in use); and  <start>:<end> results in listening on the smallest unused  port number within the specified range of port numbers.  The chosen port is displayed in the service's log file.",environment,ironic
+backdoor_socket,<None>,"Enable eventlet backdoor, using the provided path as a unix socket  that can receive connections. This option is mutually exclusive with  'backdoor_port' in that only one should be provided. If both are  provided then the existence of this option overrides the usage of that  option.",environment,ironic
+log_options,TRUE,Enables or disables logging values of all registered options when starting a service (at DEBUG level).,debuggability,ironic
+graceful_shutdown_timeout,60,Specify a timeout after which a gracefully shutdown server will exit. Zero value means endless wait.,reliability,ironic
+rpc_conn_pool_size,30,Size of RPC connection pool.,performance,ironic
+conn_pool_min_size,2,The pool size limit for connections expiration policy,performance,ironic
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability,ironic
+executor_thread_pool_size,64,Size of executor thread pool when executor is threading or eventlet.,performance,ironic
+rpc_response_timeout,60,Seconds to wait for a response from a call.,reliability,ironic
+transport_url,rabbit://,"The network address and optional user credentials for connecting to  the messaging backend, in URL format. The expected format is:",environment,ironic
+control_exchange,openstack,The default exchange under which topics are scoped. May be overridden by an exchange name specified in the transport_url option.,manageability,ironic
+debug,FALSE,"If set to true, the logging level will be set to DEBUG instead of the default INFO level.",debuggability,ironic
+log_config_append,<None>,"The name of a logging configuration file. This file is appended to  any existing logging configuration files. For details about logging  configuration files, see the Python logging module documentation. Note  that when logging configuration files are used then all logging  configuration is set in the configuration file and other logging  configuration options are ignored (for example, log-date-format).",debuggability,ironic
+log_date_format,%Y-%m-%d %H:%M:%S,Defines the format string for %(asctime)s in log records. Default:  the value above . This option is ignored if log_config_append is set.,debuggability,ironic
+log_file,<None>,"(Optional) Name of log file to send logging output to. If no default  is set, logging will go to stderr as defined by use_stderr. This option  is ignored if log_config_append is set.",debuggability,ironic
+log_dir,<None>,(Optional) The base directory used for relative log_file  paths. This option is ignored if log_config_append is set.,environment,ironic
+watch_log_file,FALSE,Uses logging handler designed to watch file system. When log file is  moved or removed this handler will open a new log file with specified  path instantaneously. It makes sense only if log_file option is  specified and Linux platform is used. This option is ignored if  log_config_append is set.,debuggability,ironic
+use_syslog,FALSE,Use syslog for logging. Existing syslog format is DEPRECATED and will be changed later to honor RFC5424. This option is ignored if  log_config_append is set.,debuggability,ironic
+use_journal,FALSE,Enable journald for logging. If running in a systemd environment you  may wish to enable journal support. Doing so will use the journal native protocol which includes structured metadata in addition to log  messages.This option is ignored if log_config_append is set.,debuggability,ironic
+syslog_log_facility,LOG_USER,Syslog facility to receive log lines. This option is ignored if log_config_append is set.,debuggability,ironic
+use_json,FALSE,Use JSON formatting for logging. This option is ignored if log_config_append is set.,debuggability,ironic
+use_stderr,FALSE,Log output to standard error. This option is ignored if log_config_append is set.,debuggability,ironic
+use_eventlog,FALSE,Log output to Windows Event Log.,debuggability,ironic
+log_rotate_interval,1,The amount of time before the log files are rotated. This option is ignored unless log_rotation_type is setto 'interval'.,reliability,ironic
+log_rotation_type,none,Log rotation type.,debuggability,ironic
+logging_context_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [%(request_id)s %(user_identity)s] %(instance)s%(message)s,Format string to use for log messages with context. Used by oslo_log.formatters.ContextFormatter,debuggability,ironic
+logging_default_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [-] %(instance)s%(message)s,Format string to use for log messages when context is undefined. Used by oslo_log.formatters.ContextFormatter,debuggability,ironic
+logging_debug_format_suffix,%(funcName)s %(pathname)s:%(lineno)d,Additional data to append to log message when logging level for the  message is DEBUG. Used by oslo_log.formatters.ContextFormatter,debuggability,ironic
+logging_exception_prefix,%(asctime)s.%(msecs)03d %(process)d ERROR %(name)s %(instance)s,Prefix each line of exception output with this format. Used by oslo_log.formatters.ContextFormatter,debuggability,ironic
+logging_user_identity_format,%(user)s %(tenant)s %(domain)s %(user_domain)s %(project_domain)s,Defines the format string for %(user_identity)s that is used in  logging_context_format_string. Used by  oslo_log.formatters.ContextFormatter,debuggability,ironic
+default_log_levels,"amqp=WARNING,amqplib=WARNING,qpid.messaging=INFO,oslo.messaging=INFO,sqlalchemy=WARNING,stevedore=INFO,eventlet.wsgi.server=INFO,iso8601=WARNING,requests=WARNING,neutronclient=WARNING,glanceclient=WARNING,urllib3.connectionpool=WARNING,keystonemiddleware.auth_token=INFO,keystoneauth.session=INFO",List of package logging levels in logger=LEVEL pairs. This option is ignored if log_config_append is set.,debuggability,ironic
+publish_errors,FALSE,Enables or disables publication of error events.,debuggability,ironic
+instance_format,"""[instance: %(uuid)s] """,The format for an instance that is passed with the log message.,manageability,ironic
+instance_uuid_format,"""[instance: %(uuid)s] """,The format for an instance UUID that is passed with the log message.,manageability,ironic
+rate_limit_interval,0,"Interval, number of seconds, of log rate limiting.",reliability,ironic
+rate_limit_burst,0,Maximum number of logged messages per rate_limit_interval.,reliability,ironic
+rate_limit_except_level,CRITICAL,"Log level name used by rate limiting: CRITICAL, ERROR, INFO, WARNING, DEBUG or empty string. Logs with level greater or equal to  rate_limit_except_level are not filtered. An empty string means that all levels are filtered.",debuggability,ironic
+manage_agent_boot,TRUE,"Whether Ironic will manage booting of the agent ramdisk. If set to  False, you will need to configure your mechanism to allow booting the  agent ramdisk.",manageability,ironic
+memory_consumed_by_agent,0,The memory size in MiB consumed by agent when it is booted on a bare  metal node. This is used for checking if the image can be downloaded and deployed on the bare metal node after booting agent ramdisk. This may  be set according to the memory consumed by the agent ramdisk image.,performance,ironic
+stream_raw_images,TRUE,"Whether the agent ramdisk should stream raw images directly onto the  disk or not. By streaming raw images directly onto the disk the agent  ramdisk will not spend time copying the image to a tmpfs partition  (therefore consuming less memory) prior to writing it to the disk.  Unless the disk where the image will be copied to is really slow, this  option should be set to True. Defaults to True.",performance,ironic
+post_deploy_get_power_state_retries,6,Number of times to retry getting power state to check if bare metal node has been powered off after a soft power off.,reliability,ironic
+post_deploy_get_power_state_retry_interval,5,Amount of time (in seconds) to wait between polling power state after trigger soft poweroff.,reliability,ironic
+agent_api_version,v1,API version to use for communicating with the ramdisk agent.,environment,ironic
+deploy_logs_collect,on_failure,"Whether Ironic should collect the deployment logs on deployment failure (on_failure), always or never.",debuggability,ironic
+deploy_logs_storage_backend,local,The name of the storage backend where the logs will be stored.,debuggability,ironic
+deploy_logs_local_path,/var/log/ironic/deploy,"The path to the directory where the logs should be stored, used when the deploy_logs_storage_backend is configured to 'local'.",environment,ironic
+deploy_logs_swift_container,ironic_deploy_logs_container,"The name of the Swift container to store the logs, used when the deploy_logs_storage_backend is configured to 'swift'.",debuggability,ironic
+deploy_logs_swift_days_to_expire,30,"Number of days before a log object is marked as expired in Swift. If  None, the logs will be kept forever or until manually deleted. Used when the deploy_logs_storage_backend is configured to 'swift'.",debuggability,ironic
+image_download_source,swift,Specifies whether direct deploy interface should try to use the image source directly or if ironic should cache the image on the conductor  and serve it from ironic's own http server. This option takes effect  only when instance image is provided from the Image service.,manageability,ironic
+command_timeout,60,Timeout (in seconds) for IPA commands.,reliability,ironic
+max_command_attempts,3,This is the maximum number of attempts that will be done for IPA commands that fails due to network problems.,reliability,ironic
+neutron_agent_poll_interval,2,The number of seconds Neutron agent will wait between polling for  device changes. This value should be the same as  CONF.AGENT.polling_interval in Neutron configuration.,reliability,ironic
+neutron_agent_max_attempts,100,Max number of attempts to validate a Neutron agent status before raising network error for a dead agent.,reliability,ironic
+neutron_agent_status_retry_interval,10,Wait time in seconds between attempts for validating Neutron agent status.,reliability,ironic
+ansible_extra_args,<None>,Extra arguments to pass on every invocation of Ansible.,others,ironic
+verbosity,<None>,Set ansible verbosity level requested when invoking  'ansible-playbook' command. 4 includes detailed SSH session logging.  Default is 4 when global debug is enabled and 0 otherwise.,debuggability,ironic
+ansible_playbook_script,ansible-playbook,Path to 'ansible-playbook' script. Default will search the $PATH  configured for user running ironic-conductor process. Provide the full  path when ansible-playbook is not in $PATH or installed in not default  location.,environment,ironic
+playbooks_path,$pybasedir/drivers/modules/ansible/playbooks,"Path to directory with playbooks, roles and local inventory.",environment,ironic
+config_file_path,$pybasedir/drivers/modules/ansible/playbooks/ansible.cfg,"Path to ansible configuration file. If set to empty, system default will be used.",environment,ironic
+post_deploy_get_power_state_retries,6,Number of times to retry getting power state to check if bare metal  node has been powered off after a soft power off. Value of 0 means do  not retry on failure.,reliability,ironic
+post_deploy_get_power_state_retry_interval,5,Amount of time (in seconds) to wait between polling power state after trigger soft poweroff.,reliability,ironic
+extra_memory,10,Extra amount of memory in MiB expected to be consumed by  Ansible-related processes on the node. Affects decision whether image  will fit into RAM.,performance,ironic
+image_store_insecure,FALSE,Skip verifying SSL connections to the image store when downloading  the image. Setting it to 'True' is only recommended for testing  environments that use self-signed certificates.,security,ironic
+image_store_cafile,<None>,"Specific CA bundle to use for validating SSL connections to the image store. If not specified, CA available in the ramdisk will be used. Is  not used by default playbooks included with the driver. Suitable for  environments that use self-signed certificates.",security,ironic
+image_store_certfile,<None>,Client cert to use for SSL connections to image store. Is not used by default playbooks included with the driver.,security,ironic
+image_store_keyfile,<None>,Client key to use for SSL connections to image store. Is not used by default playbooks included with the driver.,security,ironic
+default_key_file,<None>,Absolute path to the private SSH key file to use by Ansible by  default when connecting to the ramdisk over SSH. Default is to use  default SSH keys configured for the user running the ironic-conductor  service. Private keys with password must be pre-loaded into 'ssh-agent'. It may be overridden by per-node 'ansible_key_file' option in node's  'driver_info' field.,environment,ironic
+default_deploy_playbook,deploy.yaml,Path (relative to $playbooks_path or absolute) to the default  playbook used for deployment. It may be overridden by per-node  'ansible_deploy_playbook' option in node's 'driver_info' field.,environment,ironic
+default_shutdown_playbook,shutdown.yaml,Path (relative to $playbooks_path or absolute) to the default  playbook used for graceful in-band shutdown of the node. It may be  overridden by per-node 'ansible_shutdown_playbook' option in node's  'driver_info' field.,environment,ironic
+default_clean_playbook,clean.yaml,Path (relative to $playbooks_path or absolute) to the default  playbook used for node cleaning. It may be overridden by per-node  'ansible_clean_playbook' option in node's 'driver_info' field.,environment,ironic
+default_clean_steps_config,clean_steps.yaml,Path (relative to $playbooks_path or absolute) to the default  auxiliary cleaning steps file used during the node cleaning. It may be  overridden by per-node 'ansible_clean_steps_config' option in node's  'driver_info' field.,environment,ironic
+default_python_interpreter,<None>,"Absolute path to the python interpreter on the managed machines. It  may be overridden by per-node 'ansible_python_interpreter' option in  node's 'driver_info' field. By default, ansible uses /usr/bin/python",environment,ironic
+host_ip,0.0.0.0,The IP address or hostname on which ironic-api listens.,environment,ironic
+port,6385,The TCP port on which ironic-api listens.,environment,ironic
+max_limit,1000,The maximum number of items returned in a single response from a collection resource.,performance,ironic
+public_endpoint,<None>,"Public URL to use when building the links to the API resources (for example, 'https://ironic.rocks:6384'). If None the links will be built using the request's host URL. If the  API is operating behind a proxy, you will want to change this to  represent the proxy's URL. Defaults to None.",environment,ironic
+api_workers,<None>,"Number of workers for OpenStack Ironic API service. The default is  equal to the number of CPUs available if that can be determined, else a  default worker count of 1 is returned.",performance,ironic
+enable_ssl_api,FALSE,"Enable the integrated stand-alone API to service requests via HTTPS  instead of HTTP. If there is a front-end service performing HTTPS  offloading from the service, this option should be False; note, you will want to change public API endpoint to represent SSL termination URL  with 'public_endpoint' option.",security,ironic
+restrict_lookup,TRUE,Whether to restrict the lookup API to only nodes in certain states.,security,ironic
+ramdisk_heartbeat_timeout,300,Maximum interval (in seconds) for agent heartbeats.,reliability,ironic
+enabled,FALSE,Enable auditing of API requests (for ironic-api service).,security,ironic
+audit_map_file,/etc/ironic/api_audit_map.conf,Path to audit map file for ironic-api service. Used only when API audit is enabled.,security,ironic
+max_retry,6,Number of times a power operation needs to be retried,reliability,ironic
+action_interval,10,Amount of time in seconds to wait in between power operations,reliability,ironic
+action_retries,3,Number of retries in the case of a failed action (currently only used when detaching volumes).,reliability,ironic
+action_retry_interval,5,Retry interval in seconds in the case of a failed action (only specific actions are retried).,reliability,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+retries,3,Client retries in the case of a failed request connection.,reliability,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,volumev3,The default service_type for endpoint URL discovery.,others,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+url,<None>,"URL for connecting to cinder. If set, the value must start with either http:// or https://.",environment,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+max_retry,6,Number of times a power operation needs to be retried,reliability,ironic
+action_interval,5,Amount of time in seconds to wait in between power operations,reliability,ironic
+workers_pool_size,100,"The size of the workers greenthread pool. Note that 2 threads will be reserved by the conductor itself for handling heart beats and periodic  tasks. On top of that, sync_power_state_workers will take up to 7 green threads with the default value of 8.",performance,ironic
+heartbeat_interval,10,Seconds between conductor heart beats.,reliability,ironic
+api_url,<None>,"URL of Ironic API service. If not set ironic can get the current  value from the keystone service catalog. If set, the value must start  with either http:// or https://.",environment,ironic
+heartbeat_timeout,60,Maximum time (in seconds) since the last check-in of a conductor. A  conductor is considered inactive when this time has been exceeded.,reliability,ironic
+sync_power_state_interval,60,"Interval between syncing the node power state to the database, in seconds. Set to 0 to disable syncing.",reliability,ironic
+check_provision_state_interval,60,"Interval between checks of provision timeouts, in seconds. Set to 0 to disable checks.",reliability,ironic
+check_rescue_state_interval,60,Interval (seconds) between checks of rescue timeouts.,reliability,ironic
+check_allocations_interval,60,"Interval between checks of orphaned allocations, in seconds. Set to 0 to disable checks.",reliability,ironic
+deploy_callback_timeout,1800,Timeout (seconds) to wait for a callback from a deploy ramdisk. Set to 0 to disable timeout.,reliability,ironic
+force_power_state_during_sync,TRUE,"During sync_power_state, should the hardware power state be set to  the state recorded in the database (True) or should the database be  updated based on the hardware state (False).",manageability,ironic
+power_state_sync_max_retries,3,"During sync_power_state failures, limit the number of times Ironic  should try syncing the hardware node power state with the node power  state in DB",reliability,ironic
+sync_power_state_workers,8,The maximum number of worker threads that can be started simultaneously to sync nodes power states from the periodic task.,performance,ironic
+periodic_max_workers,8,Maximum number of worker threads that can be started simultaneously  by a periodic task. Should be less than RPC thread pool size.,performance,ironic
+node_locked_retry_attempts,3,Number of attempts to grab a node lock.,reliability,ironic
+node_locked_retry_interval,1,Seconds to sleep between node lock attempts.,reliability,ironic
+send_sensor_data,FALSE,Enable sending sensor data message via the notification bus,manageability,ironic
+send_sensor_data_interval,600,Seconds between conductor sending sensor data message to ceilometer via the notification bus.,reliability,ironic
+send_sensor_data_workers,4,The maximum number of workers that can be started simultaneously for send data from sensors periodic task.,performance,ironic
+send_sensor_data_wait_timeout,300,The time in seconds to wait for send sensors data periodic task to be finished before allowing periodic call to happen again. Should be less  than send_sensor_data_interval value.,reliability,ironic
+sync_local_state_interval,180,"When conductors join or leave the cluster, existing conductors may  need to update any persistent local state as nodes are moved around the  cluster. This option controls how often, in seconds, each conductor will check for nodes that it should 'take over'. Set it to 0 (or a negative  value) to disable the check entirely.",reliability,ironic
+configdrive_swift_container,ironic_configdrive_container,Name of the Swift container to store config drive data. Used when configdrive_use_object_store is True.,environment,ironic
+configdrive_swift_temp_url_duration,<None>,"The timeout (in seconds) after which a configdrive temporary URL  becomes invalid. Defaults to deploy_callback_timeout if it is set,  otherwise to 1800 seconds. Used when configdrive_use_object_store is  True.",reliability,ironic
+inspect_wait_timeout,1800,Timeout (seconds) for waiting for node inspection. 0 - unlimited.,reliability,ironic
+automated_clean,TRUE,"Enables or disables automated cleaning. Automated cleaning is a  configurable set of steps, such as erasing disk drives, that are  performed on the node to ensure it is in a baseline state and ready to  be deployed to. This is done after instance deletion as well as during  the transition from a 'manageable' to 'available' state. When enabled,  the particular steps performed to clean a node depend on which driver  that node is managed by; see the individual driver's documentation for  details. NOTE: The introduction of the cleaning operation causes  instance deletion to take significantly longer. In an environment where  all tenants are trusted (eg, because there is only one tenant), this  option could be safely disabled.",manageability,ironic
+clean_callback_timeout,1800,Timeout (seconds) to wait for a callback from the ramdisk doing the  cleaning. If the timeout is reached the node will be put in the 'clean  failed' provision state. Set to 0 to disable timeout.,reliability,ironic
+rescue_callback_timeout,1800,Timeout (seconds) to wait for a callback from the rescue ramdisk. If  the timeout is reached the node will be put in the 'rescue failed'  provision state. Set to 0 to disable timeout.,reliability,ironic
+soft_power_off_timeout,600,Timeout (in seconds) of soft reboot and soft power off operation. This value always has to be positive.,reliability,ironic
+power_state_change_timeout,30,"Number of seconds to wait for power operations to complete, i.e., so  that a baremetal node is in the desired power state. If timed out, the  power operation is considered a failure.",reliability,ironic
+power_failure_recovery_interval,300,Interval (in seconds) between checking the power state for nodes  previously put into maintenance mode due to power synchronization  failure. A node is automatically moved out of maintenance mode once its  power state is retrieved successfully. Set to 0 to disable this check.,reliability,ironic
+allow_deleting_available_nodes,TRUE,Allow deleting nodes which are in state 'available'. Defaults to True.,security,ironic
+terminal,shellinaboxd,Path to serial console terminal program. Used only by Shell In A Box console.,environment,ironic
+terminal_cert_dir,<None>,Directory containing the terminal SSL cert (PEM) for serial console access. Used only by Shell In A Box console.,environment,ironic
+terminal_pid_dir,<None>,"Directory for holding terminal pid files. If not specified, the temporary directory will be used.",environment,ironic
+terminal_timeout,600,Timeout (in seconds) for the terminal session to be closed on  inactivity. Set to 0 to disable timeout. Used only by Socat console.,reliability,ironic
+subprocess_checking_interval,1,Time interval (in seconds) for checking the status of console subprocess.,reliability,ironic
+subprocess_timeout,10,Time (in seconds) to wait for the console subprocess to start.,reliability,ironic
+kill_timeout,1,Time (in seconds) to wait for the shellinabox console subprocess to exit before sending SIGKILL signal.,reliability,ironic
+socat_address,$my_ip,IP address of Socat service running on the host of ironic conductor. Used only by Socat console.,environment,ironic
+allow_credentials,TRUE,Indicate that the actual request can include user credentials,security,ironic
+expose_headers,'',Indicate which headers are safe to expose to the API. Defaults to HTTP Simple Headers.,security,ironic
+max_age,3600,Maximum cache age of CORS preflight requests.,performance,ironic
+allow_methods,"OPTIONS,GET,HEAD,POST,PUT,DELETE,TRACE,PATCH",Indicate which methods can be used during the actual request.,security,ironic
+allow_headers,'',Indicate which header field names may be used during the actual request.,security,ironic
+sqlite_synchronous,TRUE,"If True, SQLite uses synchronous mode.",manageability,ironic
+backend,sqlalchemy,The back end to use for the database.,environment,ironic
+connection,<None>,The SQLAlchemy connection string to use to connect to the database.,environment,ironic
+slave_connection,<None>,The SQLAlchemy connection string to use to connect to the slave database.,environment,ironic
+mysql_sql_mode,TRADITIONAL,"The SQL mode to be used for MySQL sessions. This option, including  the default, overrides any server-set SQL mode. To use whatever SQL mode is set by the server configuration, set this to no value. Example:  mysql_sql_mode=",manageability,ironic
+mysql_enable_ndb,FALSE,"If True, transparently enables support for handling MySQL Cluster (NDB).",manageability,ironic
+connection_recycle_time,3600,Connections which have been present in the connection pool longer  than this number of seconds will be replaced with a new one the next  time they are checked out from the pool.,reliability,ironic
+min_pool_size,1,Minimum number of SQL connections to keep open in a pool.,performance,ironic
+max_pool_size,5,Maximum number of SQL connections to keep open in a pool. Setting a value of 0 indicates no limit.,performance,ironic
+max_retries,10,Maximum number of database connection retries during startup. Set to -1 to specify an infinite retry count.,reliability,ironic
+retry_interval,10,Interval between retries of opening a SQL connection.,reliability,ironic
+connection_debug,0,"Verbosity of SQL debugging information: 0=None, 100=Everything.",debuggability,ironic
+connection_trace,FALSE,Add Python stack traces to SQL as comment strings.,debuggability,ironic
+pool_timeout,<None>,"If set, use this value for pool_timeout with SQLAlchemy.",reliability,ironic
+use_db_reconnect,FALSE,Enable the experimental use of database reconnect on connection lost.,reliability,ironic
+db_retry_interval,1,Seconds between retries of a database transaction.,reliability,ironic
+db_inc_retry_interval,TRUE,"If True, increases the interval between retries of a database operation up to db_max_retry_interval.",reliability,ironic
+db_max_retry_interval,10,"If db_inc_retry_interval is set, the maximum seconds between retries of a database operation.",reliability,ironic
+db_max_retries,20,Maximum retries in case of connection error or deadlock error before  error is raised. Set to -1 to specify an infinite retry count.,reliability,ironic
+http_url,<None>,ironic-conductor node's HTTP server URL. Example: http://192.1.2.3:8080,environment,ironic
+http_root,/httpboot,ironic-conductor node's HTTP root path.,environment,ironic
+enable_ata_secure_erase,TRUE,Whether to support the use of ATA Secure Erase during the cleaning process. Defaults to True.,security,ironic
+erase_devices_priority,<None>,"Priority to run in-band erase devices via the Ironic Python Agent  ramdisk. If unset, will use the priority set in the ramdisk (defaults to 10 for the GenericHardwareManager). If set to 0, will not run during  cleaning.",security,ironic
+erase_devices_metadata_priority,<None>,"Priority to run in-band clean step that erases metadata from devices, via the Ironic Python Agent ramdisk. If unset, will use the priority  set in the ramdisk (defaults to 99 for the GenericHardwareManager). If  set to 0, will not run during cleaning.",security,ironic
+shred_final_overwrite_with_zeros,TRUE,Whether to write zeros to a node's block devices after writing random data. This will write zeros to the device even when  deploy.shred_random_overwrite_iterations is 0. This option is only used  if a device could not be ATA Secure Erased. Defaults to True.,security,ironic
+continue_if_disk_secure_erase_fails,FALSE,"Defines what to do if an ATA secure erase operation fails during  cleaning in the Ironic Python Agent. If False, the cleaning operation  will fail and the node will be put in clean failed state. If True, shred will be invoked and cleaning will continue.",security,ironic
+disk_erasure_concurrency,1,Defines the target pool size used by Ironic Python Agent ramdisk to  erase disk devices. The number of threads created to erase disks will  not exceed this value or the number of disks to be erased.,performance,ironic
+power_off_after_deploy_failure,TRUE,Whether to power off a node after deploy failure. Defaults to True.,reliability,ironic
+default_boot_option,<None>,"Default boot option to use when no boot option is requested in node's driver_info. Currently the default is 'netboot', but it will be changed to 'local' in the future. It is recommended to set an explicit value  for this option.",manageability,ironic
+default_boot_mode,bios,"Default boot mode to use when no boot mode is requested in node's driver_info, capabilities or in the instance_info configuration. Currently the default boot mode is 'bios', but it will  be changed to 'uefi in the future. It is recommended to set an explicit  value for this option. This option only has effect when management  interface supports boot mode management",manageability,ironic
+configdrive_use_object_store,FALSE,Whether to upload the config drive to object store. Set this option to True to store config drive in a swift endpoint.,manageability,ironic
+http_image_subdir,agent_images,"The name of subdirectory under ironic-conductor node's HTTP root path which is used to place instance images for the direct deploy interface, when local HTTP service is incorporated to provide instance image  instead of swift tempurls.",environment,ironic
+fast_track,FALSE,"Whether to allow deployment agents to perform lookup, heartbeat  operations during initial states of a machine lifecycle and by-pass the  normal setup procedures for a ramdisk. This feature also enables power  operations which are part of deployment processes to be bypassed if the  ramdisk has performed a heartbeat operation using the fast_track_timeout setting.",reliability,ironic
+fast_track_timeout,300,Seconds for which the last heartbeat event is to be considered valid  for the purpose of a fast track sequence. This setting should generally  be less than the number of seconds for 'Power-On Self Test' and typical  ramdisk start-up. This value should not exceed the  [api]ramdisk_heartbeat_timeout setting.,reliability,ironic
+dhcp_provider,neutron,"DHCP provider to use. 'neutron' uses Neutron, and 'none' uses a no-op provider.",environment,ironic
+check_device_interval,1,"After Ironic has completed creating the partition table, it continues to check for activity on the attached iSCSI device status at this  interval prior to copying the image to the node, in seconds",reliability,ironic
+check_device_max_retries,20,"The maximum number of times to check that the device is not accessed  by another process. If the device is still busy after that, the disk  partitioning will be treated as having failed.",reliability,ironic
+efi_system_partition_size,200,Size of EFI system partition in MiB when configuring UEFI systems for local boot.,performance,ironic
+bios_boot_partition_size,1,Size of BIOS Boot partition in MiB when configuring GPT partitioned systems for local boot in BIOS.,performance,ironic
+dd_block_size,1M,Block size to use when writing to the nodes disk.,performance,ironic
+iscsi_verify_attempts,3,"Maximum attempts to verify an iSCSI connection is active, sleeping 1 second between attempts.",reliability,ironic
+partprobe_attempts,10,Maximum number of attempts to try to read the partition.,reliability,ironic
+query_raid_config_job_status_interval,120,Interval (in seconds) between periodic RAID job status checks to  determine whether the asynchronous RAID configuration was successfully  finished or not.,reliability,ironic
+allowed_direct_url_schemes,'',A list of URL schemes that can be downloaded directly via the direct_url.  Currently supported schemes: [file].,security,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_strategy,keystone,Authentication strategy to use when connecting to glance.,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+glance_api_insecure,FALSE,Allow to perform insecure SSL (https) requests to glance.,security,ironic
+glance_api_servers,<None>,A list of the glance api servers available to ironic. Prefix with https:// for SSL-based glance API servers. Format is [hostname|IP]:port.,environment,ironic
+glance_cafile,<None>,Optional path to a CA certificate bundle to be used to validate the  SSL certificate served by glance. It is used when glance_api_insecure is set to False.,security,ironic
+glance_num_retries,0,Number of retries when downloading an image from glance.,reliability,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,image,The default service_type for endpoint URL discovery.,others,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+swift_endpoint_url,<None>,"The 'endpoint' (scheme, hostname, optional port) for the Swift URL of the form 'endpoint_url/api_version/account/container/object_id'. Do not include trailing '/'. For example, use 'https://swift.example.com'. If using RADOS Gateway, endpoint may also contain /swift path; if it  does not, it will be appended. Used for temporary URLs, will be fetched  from the service catalog, if not provided.",environment,ironic
+swift_store_multiple_containers_seed,0,"This should match a config by the same name in the Glance  configuration file. When set to 0, a single-tenant store will only use  one container to store all images. When set to an integer value between 1 and 32, a single-tenant store will use multiple containers to store  images, and this value will determine how many containers are created.",manageability,ironic
+swift_temp_url_cache_enabled,FALSE,Whether to cache generated Swift temporary URLs. Setting it to true  is only useful when an image caching proxy is used. Defaults to False.,performance,ironic
+swift_temp_url_duration,1200,"The length of time in seconds that the temporary URL will be valid  for. Defaults to 20 minutes. If some deploys get a 401 response code  when trying to download from the temporary URL, try raising this  duration. This value must be greater than or equal to the value for  swift_temp_url_expected_download_start_delay",reliability,ironic
+swift_temp_url_expected_download_start_delay,0,This is the delay (in seconds) from the time of the deploy request  (when the Swift temporary URL is generated) to when the IPA ramdisk  starts up and URL is used for the image download. This value is used to  check if the Swift temporary URL duration is large enough to let the  image download begin. Also if temporary URL caching is enabled this will determine if a cached entry will still be valid when the download  starts. swift_temp_url_duration value must be greater than or equal to  this option's value. Defaults to 0.,reliability,ironic
+swift_temp_url_key,<None>,"The secret token given to Swift to allow temporary URL downloads.  Required for temporary URLs. For the Swift backend, the key on the  service project (as set in the [swift] section) is used by default.",security,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,security,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+path,/healthcheck,The path to respond to healtcheck requests on.,environment,ironic
+detailed,FALSE,Show more detailed information as part of the response. Security  note: Enabling this option may expose sensitive details about the  service being monitored. Be sure to verify that it will not violate your security policies.,security,ironic
+disable_by_file_path,<None>,Check the presence of a file to determine if an application is running on a port. Used by DisableByFileHealthcheck plugin.,manageability,ironic
+disable_by_file_paths,'',Check the presence of a file based on a port to determine if an  application is running on a port. Expects a 'port:path' list of strings. Used by DisableByFilesPortsHealthcheck plugin.,environment,ironic
+client_timeout,60,Timeout (in seconds) for iLO operations,reliability,ironic
+client_port,443,Port to be used for iLO operations,environment,ironic
+swift_object_expiry_timeout,900,Amount of time in seconds for Swift objects to auto-expire.,reliability,ironic
+use_web_server_for_images,FALSE,"Set this to True to use http web server to host floppy images and  generated boot ISO. This requires http_root and http_url to be  configured in the [deploy] section of the config file. If this is set to False, then Ironic will use Swift to host the floppy images and  generated boot_iso.",manageability,ironic
+clean_priority_reset_secure_boot_keys_to_default,20,Priority for reset_secure_boot_keys clean step. This step will reset the secure boot keys to manufacturing defaults.,security,ironic
+clean_priority_clear_secure_boot_keys,0,Priority for clear_secure_boot_keys clean step. This step is not  enabled by default. It can be enabled to clear all secure boot keys  enrolled with iLO.,security,ironic
+clean_priority_reset_ilo_credential,30,Priority for reset_ilo_credential clean step. This step requires  'ilo_change_password' parameter to be updated in nodes's driver_info  with the new password.,security,ironic
+power_retry,6,Number of times a power operation needs to be retried,reliability,ironic
+power_wait,2,Amount of time in seconds to wait in between power operations,reliability,ironic
+ca_file,<None>,CA certificate file to validate iLO.,security,ironic
+default_boot_mode,auto,"Default boot mode to be used in provisioning when 'boot_mode'  capability is not provided in the 'properties/capabilities' of the node. The default is 'auto' for backward compatibility. When 'auto' is  specified, default boot mode will be selected based on boot mode  settings on the system.",manageability,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+enabled,FALSE,This option has no affect since the classic drivers removal.,others,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,baremetal-introspection,The default service_type for endpoint URL discovery.,others,ironic
+service_url,<None>,"ironic-inspector HTTP endpoint. If this is not set, the service catalog will be used.",environment,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+status_check_period,60,period (in seconds) to check status of nodes on inspection,reliability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+command_retry_timeout,60,"Maximum time in seconds to retry retryable IPMI operations. (An  operation is retryable, for example, if the requested operation fails  because the BMC is busy.) Setting this too high can cause the sync power state periodic task to hang when there are slow or unresponsive BMCs.",reliability,ironic
+min_command_interval,5,"Minimum time, in seconds, between IPMI operations sent to a server.  There is a risk with some hardware that setting this too low may cause  the BMC to crash. Recommended setting is 5 seconds.",reliability,ironic
+kill_on_timeout,TRUE,Kill ipmitool process invoked by ironic to read node power state if ipmitool process does not exit after command_retry_timeout timeout expires. Recommended setting is True,reliability,ironic
+disable_boot_timeout,TRUE,"Default timeout behavior whether ironic sends a raw IPMI command to  disable the 60 second timeout for booting. Setting this option to False  will NOT send that command, the default value is True. It may be  overridden by per-node 'ipmi_disable_boot_timeout' option in node's  'driver_info' field.",reliability,ironic
+debug,FALSE,Enables all ipmi commands to be executed with an additional debugging output. This is a separate option as ipmitool can log a substantial  amount of misleading text when in this mode.,debuggability,ironic
+remote_image_share_root,/remote_image_share_root,Ironic conductor node's 'NFS' or 'CIFS' root path,environment,ironic
+remote_image_server,<None>,IP of remote image server,environment,ironic
+remote_image_share_type,CIFS,Share type of virtual media,others,ironic
+remote_image_share_name,share,share name of remote_image_server,others,ironic
+remote_image_user_name,<None>,User name of remote_image_server,environment,ironic
+remote_image_user_password,<None>,Password of remote_image_user_name,security,ironic
+remote_image_user_domain,'',Domain name of remote_image_user_name,environment,ironic
+port,443,Port to be used for iRMC operations,environment,ironic
+auth_method,basic,Authentication method to be used for iRMC operations,security,ironic
+client_timeout,60,Timeout (in seconds) for iRMC operations,reliability,ironic
+sensor_method,ipmitool,Sensor data retrieval method.,others,ironic
+snmp_version,v2c,SNMP protocol version,environment,ironic
+snmp_port,161,SNMP port,environment,ironic
+snmp_community,public,SNMP community. Required for versions 'v1' and 'v2c',others,ironic
+snmp_security,<None>,SNMP security name. Required for version 'v3',security,ironic
+fpga_ids,'',"List of vendor IDs and device IDs for CPU FPGA to inspect. List items are in format vendorID/deviceID and separated by commas. CPU inspection will use this value to find existence of CPU FPGA in a node. If this  option is not defined, then leave out CUSTOM_CPU_FPGA in node traits.  Sample fpga_ids value: 0x1000/0x0079,0x2100/0x0080",environment,ironic
+query_raid_config_fgi_status_interval,300,Interval (in seconds) between periodic RAID status checks to  determine whether the asynchronous RAID configuration was successfully  finished or not. Foreground Initialization (FGI) will start 5 minutes  after creating virtual drives.,reliability,ironic
+root_helper,sudo ironic-rootwrap /etc/ironic/rootwrap.conf,"Command that is prefixed to commands that are run as root. If not specified, no commands are run as root.",others,ironic
+portal_port,3260,The port number on which the iSCSI portal listens for incoming connections.,environment,ironic
+auth_strategy,<None>,Authentication strategy used by JSON RPC. Defaults to the global auth_strategy setting.,security,ironic
+host_ip,::,The IP address or hostname on which JSON RPC will listen.,environment,ironic
+port,8089,The port to use for JSON RPC,environment,ironic
+use_ssl,FALSE,Whether to use TLS for JSON RPC,security,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+www_authenticate_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint.",security,ironic
+auth_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint. This option is deprecated in favor of  www_authenticate_uri and will be removed in the S release.",security,ironic
+auth_version,<None>,API version of the admin Identity API endpoint.,environment,ironic
+delay_auth_decision,FALSE,"Do not handle authorization requests within the middleware, but  delegate the authorization decision to downstream WSGI components.",security,ironic
+http_connect_timeout,<None>,Request timeout value for communicating with Identity API server.,reliability,ironic
+http_request_max_retries,3,How many times are we trying to reconnect when communicating with Identity API Server.,reliability,ironic
+cache,<None>,"Request environment key where the Swift cache object is stored. When  auth_token middleware is deployed with a Swift cache, use this option to have the middleware share a caching backend with swift. Otherwise, use  the memcached_servers option instead.",performance,ironic
+certfile,<None>,Required if identity server requires client certificate,security,ironic
+keyfile,<None>,Required if identity server requires client certificate,environment,ironic
+cafile,<None>,A PEM encoded Certificate Authority to use when verifying HTTPs connections. Defaults to system CAs.,security,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+region_name,<None>,The region in which the identity server can be found.,environment,ironic
+signing_dir,<None>,Directory used to cache files related to PKI tokens. This option has  been deprecated in the Ocata release and will be removed in the P  release.,environment,ironic
+memcache_security_strategy,None,"(Optional) If defined, indicate whether token data should be  authenticated or authenticated and encrypted. If MAC, token data is  authenticated (with HMAC) in the cache. If ENCRYPT, token data is  encrypted and authenticated in the cache. If the value is not one of  these options or empty, auth_token will raise an exception on  initialization.",security,ironic
+memcache_secret_key,<None>,"(Optional, mandatory if memcache_security_strategy is defined) This string is used for key derivation.",security,ironic
+memcache_pool_dead_retry,300,(Optional) Number of seconds memcached server is considered dead before it is tried again.,reliability,ironic
+memcache_pool_maxsize,10,(Optional) Maximum total number of open connections to every memcached server.,performance,ironic
+memcache_pool_socket_timeout,3,(Optional) Socket timeout in seconds for communicating with a memcached server.,reliability,ironic
+memcache_pool_unused_timeout,60,(Optional) Number of seconds a connection to memcached is held unused in the pool before it is closed.,reliability,ironic
+memcache_pool_conn_get_timeout,10,(Optional) Number of seconds that an operation will wait to get a memcached client connection from the pool.,reliability,ironic
+memcache_use_advanced_pool,FALSE,(Optional) Use the advanced (eventlet safe) memcached client pool. The advanced pool will only work under python 2.x.,security,ironic
+include_service_catalog,TRUE,"(Optional) Indicate whether to set the X-Service-Catalog header. If  False, middleware will not ask for service catalog on token validation  and will not set the X-Service-Catalog header.",manageability,ironic
+enforce_token_bind,permissive,Used to control the use and type of token binding. Can be set to:  'disabled' to not check token binding. 'permissive' (default) to  validate binding information if the bind type is of a form known to the  server and ignore it if not. 'strict' like 'permissive' but if the bind  type is unknown the token will be rejected. 'required' any form of token binding is needed to be allowed. Finally the name of a binding method  that must be present in tokens.,security,ironic
+hash_algorithms,md5,"Hash algorithms to use for hashing PKI tokens. This may be a single  algorithm or multiple. The algorithms are those supported by Python  standard hashlib.new(). The hashes will be tried in the order given, so  put the preferred one first for performance. The result of the first  hash will be stored in the cache. This will typically be set to multiple values only while migrating from a less secure algorithm to a more  secure one. Once all the old tokens are expired this option should be  set to a single value for better performance.",performance,ironic
+service_token_roles_required,FALSE,For backwards compatibility reasons we must let valid service tokens  pass that don't pass the service_token_roles check as valid. Setting  this true will become the default in a future release and should be  enabled if possible.,others,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+auth_section,<None>,Config Section from which to load plugin specific options,environment,ironic
+prepend_host_reverse,TRUE,Split the prepended host value by '.' and reverse it (to better match the reverse hierarchical form of domain names).,manageability,ironic
+agent_backend,noop,Backend for the agent ramdisk to use for metrics. Default possible backends are 'noop' and 'statsd'.,environment,ironic
+agent_prepend_host,FALSE,Prepend the hostname to all metric names sent by the agent ramdisk.  The format of metric names is  [global_prefix.][uuid.][host_name.]prefix.metric_name.,others,ironic
+agent_prepend_uuid,FALSE,Prepend the node's Ironic uuid to all metric names sent by the agent  ramdisk. The format of metric names is  [global_prefix.][uuid.][host_name.]prefix.metric_name.,manageability,ironic
+agent_prepend_host_reverse,TRUE,Split the prepended host value by '.' and reverse it for metrics sent by the agent ramdisk (to better match the reverse hierarchical form of  domain names).,manageability,ironic
+agent_global_prefix,<None>,Prefix all metric names sent by the agent ramdisk with this value.  The format of metric names is  [global_prefix.][uuid.][host_name.]prefix.metric_name.,others,ironic
+statsd_host,localhost,Host for use with the statsd backend.,environment,ironic
+statsd_port,8125,Port to use with the statsd backend.,environment,ironic
+agent_statsd_host,localhost,Host for the agent ramdisk to use with the statsd backend. This must be accessible from networks the agent is booted on.,environment,ironic
+agent_statsd_port,8125,Port for the agent ramdisk to use with the statsd backend.,environment,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_strategy,keystone,Authentication strategy to use when connecting to neutron. Running  neutron in noauth mode (related to but not affected by this setting) is  insecure and should only be used for testing.,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+cleaning_network,<None>,"Neutron network UUID or name for the ramdisk to be booted into for  cleaning nodes. Required for 'neutron' network interface. It is also  required if cleaning nodes when using 'flat' network interface or  'neutron' DHCP provider. If a name is provided, it must be unique among  all networks or cleaning will fail.",environment,ironic
+cleaning_network_security_groups,'',"List of Neutron Security Group UUIDs to be applied during cleaning of the nodes. Optional for the 'neutron' network interface and not used  for the 'flat' or 'noop' network interfaces. If not specified, default  security group is used.",security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+port_setup_delay,0,Delay value to wait for Neutron agents to setup sufficient DHCP configuration for port.,reliability,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+provisioning_network,<None>,"Neutron network UUID or name for the ramdisk to be booted into for  provisioning nodes. Required for 'neutron' network interface. If a name  is provided, it must be unique among all networks or deploy will fail.",environment,ironic
+provisioning_network_security_groups,'',"List of Neutron Security Group UUIDs to be applied during  provisioning of the nodes. Optional for the 'neutron' network interface  and not used for the 'flat' or 'noop' network interfaces. If not  specified, default security group is used.",security,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+rescuing_network_security_groups,'',"List of Neutron Security Group UUIDs to be applied during the node  rescue process. Optional for the 'neutron' network interface and not  used for the 'flat' or 'noop' network interfaces. If not specified, the  default security group is used.",security,ironic
+retries,3,Client retries in the case of a failed request.,reliability,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,network,The default service_type for endpoint URL discovery.,others,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+url,<None>,"URL for connecting to neutron. Default value translates to 'http://$my_ip:9696' when auth_strategy is 'noauth', and to discovery from Keystone catalog when auth_strategy is 'keystone'.",environment,ironic
+url_timeout,30,Timeout value for connecting to neutron in seconds.,reliability,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+disable_process_locking,FALSE,Enables or disables inter-process locks.,security,ironic
+lock_path,<None>,"Directory to use for lock files.  For security, the specified  directory should only be writable by the user running the processes that need locking. Defaults to environment variable OSLO_LOCK_PATH. If  external locks are used, a lock path must be set.",environment,ironic
+container_name,<None>,Name for the AMQP container. must be globally unique. Defaults to a generated UUID,environment,ironic
+idle_timeout,0,Timeout for inactive connections (in seconds),reliability,ironic
+trace,FALSE,Debug: dump AMQP frames to stdout,debuggability,ironic
+ssl,FALSE,"Attempt to connect via SSL. If no other ssl-related parameters are  given, it will use the system's CA-bundle to verify the server's  certificate.",security,ironic
+ssl_ca_file,'',CA certificate PEM file used to verify the server's certificate,security,ironic
+ssl_cert_file,'',Self-identifying certificate PEM file for client authentication,security,ironic
+ssl_key_file,'',Private key PEM file used to sign ssl_cert_file certificate (optional),security,ironic
+ssl_key_password,<None>,Password for decrypting ssl_key_file (if encrypted),security,ironic
+ssl_verify_vhost,FALSE,"By default SSL checks that the name in the server's certificate  matches the hostname in the transport_url. In some configurations it may be preferable to use the virtual hostname instead, for example if the  server uses the Server Name Indication TLS extension (rfc6066) to  provide a certificate per virtual host. Set ssl_verify_vhost to True if  the server's SSL certificate uses the virtual host name instead of the  DNS name.",security,ironic
+sasl_config_dir,'',Path to directory that contains the SASL configuration,environment,ironic
+sasl_config_name,'',Name of configuration file (without .conf suffix),environment,ironic
+sasl_default_realm,'',SASL realm to use if no realm present in username,security,ironic
+connection_retry_interval,1,Seconds to pause before attempting to re-connect.,reliability,ironic
+connection_retry_backoff,2,Increase the connection_retry_interval by this many seconds after each unsuccessful failover attempt.,reliability,ironic
+connection_retry_interval_max,30,Maximum limit for connection_retry_interval + connection_retry_backoff,reliability,ironic
+link_retry_delay,10,Time to pause between re-connecting an AMQP 1.0 link that failed due to a recoverable error.,reliability,ironic
+default_reply_retry,0,The maximum number of attempts to re-send a reply message which failed due to a recoverable error.,reliability,ironic
+default_reply_timeout,30,The deadline for an rpc reply message delivery.,reliability,ironic
+default_send_timeout,30,The deadline for an rpc cast or call message delivery. Only used when caller does not provide a timeout expiry.,reliability,ironic
+default_notify_timeout,30,The deadline for a sent notification message delivery. Only used when caller does not provide a timeout expiry.,reliability,ironic
+default_sender_link_timeout,600,The duration to schedule a purge of idle sender links. Detach link after expiry.,reliability,ironic
+addressing_mode,dynamic,Indicates the addressing mode used by the driver. Permitted values: 'legacy'   - use legacy non-routable addressing 'routable' - use routable addresses 'dynamic'  - use legacy addresses if the message bus does not support routing otherwise use routable addressing,security,ironic
+pseudo_vhost,TRUE,"Enable virtual host support for those message buses that do not  natively support virtual hosting (such as qpidd). When set to true the  virtual host name will be added to all message bus addresses,  effectively creating a private 'subnet' per virtual host. Set to False  if the message bus supports virtual hosting using the 'hostname' field  in the AMQP 1.0 Open performative as the name of the virtual host.",security,ironic
+broadcast_prefix,broadcast,address prefix used when broadcasting to all servers,others,ironic
+group_request_prefix,unicast,address prefix when sending to any server in group,environment,ironic
+rpc_address_prefix,openstack.org/om/rpc,Address prefix for all generated RPC addresses,environment,ironic
+multicast_address,multicast,Appended to the address prefix when sending a fanout message. Used by the message bus to identify fanout messages.,environment,ironic
+unicast_address,unicast,Appended to the address prefix when sending to a particular  RPC/Notification server. Used by the message bus to identify messages  sent to a single destination.,environment,ironic
+anycast_address,anycast,Appended to the address prefix when sending to a group of consumers.  Used by the message bus to identify messages that should be delivered in a round-robin fashion across consumers.,environment,ironic
+default_notification_exchange,<None>,Exchange name used in notification addresses. Exchange name resolution precedence: Target.exchange if set else default_notification_exchange if set else control_exchange if set else 'notify',manageability,ironic
+default_rpc_exchange,<None>,Exchange name used in RPC addresses. Exchange name resolution precedence: Target.exchange if set else default_rpc_exchange if set else control_exchange if set else 'rpc',manageability,ironic
+reply_link_credit,200,Window size for incoming RPC Reply messages.,performance,ironic
+rpc_server_credit,100,Window size for incoming RPC Request messages,performance,ironic
+notify_server_credit,100,Window size for incoming Notification messages,performance,ironic
+pre_settled,rpc-cast,Send messages of this type pre-settled. Pre-settled messages will not receive acknowledgement from the peer. Note well: pre-settled messages may be silently discarded if the delivery fails. Permitted values: 'rpc-call' - send RPC Calls pre-settled 'rpc-reply'- send RPC Replies pre-settled 'rpc-cast' - Send RPC Casts pre-settled 'notify'   - Send Notifications pre-settled,others,ironic
+kafka_max_fetch_bytes,1048576,Max fetch bytes of Kafka consumer,performance,ironic
+kafka_consumer_timeout,1,Default timeout(s) for Kafka consumers,reliability,ironic
+pool_size,10,Pool Size for Kafka Consumers,performance,ironic
+conn_pool_min_size,2,The pool size limit for connections expiration policy,performance,ironic
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability,ironic
+producer_batch_timeout,0,Upper bound on the delay for KafkaProducer batching in seconds,reliability,ironic
+producer_batch_size,16384,Size of batch for the producer async send,performance,ironic
+security_protocol,PLAINTEXT,Protocol used to communicate with brokers,security,ironic
+sasl_mechanism,PLAIN,Mechanism when security protocol is SASL,security,ironic
+ssl_cafile,'',CA certificate PEM file used to verify the server certificate,security,ironic
+transport_url,<None>,"A URL representing the messaging driver to use for notifications. If  not set, we fall back to the same configuration used for RPC.",environment,ironic
+topics,notifications,AMQP topic used for OpenStack notifications.,manageability,ironic
+retry,-1,"The maximum number of attempts to re-send a notification message  which failed to be delivered due to a recoverable error. 0 - No retry,  -1 - indefinite",reliability,ironic
+amqp_durable_queues,FALSE,Use durable queues in AMQP.,manageability,ironic
+amqp_auto_delete,FALSE,Auto-delete queues in AMQP.,manageability,ironic
+ssl,FALSE,Connect over SSL.,security,ironic
+ssl_version,'',"SSL version to use (valid only if SSL enabled). Valid values are  TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1, and TLSv1_2 may be available on some distributions.",security,ironic
+ssl_key_file,'',SSL key file (valid only if SSL enabled).,security,ironic
+ssl_cert_file,'',SSL cert file (valid only if SSL enabled).,security,ironic
+ssl_ca_file,'',SSL certification authority file (valid only if SSL enabled).,security,ironic
+kombu_reconnect_delay,1,How long to wait before reconnecting in response to an AMQP consumer cancel notification.,reliability,ironic
+kombu_missing_consumer_retry_timeout,60,How long to wait a missing client before abandoning to send it its  replies. This value should not be longer than rpc_response_timeout.,reliability,ironic
+rabbit_login_method,AMQPLAIN,The RabbitMQ login method.,others,ironic
+rabbit_retry_interval,1,How frequently to retry connecting with RabbitMQ.,reliability,ironic
+rabbit_retry_backoff,2,How long to backoff for between retries when connecting to RabbitMQ.,reliability,ironic
+rabbit_interval_max,30,Maximum interval of RabbitMQ connection retries. Default is 30 seconds.,reliability,ironic
+rabbit_ha_queues,FALSE,"Try to use HA queues in RabbitMQ (x-ha-policy: all). If you change  this option, you must wipe the RabbitMQ database. In RabbitMQ 3.0, queue mirroring is no longer controlled by the x-ha-policy argument when  declaring a queue. If you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:  'rabbitmqctl set_policy HA '^(?!amq.).*' '{'ha-mode': 'all'}' '",environment,ironic
+rabbit_transient_queues_ttl,1800,Positive integer representing duration in seconds for queue TTL  (x-expires). Queues which are unused for the duration of the TTL are  automatically deleted. The parameter affects only reply and fanout  queues.,reliability,ironic
+heartbeat_timeout_threshold,60,Number of seconds after which the Rabbit broker is considered down if heartbeat's keep-alive fails (0 disable the heartbeat). EXPERIMENTAL,reliability,ironic
+heartbeat_rate,2,How often times during the heartbeat_timeout_threshold we check the heartbeat.,reliability,ironic
+policy_default_rule,default,Default rule. Enforced when a requested rule is not found.,manageability,ironic
+policy_dirs,policy.d,"Directories where policy configuration files are stored. They can be  relative to any directory in the search path defined by the config_dir  option, or absolute paths. The file defined by policy_file must exist  for these directories to be searched.  Missing or empty directories are  ignored.",environment,ironic
+remote_content_type,application/x-www-form-urlencoded,Content Type to send and receive data for REST based policy check,manageability,ironic
+remote_ssl_verify_server_crt,FALSE,server identity verification for REST based policy check,security,ironic
+remote_ssl_ca_crt_file,<None>,Absolute path to ca cert file for REST based policy check,environment,ironic
+remote_ssl_client_crt_file,<None>,Absolute path to client cert for REST based policy check,environment,ironic
+remote_ssl_client_key_file,<None>,Absolute path client key file REST based policy check,environment,ironic
+enabled,FALSE,Enable the profiling for all services on this node.,debuggability,ironic
+trace_sqlalchemy,FALSE,Enable SQL requests profiling in services.,debuggability,ironic
+hmac_keys,SECRET_KEY,Secret key(s) to use for encrypting context data for performance profiling.,security,ironic
+connection_string,messaging://,Connection string for a notifier backend.,others,ironic
+es_doc_type,notification,Document type for notification indexing in elasticsearch.,others,ironic
+es_scroll_time,2m,"This parameter is a time value parameter (for example: es_scroll_time=2m), indicating for how long the nodes that participate in the search will maintain relevant resources in order to continue and support it.",reliability,ironic
+es_scroll_size,10000,Elasticsearch splits large requests in batches. This parameter defines maximum size of each batch (for example: es_scroll_size=10000).,performance,ironic
+socket_timeout,0.1,Redissentinel provides a timeout option on the connections. This parameter defines that timeout (for example: socket_timeout=0.1).,reliability,ironic
+sentinel_service_name,mymaster,Redissentinel uses a service name to identify a master redis service. This parameter defines the name (for example: sentinal_service_name=mymaster).,environment,ironic
+filter_error_trace,FALSE,Enable filter traces that contain error/exception to a separated place.,debuggability,ironic
+pxe_append_params,nofb nomodeset vga=normal,Additional append parameters for baremetal PXE boot.,others,ironic
+default_ephemeral_format,ext4,"Default file system format for ephemeral partition, if one is created.",manageability,ironic
+images_path,/var/lib/ironic/images/,"On the ironic-conductor node, directory where images are stored on disk.",environment,ironic
+instance_master_path,/var/lib/ironic/master_images,"On the ironic-conductor node, directory where master instance images  are stored on disk. Setting to the empty string disables image caching.",environment,ironic
+image_cache_size,20480,"Maximum size (in MiB) of cache for master images, including those in use.",performance,ironic
+image_cache_ttl,10080,Maximum TTL (in minutes) for old master images in cache.,reliability,ironic
+pxe_config_template,$pybasedir/drivers/modules/pxe_config.template,"On ironic-conductor node, template file for PXE configuration.",environment,ironic
+uefi_pxe_config_template,$pybasedir/drivers/modules/pxe_grub_config.template,"On ironic-conductor node, template file for PXE configuration for UEFI boot loader.",environment,ironic
+tftp_server,$my_ip,IP address of ironic-conductor node's TFTP server.,environment,ironic
+tftp_root,/tftpboot,ironic-conductor node's TFTP root path. The ironic-conductor must have read/write access to this path.,environment,ironic
+tftp_master_path,/tftpboot/master_images,"On ironic-conductor node, directory where master TFTP images are  stored on disk. Setting to the empty string disables image caching.",environment,ironic
+dir_permission,<None>,The permission that will be applied to the TFTP folders upon  creation. This should be set to the permission such that the tftpserver  has access to read the contents of the configured TFTP folder. This  setting is only required when the operating system's umask is  restrictive such that ironic-conductor is creating files that cannot be  read by the TFTP server. Setting to <None> will result in the  operating system's umask to be utilized for the creation of new tftp  folders. It is recommended that an octal representation is specified.  For example: 0o755,security,ironic
+pxe_bootfile_name,pxelinux.0,Bootfile DHCP parameter.,others,ironic
+pxe_config_subdir,pxelinux.cfg,Directory in which to create symbolic links which represent the MAC  or IP address of the ports on a node and allow boot loaders to load the  PXE file for the node. This directory name is relative to the PXE or  iPXE folders.,environment,ironic
+uefi_pxe_bootfile_name,bootx64.efi,Bootfile DHCP parameter for UEFI boot mode.,environment,ironic
+pxe_bootfile_name_by_arch,'',Bootfile DHCP parameter per node architecture. For example: aarch64:grubaa64.efi,others,ironic
+ipxe_boot_script,$pybasedir/drivers/modules/boot.ipxe,"On ironic-conductor node, the path to the main iPXE script file.",environment,ironic
+ipxe_timeout,0,Timeout value (in seconds) for downloading an image via iPXE. Defaults to 0 (no timeout),reliability,ironic
+ip_version,4,The IP version that will be used for PXE booting. Defaults to 4. EXPERIMENTAL,environment,ironic
+ipxe_use_swift,FALSE,"Download deploy and rescue images directly from swift using temporary URLs. If set to false (default), images are downloaded to the  ironic-conductor node and served over its local HTTP server. Applicable  only when 'ipxe_enabled' option is set to true.",environment,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,baremetal,The default service_type for endpoint URL discovery.,environment,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+power_timeout,10,Seconds to wait for power action to be completed,reliability,ironic
+reboot_delay,0,Time (in seconds) to sleep between when rebooting (powering off and on again),reliability,ironic
+udp_transport_timeout,1,Response timeout in seconds used for UDP transport. Timeout should be a multiple of 0.5 seconds and is applicable to each retry.,reliability,ironic
+udp_transport_retries,5,"Maximum number of UDP request retries, 0 means no retries.",reliability,ironic
+ca_file,<None>,CA certificate file to use to verify connecting clients.,security,ironic
+cert_file,<None>,Certificate file to use when starting the server securely.,security,ironic
+key_file,<None>,Private key file to use when starting the server securely.,security,ironic
+version,<None>,"SSL version to use (valid only if SSL enabled). Valid values are  TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1, and TLSv1_2 may be available on some distributions.",environment,ironic
+ciphers,<None>,Sets the list of available ciphers. value should be a string in the OpenSSL cipher list format.,security,ironic
+auth_url,<None>,Authentication URL,security,ironic
+auth_type,<None>,Authentication type to load,security,ironic
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security,ironic
+certfile,<None>,PEM encoded client certificate cert file,security,ironic
+collect_timing,FALSE,Collect per-API call timing information.,debuggability,ironic
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment,ironic
+domain_id,<None>,Domain ID to scope to,environment,ironic
+domain_name,<None>,Domain name to scope to,environment,ironic
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",environment,ironic
+insecure,FALSE,Verify HTTPS connections.,security,ironic
+keyfile,<None>,PEM encoded client certificate key file,environment,ironic
+max_version,<None>,"The maximum major version of a given API, intended to be used as the  upper bound of a range with min_version. Mutually exclusive with  version.",environment,ironic
+min_version,<None>,"The minimum major version of a given API, intended to be used as the  lower bound of a range with max_version. Mutually exclusive with  version. If min_version is given with no max_version it is as if max  version is 'latest'.",environment,ironic
+password,<None>,User's password,security,ironic
+project_domain_id,<None>,Domain ID containing project,environment,ironic
+project_domain_name,<None>,Domain name containing project,environment,ironic
+project_id,<None>,Project ID to scope to,environment,ironic
+project_name,<None>,Project name to scope to,environment,ironic
+region_name,<None>,The default region_name for endpoint URL discovery.,environment,ironic
+service_name,<None>,The default service_name for endpoint URL discovery.,environment,ironic
+service_type,object-store,The default service_type for endpoint URL discovery.,environment,ironic
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability,ironic
+swift_max_retries,2,"Maximum number of times to retry a Swift request, before failing.",reliability,ironic
+system_scope,<None>,Scope for system operations,environment,ironic
+tenant_id,<None>,Tenant ID,environment,ironic
+tenant_name,<None>,Tenant Name,environment,ironic
+timeout,<None>,Timeout value for http requests,reliability,ironic
+trust_id,<None>,Trust ID,security,ironic
+user_domain_id,<None>,User's domain id,environment,ironic
+user_domain_name,<None>,User's domain name,environment,ironic
+user_id,<None>,User id,environment,ironic
+username,<None>,Username,environment,ironic
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",environment,ironic
+version,<None>,Minimum Major API version within a given Major API version for  endpoint URL discovery. Mutually exclusive with min_version and  max_version,environment,ironic
+manager_ip,<None>,IP address of the XClarity Controller. Configuration here is  deprecated and will be removed in the Stein release. Please update the  driver_info field to use 'xclarity_manager_ip' instead,environment,ironic
+password,<None>,Password for XClarity Controller username. Configuration here is  deprecated and will be removed in the Stein release. Please update the  driver_info field to use 'xclarity_password' instead,security,ironic
+port,443,Port to be used for XClarity Controller connection.,environment,ironic

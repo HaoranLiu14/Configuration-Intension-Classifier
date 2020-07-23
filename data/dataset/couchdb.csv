@@ -1,0 +1,57 @@
+name,software,description,label
+attachment_stream_buffer_size,couchdb,Higher values may result in better read performance due to fewer read operations and/or more OS page cache hits.,performance
+database_dir,couchdb,Specifies location of CouchDB database files,environment
+default_security,couchdb,Default security object for databases if not explicitly set. ,security
+delayed_commits,couchdb,"Setting this config value to true may improve performance, at cost of some durability.",performance
+file_compression,couchdb,"Method used to compress everything that is appended to database and view index files, except for attachments",performance
+max_dbs_open,couchdb,This option places an upper bound on the number of databases that can be open at once.,reliability
+os_process_timeout,couchdb,"If an external process, such as a query server or external process, runs for this amount of milliseconds without returning any results, it will be terminated.",reliability
+uri_file,couchdb,This file contains the full URI that can be used to access this instance of CouchDB.,environment
+users_db_suffix,couchdb,Specifies the suffix (last component of a name) of the system database for storing CouchDB users.,others
+util_driver_dir,couchdb,"Specifies location of binary drivers (icu, ejson, etc.).",environment
+uuid,couchdb,Unique identifier for this CouchDB server instance.,others
+view_index_dir,couchdb,Specifies location of CouchDB view index files. ,environment
+max_document_size,couchdb,Limit maximum document body size. ,reliability
+delete_dbs,couchdb,"If set to true and a user is deleted, the respective database gets deleted as well.",reliability
+port,couchdb,Defines the port number to listen,environment
+authentication_handlers,couchdb,List of authentication handlers used by CouchDB.,security
+allow_jsonp,couchdb,The true value of this option enables JSONP support,manageability
+bind_address,couchdb,Defines the IP address by which the node-local port is available.,environment
+changes_timeout,couchdb,Specifies default timeout value for Changes Feed in milliseconds,reliability
+config_whitelist,couchdb,Sets the configuration modification whitelist.,security
+cacert_file,couchdb,The path to a file containing PEM encoded CA certificates.,environment
+cert_file,couchdb,Path to a file containing the user's certificate,security
+key_file,couchdb,Path to file containing user's private PEM encoded key,security
+ssl_certificate_max_depth,couchdb,Maximum peer certificate depth (must be set even if certificate validation is off),security
+verify_ssl_certificates,couchdb,Set to true to validate peer certificates,security
+tls_versions,couchdb,Set to a list of permitted SSL/TLS protocol versions,security
+require_valid_user,couchdb,"When this option is set to true, no requests are allowed from anonymous users. Everyone must be authenticated.",security
+authentication_redirect,couchdb,Specifies the location for redirection on successful authentication if a text/html response is accepted by the client (via an Accept header).,environment
+iterations,couchdb,"The number of iterations for password hashing by the PBKDF2 algorithm. A higher number provides better hash durability, but comes at a cost in performance for each request that requires authentication.",performance
+require_valid_user,couchdb,"When this option is set to true, no requests are allowed from anonymous users. Everyone must be authenticated.",security
+secret,couchdb,The secret token is used for Proxy Authentication and for Cookie Authentication.,security
+timeout,couchdb,Number of seconds since the last request before sessions will be expired.,reliability
+users_db_public,couchdb,"Allow all users to view user documents. By default, only admins may browse all users documents, while users may browse only their own document.",security
+doc_buffer_size,couchdb,Specifies the copy buffer's maximum size in bytes,performance
+checkpoint_after,couchdb,Triggers a checkpoint after the specified amount of bytes were successfully copied to the compacted database,reliability
+check_interval,couchdb,"The delay, in seconds, between each check for which database and view indexes need to be compacted",reliability
+min_file_size,couchdb,"If a database or view index file is smaller than this value (in bytes), compaction will not happen.",performance
+keyvalue_buffer_size,couchdb,Specifies maximum copy buffer size in bytes used during compaction,performance
+max_jobs,couchdb,"Number of actively running replications. Making this value too high could cause performance issues, while making it too low could mean replications jobs might not have enough time to make progress before getting unscheduled again. ",reliability
+max_churn,couchdb,"Maximum number of replication jobs to start and stop during rescheduling. This parameter, along with interval, defines the rate of job replacement. ",performance
+update_docs,couchdb,When set to true replicator will update replication document with error and triggered states.,reliability
+worker_batch_size,couchdb,With lower batch sizes checkpoints are done more frequently. Lower batch sizes also reduce the total amount of used RAM memory,performance
+worker_processes,couchdb,More worker processes can give higher network throughput but can also imply more disk and network IO,performance
+connection_timeout,couchdb,HTTP connection timeout per replication.,reliability
+retries_per_request,couchdb,"If a request fails, the replicator will retry it up to N times.",reliability
+checkpoint_interval,couchdb,Defines replication checkpoint interval in milliseconds. ,reliability
+use_checkpoints,couchdb,"If use_checkpoints is set to true, CouchDB will make checkpoints during replication and at the completion of replication. ",reliability
+commit_freq,couchdb,Specifies the delay in seconds before view index changes are committed to disk. ,reliability
+os_process_limit,couchdb,Hard limit on the number of OS processes usable by Query Servers.,performance
+os_process_soft_limit,couchdb,Soft limit on the number of OS processes usable by Query Servers.,performance
+reduce_limit,couchdb,Controls Reduce overflow error that raises when output of reduce functions is too big,reliability
+auth_cache,couchdb,This daemon provides authentication caching to avoid repeated opening and closing of the _users database for each request requiring authentication,performance
+index_server,couchdb,This manages the process handling for keeping track of the index state as well as managing the updater and compactor handling,debuggability
+compression_level,couchdb,"Defines zlib compression level for the attachments from 1 (lowest, fastest) to 9 (highest, slowest).",managability
+algorithm,couchdb,CouchDB provides various algorithms to generate the UUID values that are used for document _id's,managability
+max_count,couchdb,"No more than this number of UUIDs will be sent in a single request. If more UUIDs are requested, a HTTP error response will be thrown.",reliability
