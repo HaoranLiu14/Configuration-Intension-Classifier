@@ -1,0 +1,314 @@
+name,default,description,label
+api_paste_config,api-paste.ini,File name for the paste.deploy config for api service,environment
+wsgi_log_format,"%(client_ip)s ""%(request_line)s"" status: %(status_code)s len: %(body_length)s time: %(wall_seconds).7f","A python format string that is used as the template to generate log  lines. The following values can beformatted into it: client_ip,  date_time, request_line, status_code, body_length, wall_seconds.",debuggability
+tcp_keepidle,600,Sets the value of TCP_KEEPIDLE in seconds for each server socket. Not supported on OS X.,reliability
+wsgi_default_pool_size,100,Size of the pool of greenthreads used by wsgi,performance
+max_header_line,16384,Maximum line size of message headers to be accepted. max_header_line  may need to be increased when using large tokens (typically those  generated when keystone is configured to use PKI tokens with big service catalogs).,performance
+wsgi_keep_alive,TRUE,"If False, closes the client socket connection explicitly.",reliability
+client_socket_timeout,900,Timeout for client connections' socket operations. If an incoming  connection is idle for this number of seconds it will be closed. A value of '0' means wait forever.,reliability
+rpc_conn_pool_size,30,Size of RPC connection pool.,performance
+conn_pool_min_size,2,The pool size limit for connections expiration policy,reliability
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability
+executor_thread_pool_size,64,Size of executor thread pool when executor is threading or eventlet.,performance
+rpc_response_timeout,60,Seconds to wait for a response from a call.,reliability
+transport_url,rabbit://,"The network address and optional user credentials for connecting to  the messaging backend, in URL format. The expected format is:",environment
+control_exchange,neutron,The default exchange under which topics are scoped. May be overridden by an exchange name specified in the transport_url option.,manageability
+debug,FALSE,"If set to true, the logging level will be set to DEBUG instead of the default INFO level.",debuggability
+log_config_append,<None>,"The name of a logging configuration file. This file is appended to  any existing logging configuration files. For details about logging  configuration files, see the Python logging module documentation. Note  that when logging configuration files are used then all logging  configuration is set in the configuration file and other logging  configuration options are ignored (for example, log-date-format).",environment
+log_date_format,%Y-%m-%d %H:%M:%S,Defines the format string for %(asctime)s in log records. Default:  the value above . This option is ignored if log_config_append is set.,debuggability
+log_file,<None>,"(Optional) Name of log file to send logging output to. If no default  is set, logging will go to stderr as defined by use_stderr. This option  is ignored if log_config_append is set.",debuggability
+log_dir,<None>,(Optional) The base directory used for relative log_file  paths. This option is ignored if log_config_append is set.,environment
+watch_log_file,FALSE,Uses logging handler designed to watch file system. When log file is  moved or removed this handler will open a new log file with specified  path instantaneously. It makes sense only if log_file option is  specified and Linux platform is used. This option is ignored if  log_config_append is set.,debuggability
+use_syslog,FALSE,Use syslog for logging. Existing syslog format is DEPRECATED and will be changed later to honor RFC5424. This option is ignored if  log_config_append is set.,debuggability
+use_journal,FALSE,Enable journald for logging. If running in a systemd environment you  may wish to enable journal support. Doing so will use the journal native protocol which includes structured metadata in addition to log  messages.This option is ignored if log_config_append is set.,debuggability
+syslog_log_facility,LOG_USER,Syslog facility to receive log lines. This option is ignored if log_config_append is set.,debuggability
+use_json,FALSE,Use JSON formatting for logging. This option is ignored if log_config_append is set.,debuggability
+use_stderr,FALSE,Log output to standard error. This option is ignored if log_config_append is set.,debuggability
+use_eventlog,FALSE,Log output to Windows Event Log.,debuggability
+log_rotate_interval,1,The amount of time before the log files are rotated. This option is ignored unless log_rotation_type is setto 'interval'.,reliability
+log_rotate_interval_type,days,Rotation interval type. The time of the last file change (or the time when the service was started) is used when scheduling the next  rotation.,reliability
+max_logfile_count,30,Maximum number of rotated log files.,reliability
+max_logfile_size_mb,200,Log file maximum size in MB. This option is ignored if 'log_rotation_type' is not set to 'size'.,reliability
+log_rotation_type,none,Log rotation type.,debuggability
+logging_context_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [%(request_id)s %(user_identity)s] %(instance)s%(message)s,Format string to use for log messages with context. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_default_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [-] %(instance)s%(message)s,Format string to use for log messages when context is undefined. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_debug_format_suffix,%(funcName)s %(pathname)s:%(lineno)d,Additional data to append to log message when logging level for the  message is DEBUG. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_exception_prefix,%(asctime)s.%(msecs)03d %(process)d ERROR %(name)s %(instance)s,Prefix each line of exception output with this format. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_user_identity_format,%(user)s %(tenant)s %(domain)s %(user_domain)s %(project_domain)s,Defines the format string for %(user_identity)s that is used in  logging_context_format_string. Used by  oslo_log.formatters.ContextFormatter,debuggability
+default_log_levels,"amqp=WARN,amqplib=WARN,boto=WARN,qpid=WARN,sqlalchemy=WARN,suds=INFO,oslo.messaging=INFO,oslo_messaging=INFO,iso8601=WARN,requests.packages.urllib3.connectionpool=WARN,urllib3.connectionpool=WARN,websocket=WARN,requests.packages.urllib3.util.retry=WARN,urllib3.util.retry=WARN,keystonemiddleware=WARN,routes.middleware=WARN,stevedore=WARN,taskflow=WARN,keystoneauth=WARN,oslo.cache=INFO,oslo_policy=INFO,dogpile.core.dogpile=INFO",List of package logging levels in logger=LEVEL pairs. This option is ignored if log_config_append is set.,debuggability
+publish_errors,FALSE,Enables or disables publication of error events.,debuggability
+instance_format,"""[instance: %(uuid)s] """,The format for an instance that is passed with the log message.,debuggability
+instance_uuid_format,"""[instance: %(uuid)s] """,The format for an instance UUID that is passed with the log message.,debuggability
+rate_limit_interval,0,"Interval, number of seconds, of log rate limiting.",reliability
+rate_limit_burst,0,Maximum number of logged messages per rate_limit_interval.,reliability
+rate_limit_except_level,CRITICAL,"Log level name used by rate limiting: CRITICAL, ERROR, INFO, WARNING, DEBUG or empty string. Logs with level greater or equal to  rate_limit_except_level are not filtered. An empty string means that all levels are filtered.",debuggability
+fatal_deprecations,FALSE,Enables or disables fatal status of deprecations.,reliability
+state_path,/var/lib/neutron,Where to store Neutron state files. This directory must be writable by the agent.,environment
+bind_host,0.0.0.0,The host IP to bind to.,environment
+bind_port,9696,The port to bind to,environment
+api_extensions_path,'',"The path for API extensions. Note that this can be a colon-separated  list of paths. For example: api_extensions_path =  extensions:/path/to/more/exts:/even/more/exts. The __path__ of  neutron.extensions is appended to this, so if your extensions are in  there you don't need to specify them here.",environment
+auth_strategy,keystone,The type of authentication to use,security
+core_plugin,<None>,The core plugin Neutron will use,environment
+service_plugins,'',The service plugins Neutron will use,manageability
+base_mac,fa:16:3e:00:00:00,"The base MAC address Neutron will use for VIFs. The first 3 octets  will remain unchanged. If the 4th octet is not 00, it will also be used. The others will be randomly generated.",environment
+allow_bulk,TRUE,Allow the usage of the bulk API,manageability
+pagination_max_limit,-1,"The maximum number of items returned in a single response, value was 'infinite' or negative integer means no limit",reliability
+default_availability_zones,'',"Default value of availability zone hints. The availability zone aware schedulers use this when the resources availability_zone_hints is  empty. Multiple availability zones can be specified by a comma separated string. This value can be empty. In this case, even if  availability_zone_hints for a resource is empty, availability zone is  considered for high availability while scheduling the resource.",performance
+max_dns_nameservers,5,Maximum number of DNS nameservers per subnet,reliability
+max_subnet_host_routes,20,Maximum number of host routes per subnet,reliability
+ipv6_pd_enabled,FALSE,Enables IPv6 Prefix Delegation for automatic subnet CIDR allocation.  Set to True to enable IPv6 Prefix Delegation for subnet allocation in a  PD-capable environment. Users making subnet creation requests for IPv6  subnets without providing a CIDR or subnetpool ID will be given a CIDR  via the Prefix Delegation mechanism. Note that enabling PD will override the behavior of the default IPv6 subnetpool.,security
+dhcp_lease_duration,86400,DHCP lease duration (in seconds). Use -1 to tell dnsmasq to use infinite lease times.,reliability
+dns_domain,openstacklocal,Domain to use for building the hostnames,environment
+external_dns_driver,<None>,Driver for external DNS integration.,environment
+dhcp_agent_notification,TRUE,Allow sending resource operation notification to DHCP agent,security
+allow_overlapping_ips,FALSE,Allow overlapping IP support in Neutron. Attention: the following  parameter MUST be set to False if Neutron is being used in conjunction  with Nova security groups.,security
+host,example.domain,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",environment
+network_link_prefix,<None>,"This string is prepended to the normal URL that is returned in links  to the OpenStack Network API. If it is empty (the default), the URLs are returned unchanged.",environment
+notify_nova_on_port_status_changes,TRUE,Send notification to nova when port status changes,reliability
+notify_nova_on_port_data_changes,TRUE,Send notification to nova when port data (fixed_ips/floatingip) changes so nova can update its cache.,reliability
+send_events_interval,2,Number of seconds between sending events to nova if there are any events to send.,reliability
+setproctitle,on,"Set process name to match child worker role. Available options are:  'off' - retains the previous behavior; 'on' - renames processes to  'neutron-server: role (original string)'; 'brief' - renames the same as  'on', but without the original string, such as 'neutron-server: role'.",manageability
+ipam_driver,internal,"Neutron IPAM (IP address management) driver to use. By default, the reference implementation of the Neutron IPAM driver is used.",environment
+vlan_transparent,FALSE,"If True, then allow plugins that support it to create VLAN transparent networks.",manageability
+filter_validation,TRUE,"If True, then allow plugins to decide whether to perform validations  on filter parameters. Filter validation is enabled if this config is  turned on and it is supported by all plugins",manageability
+global_physnet_mtu,1500,"MTU of the underlying physical network. Neutron uses this value to  calculate MTU for all virtual network components. For flat and VLAN  networks, neutron uses this value without modification. For overlay  networks such as VXLAN, neutron automatically subtracts the overlay  protocol overhead from this value. Defaults to 1500, the standard value  for Ethernet.",others
+backlog,4096,Number of backlog requests to configure the socket with,performance
+retry_until_window,30,Number of seconds to keep retrying to listen,reliability
+use_ssl,FALSE,Enable SSL on the API server,security
+periodic_interval,40,Seconds between running periodic tasks.,reliability
+api_workers,<None>,"Number of separate API worker processes for service. If not  specified, the default is equal to the number of CPUs available for best performance, capped by potential RAM usage.",performance
+rpc_workers,<None>,"Number of RPC worker processes for service. If not specified, the default is equal to half the number of API workers.",performance
+rpc_state_report_workers,1,Number of RPC worker processes dedicated to state reports queue.,performance
+periodic_fuzzy_delay,5,Range of seconds to randomly delay when starting the periodic task scheduler to reduce stampeding. (Disable by setting to 0),performance
+rpc_response_max_timeout,600,Maximum seconds to wait for a response from an RPC call.,reliability
+interface_driver,<None>,The driver used to manage the virtual interface.,environment
+metadata_proxy_socket,$state_path/metadata_proxy,Location for Metadata Proxy UNIX domain socket.,environment
+metadata_proxy_user,'',User (uid or name) running metadata proxy after its initialization (if empty: agent effective user).,others
+metadata_proxy_group,'',Group (gid or name) running metadata proxy after its initialization (if empty: agent effective group).,others
+agent_down_time,75,"Seconds to regard the agent is down; should be at least twice report_interval, to be sure the agent is down for good.",reliability
+dhcp_load_type,networks,"Representing the resource type whose load is being reported by the  agent. This can be 'networks', 'subnets' or 'ports'. When specified  (Default is networks), the server will extract particular load sent as  part of its agent configuration object from the agent report state,  which is the number of resources being consumed, at every  report_interval.dhcp_load_type can be used in combination with  network_scheduler_driver =  neutron.scheduler.dhcp_agent_scheduler.WeightScheduler When the  network_scheduler_driver is WeightScheduler, dhcp_load_type can be  configured to represent the choice for the resource being balanced.  Example: dhcp_load_type=networks",manageability
+enable_new_agents,TRUE,"Agent starts with admin_state_up=False when enable_new_agents=False.  In the case, user's resources will not be scheduled automatically to the agent until admin changes admin_state_up to True.",reliability
+max_routes,30,Maximum number of routes per router,reliability
+enable_snat_by_default,TRUE,Define the default value of enable_snat if not provided in external_gateway_info.,reliability
+network_scheduler_driver,neutron.scheduler.dhcp_agent_scheduler.WeightScheduler,Driver to use for scheduling network to DHCP agent,environment
+network_auto_schedule,TRUE,Allow auto scheduling networks to DHCP agent.,manageability
+allow_automatic_dhcp_failover,TRUE,Automatically remove networks from offline DHCP agents.,reliability
+dhcp_agents_per_network,1,"Number of DHCP agents scheduled to host a tenant network. If this  number is greater than 1, the scheduler automatically assigns multiple  DHCP agents for a given tenant network, providing high availability for  DHCP service.",performance
+enable_services_on_agents_with_admin_state_down,FALSE,"Enable services on an agent with admin_state_up False. If this option is False, when admin_state_up of an agent is turned False, services on  it will be disabled. Agents with admin_state_up False are not selected  for automatic scheduling regardless of this option. But manual  scheduling to such agents is available if this option is True.",manageability
+dvr_base_mac,fa:16:3f:00:00:00,"The base mac address used for unique DVR instances by Neutron. The  first 3 octets will remain unchanged. If the 4th octet is not 00, it  will also be used. The others will be randomly generated. The  'dvr_base_mac' must be different from 'base_mac' to avoid  mixing them up with MAC's allocated for tenant ports. A 4 octet example  would be dvr_base_mac = fa:16:3f:4f:00:00. The default is 3 octet",environment
+router_distributed,FALSE,System-wide flag to determine the type of router that tenants can create. Only admin can override.,manageability
+enable_dvr,TRUE,"Determine if setup is configured for DVR. If False, DVR API extension will be disabled.",performance
+host_dvr_for_dhcp,TRUE,"Flag to determine if hosting a DVR local router to the DHCP agent is  desired. If False, any L3 function supported by the DHCP agent instance  will not be possible, for instance: DNS.",performance
+router_scheduler_driver,neutron.scheduler.l3_agent_scheduler.LeastRoutersScheduler,Driver to use for scheduling router to a default L3 agent,environment
+router_auto_schedule,TRUE,Allow auto scheduling of routers to L3 agent.,manageability
+allow_automatic_l3agent_failover,FALSE,Automatically reschedule routers from offline L3 agents to online L3 agents.,reliability
+l3_ha,FALSE,Enable HA mode for virtual routers.,reliability
+max_l3_agents_per_router,3,Maximum number of L3 agents which a HA router will be scheduled on.  If it is set to 0 then the router will be scheduled on every agent.,reliability
+l3_ha_net_cidr,169.254.192.0/18,Subnet used for the l3 HA admin network.,environment
+l3_ha_network_type,'',"The network type to use when creating the HA network for an HA  router. By default or if empty, the first 'tenant_network_types' is  used. This is helpful when the VRRP traffic should use a specific  network which is not the default one.",manageability
+l3_ha_network_physical_name,'',The physical network name with which the HA network can be created.,others
+max_allowed_address_pair,10,Maximum number of allowed address pairs,reliability
+root_helper,sudo,Root helper application. Use 'sudo neutron-rootwrap  /etc/neutron/rootwrap.conf' to use the real root filter facility. Change to 'sudo' to skip the filtering and just run the command directly.,security
+use_helper_for_ns_read,TRUE,"Use the root helper when listing the namespaces on a system. This may not be required depending on the security configuration. If the root  helper is not required, set this to False for a performance improvement.",security
+root_helper_daemon,<None>,Root helper daemon application to use when possible.,security
+report_interval,30,"Seconds between nodes reporting state to server; should be less than  agent_down_time, best if it is half or less than agent_down_time.",reliability
+log_agent_heartbeats,FALSE,Log agent heartbeats,reliability
+comment_iptables_rules,TRUE,Add comments to iptables rules. Set to false to disallow the addition of comments to generated iptables rules that describe each rule's  purpose. System must support the iptables comments module for addition  of comments.,manageability
+debug_iptables_rules,FALSE,Duplicate every iptables difference calculation to ensure the format  being generated matches the format of iptables-save. This option should  not be turned on for production systems because it imposes a performance penalty.,performance
+check_child_processes_action,respawn,Action to be executed when a child process dies,reliability
+check_child_processes_interval,60,"Interval between checks of child process liveness (seconds), use 0 to disable",reliability
+kill_scripts_path,/etc/neutron/kill_scripts/,"Location of scripts used to kill external processes. Names of scripts here must follow the pattern: '<process-name>-kill' where  <process-name> is name of the process which should be killed using this script. For example, kill script for dnsmasq process should be  named 'dnsmasq-kill'. If path is set to None, then default 'kill'  command will be used to stop processes.",environment
+availability_zone,nova,Availability zone of this node,manageability
+allowed_origin,<None>,"Indicate whether this resource may be shared with the domain received in the requests 'origin' header. Format:  '<protocol>://<host>[:<port>]', no trailing slash.  Example: https://horizon.example.com",manageability
+allow_credentials,TRUE,Indicate that the actual request can include user credentials,manageability
+expose_headers,"X-Auth-Token,X-Subject-Token,X-Service-Token,X-OpenStack-Request-ID,OpenStack-Volume-microversion",Indicate which headers are safe to expose to the API. Defaults to HTTP Simple Headers.,manageability
+max_age,3600,Maximum cache age of CORS preflight requests.,performance
+allow_methods,"GET,PUT,POST,DELETE,PATCH",Indicate which methods can be used during the actual request.,manageability
+allow_headers,"X-Auth-Token,X-Identity-Status,X-Roles,X-Service-Catalog,X-User-Id,X-Tenant-Id,X-OpenStack-Request-ID",Indicate which header field names may be used during the actual request.,manageability
+sqlite_synchronous,TRUE,"If True, SQLite uses synchronous mode.",manageability
+backend,sqlalchemy,The back end to use for the database.,environment
+connection,<None>,The SQLAlchemy connection string to use to connect to the database.,manageability
+slave_connection,<None>,The SQLAlchemy connection string to use to connect to the slave database.,manageability
+mysql_sql_mode,TRADITIONAL,"The SQL mode to be used for MySQL sessions. This option, including  the default, overrides any server-set SQL mode. To use whatever SQL mode is set by the server configuration, set this to no value. Example:  mysql_sql_mode=",manageability
+mysql_enable_ndb,FALSE,"If True, transparently enables support for handling MySQL Cluster (NDB).",others
+connection_recycle_time,3600,Connections which have been present in the connection pool longer  than this number of seconds will be replaced with a new one the next  time they are checked out from the pool.,reliability
+min_pool_size,1,Minimum number of SQL connections to keep open in a pool.,performance
+max_pool_size,5,Maximum number of SQL connections to keep open in a pool. Setting a value of 0 indicates no limit.,reliability
+max_retries,10,Maximum number of database connection retries during startup. Set to -1 to specify an infinite retry count.,reliability
+retry_interval,10,Interval between retries of opening a SQL connection.,reliability
+max_overflow,50,"If set, use this value for max_overflow with SQLAlchemy.",others
+connection_debug,0,"Verbosity of SQL debugging information: 0=None, 100=Everything.",debuggability
+connection_trace,FALSE,Add Python stack traces to SQL as comment strings.,debuggability
+pool_timeout,<None>,"If set, use this value for pool_timeout with SQLAlchemy.",reliability
+use_db_reconnect,FALSE,Enable the experimental use of database reconnect on connection lost.,reliability
+db_retry_interval,1,Seconds between retries of a database transaction.,reliability
+db_inc_retry_interval,TRUE,"If True, increases the interval between retries of a database operation up to db_max_retry_interval.",reliability
+db_max_retry_interval,10,"If db_inc_retry_interval is set, the maximum seconds between retries of a database operation.",reliability
+db_max_retries,20,Maximum retries in case of connection error or deadlock error before  error is raised. Set to -1 to specify an infinite retry count.,reliability
+connection_parameters,'',Optional URL parameters to append onto the connection URL at connect time; specify as param1=value1&param2=value2&',manageability
+engine,'',Database engine for which script will be generated when using offline migration.,environment
+www_authenticate_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint.",security
+auth_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint. This option is deprecated in favor of  www_authenticate_uri and will be removed in the S release.",security
+auth_version,<None>,API version of the admin Identity API endpoint.,environment
+delay_auth_decision,FALSE,"Do not handle authorization requests within the middleware, but  delegate the authorization decision to downstream WSGI components.",security
+http_connect_timeout,<None>,Request timeout value for communicating with Identity API server.,reliability
+http_request_max_retries,3,How many times are we trying to reconnect when communicating with Identity API Server.,reliability
+cache,<None>,"Request environment key where the Swift cache object is stored. When  auth_token middleware is deployed with a Swift cache, use this option to have the middleware share a caching backend with swift. Otherwise, use  the memcached_servers option instead.",performance
+certfile,<None>,Required if identity server requires client certificate,security
+keyfile,<None>,Required if identity server requires client certificate,security
+cafile,<None>,A PEM encoded Certificate Authority to use when verifying HTTPs connections. Defaults to system CAs.,security
+insecure,FALSE,Verify HTTPS connections.,security
+region_name,<None>,The region in which the identity server can be found.,environment
+signing_dir,<None>,Directory used to cache files related to PKI tokens. This option has  been deprecated in the Ocata release and will be removed in the P  release.,security
+memcached_servers,<None>,"Optionally specify a list of memcached server(s) to use for caching.  If left undefined, tokens will instead be cached in-process.",performance
+token_cache_time,300,"In order to prevent excessive effort spent validating tokens, the  middleware caches previously-seen tokens for a configurable duration (in seconds). Set to -1 to disable caching completely.",performance
+memcache_security_strategy,None,"(Optional) If defined, indicate whether token data should be  authenticated or authenticated and encrypted. If MAC, token data is  authenticated (with HMAC) in the cache. If ENCRYPT, token data is  encrypted and authenticated in the cache. If the value is not one of  these options or empty, auth_token will raise an exception on  initialization.",security
+memcache_secret_key,<None>,"(Optional, mandatory if memcache_security_strategy is defined) This string is used for key derivation.",security
+memcache_pool_dead_retry,300,(Optional) Number of seconds memcached server is considered dead before it is tried again.,reliability
+memcache_pool_maxsize,10,(Optional) Maximum total number of open connections to every memcached server.,reliability
+memcache_pool_socket_timeout,3,(Optional) Socket timeout in seconds for communicating with a memcached server.,reliability
+memcache_pool_unused_timeout,60,(Optional) Number of seconds a connection to memcached is held unused in the pool before it is closed.,reliability
+memcache_pool_conn_get_timeout,10,(Optional) Number of seconds that an operation will wait to get a memcached client connection from the pool.,reliability
+memcache_use_advanced_pool,FALSE,(Optional) Use the advanced (eventlet safe) memcached client pool. The advanced pool will only work under python 2.x.,reliability
+include_service_catalog,TRUE,"(Optional) Indicate whether to set the X-Service-Catalog header. If  False, middleware will not ask for service catalog on token validation  and will not set the X-Service-Catalog header.",manageability
+enforce_token_bind,permissive,Used to control the use and type of token binding. Can be set to:  'disabled' to not check token binding. 'permissive' (default) to  validate binding information if the bind type is of a form known to the  server and ignore it if not. 'strict' like 'permissive' but if the bind  type is unknown the token will be rejected. 'required' any form of token binding is needed to be allowed. Finally the name of a binding method  that must be present in tokens.,security
+hash_algorithms,md5,"Hash algorithms to use for hashing PKI tokens. This may be a single  algorithm or multiple. The algorithms are those supported by Python  standard hashlib.new(). The hashes will be tried in the order given, so  put the preferred one first for performance. The result of the first  hash will be stored in the cache. This will typically be set to multiple values only while migrating from a less secure algorithm to a more  secure one. Once all the old tokens are expired this option should be  set to a single value for better performance.",performance
+service_token_roles,service,A choice of roles that must be present in a service token. Service  tokens are allowed to request that an expired token can be used and so  this check should tightly control that only actual services should be  sending this token. Roles here are applied as an ANY check so any role  in this list must be present. For backwards compatibility reasons this  currently only affects the allow_expired check.,security
+service_token_roles_required,FALSE,For backwards compatibility reasons we must let valid service tokens  pass that don't pass the service_token_roles check as valid. Setting  this true will become the default in a future release and should be  enabled if possible.,security
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,security
+region_name,<None>,Name of nova region to use. Useful if keystone manages more than one region.,others
+endpoint_type,public,"Type of the nova endpoint to use.  This endpoint will be looked up in the keystone catalog and should be one of public, internal or admin.",security
+auth_url,<None>,Authentication URL,security
+auth_type,<None>,Authentication type to load,security
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,security
+certfile,<None>,PEM encoded client certificate cert file,security
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,environment
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+domain_id,<None>,Domain ID to scope to,others
+domain_name,<None>,Domain name to scope to,others
+insecure,FALSE,Verify HTTPS connections.,security
+keyfile,<None>,PEM encoded client certificate key file,security
+password,<None>,User's password,security
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+project_id,<None>,Project ID to scope to,others
+project_name,<None>,Project name to scope to,others
+split_loggers,FALSE,Log requests to multiple loggers.,manageability
+system_scope,<None>,Scope for system operations,others
+tenant_id,<None>,Tenant ID,others
+tenant_name,<None>,Tenant Name,others
+timeout,<None>,Timeout value for http requests,reliability
+trust_id,<None>,Trust ID,security
+user_domain_id,<None>,User's domain id,security
+user_domain_name,<None>,User's domain name,security
+user_id,<None>,User id,security
+username,<None>,Username,security
+disable_process_locking,FALSE,Enables or disables inter-process locks.,reliability
+lock_path,<None>,"Directory to use for lock files.  For security, the specified  directory should only be writable by the user running the processes that need locking. Defaults to environment variable OSLO_LOCK_PATH. If  external locks are used, a lock path must be set.",security
+container_name,<None>,Name for the AMQP container. must be globally unique. Defaults to a generated UUID,others
+idle_timeout,0,Timeout for inactive connections (in seconds),reliability
+trace,FALSE,Debug: dump AMQP frames to stdout,debuggability
+ssl,FALSE,"Attempt to connect via SSL. If no other ssl-related parameters are  given, it will use the system's CA-bundle to verify the server's  certificate.",security
+ssl_ca_file,'',CA certificate PEM file used to verify the server's certificate,security
+ssl_cert_file,'',Self-identifying certificate PEM file for client authentication,security
+ssl_key_file,'',Private key PEM file used to sign ssl_cert_file certificate (optional),security
+ssl_key_password,<None>,Password for decrypting ssl_key_file (if encrypted),security
+ssl_verify_vhost,FALSE,"By default SSL checks that the name in the server's certificate  matches the hostname in the transport_url. In some configurations it may be preferable to use the virtual hostname instead, for example if the  server uses the Server Name Indication TLS extension (rfc6066) to  provide a certificate per virtual host. Set ssl_verify_vhost to True if  the server's SSL certificate uses the virtual host name instead of the  DNS name.",security
+sasl_mechanisms,'',Space separated list of acceptable SASL mechanisms,security
+sasl_config_dir,'',Path to directory that contains the SASL configuration,security
+sasl_config_name,'',Name of configuration file (without .conf suffix),security
+sasl_default_realm,'',SASL realm to use if no realm present in username,security
+connection_retry_interval,1,Seconds to pause before attempting to re-connect.,reliability
+connection_retry_backoff,2,Increase the connection_retry_interval by this many seconds after each unsuccessful failover attempt.,reliability
+connection_retry_interval_max,30,Maximum limit for connection_retry_interval + connection_retry_backoff,reliability
+link_retry_delay,10,Time to pause between re-connecting an AMQP 1.0 link that failed due to a recoverable error.,reliability
+default_reply_retry,0,The maximum number of attempts to re-send a reply message which failed due to a recoverable error.,reliability
+default_reply_timeout,30,The deadline for an rpc reply message delivery.,reliability
+default_send_timeout,30,The deadline for an rpc cast or call message delivery. Only used when caller does not provide a timeout expiry.,reliability
+default_notify_timeout,30,The deadline for a sent notification message delivery. Only used when caller does not provide a timeout expiry.,reliability
+default_sender_link_timeout,600,The duration to schedule a purge of idle sender links. Detach link after expiry.,reliability
+addressing_mode,dynamic,Indicates the addressing mode used by the driver. Permitted values: 'legacy'   - use legacy non-routable addressing 'routable' - use routable addresses 'dynamic'  - use legacy addresses if the message bus does not support routing otherwise use routable addressing,security
+pseudo_vhost,TRUE,"Enable virtual host support for those message buses that do not  natively support virtual hosting (such as qpidd). When set to true the  virtual host name will be added to all message bus addresses,  effectively creating a private 'subnet' per virtual host. Set to False  if the message bus supports virtual hosting using the 'hostname' field  in the AMQP 1.0 Open performative as the name of the virtual host.",security
+server_request_prefix,exclusive,address prefix used when sending to a specific server,manageability
+broadcast_prefix,broadcast,address prefix used when broadcasting to all servers,manageability
+group_request_prefix,unicast,address prefix when sending to any server in group,manageability
+rpc_address_prefix,openstack.org/om/rpc,Address prefix for all generated RPC addresses,manageability
+notify_address_prefix,openstack.org/om/notify,Address prefix for all generated Notification addresses,manageability
+multicast_address,multicast,Appended to the address prefix when sending a fanout message. Used by the message bus to identify fanout messages.,manageability
+unicast_address,unicast,Appended to the address prefix when sending to a particular  RPC/Notification server. Used by the message bus to identify messages  sent to a single destination.,environment
+anycast_address,anycast,Appended to the address prefix when sending to a group of consumers.  Used by the message bus to identify messages that should be delivered in a round-robin fashion across consumers.,environment
+default_notification_exchange,<None>,Exchange name used in notification addresses. Exchange name resolution precedence: Target.exchange if set else default_notification_exchange if set else control_exchange if set else 'notify',others
+default_rpc_exchange,<None>,Exchange name used in RPC addresses. Exchange name resolution precedence: Target.exchange if set else default_rpc_exchange if set else control_exchange if set else 'rpc',others
+reply_link_credit,200,Window size for incoming RPC Reply messages.,performance
+rpc_server_credit,100,Window size for incoming RPC Request messages,performance
+notify_server_credit,100,Window size for incoming Notification messages,performance
+pre_settled,rpc-cast,Send messages of this type pre-settled. Pre-settled messages will not receive acknowledgement from the peer. Note well: pre-settled messages may be silently discarded if the delivery fails. Permitted values: 'rpc-call' - send RPC Calls pre-settled 'rpc-reply'- send RPC Replies pre-settled 'rpc-cast' - Send RPC Casts pre-settled 'notify'   - Send Notifications pre-settled,others
+kafka_max_fetch_bytes,1048576,Max fetch bytes of Kafka consumer,performance
+kafka_consumer_timeout,1,Default timeout(s) for Kafka consumers,reliability
+pool_size,10,Pool Size for Kafka Consumers,performance
+conn_pool_min_size,2,The pool size limit for connections expiration policy,reliability
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability
+consumer_group,oslo_messaging_consumer,Group id for Kafka consumer. Consumers in one group will coordinate message consumption,others
+producer_batch_timeout,0,Upper bound on the delay for KafkaProducer batching in seconds,reliability
+producer_batch_size,16384,Size of batch for the producer async send,performance
+enable_auto_commit,FALSE,Enable asynchronous consumer commits,manageability
+max_poll_records,500,The maximum number of records returned in a poll call,performance
+security_protocol,PLAINTEXT,Protocol used to communicate with brokers,security
+sasl_mechanism,PLAIN,Mechanism when security protocol is SASL,security
+ssl_cafile,'',CA certificate PEM file used to verify the server certificate,security
+driver,'',"The Drivers(s) to handle sending notifications. Possible values are messaging, messagingv2, routing, log, test, noop",environment
+transport_url,<None>,"A URL representing the messaging driver to use for notifications. If  not set, we fall back to the same configuration used for RPC.",environment
+topics,notifications,AMQP topic used for OpenStack notifications.,manageability
+retry,-1,"The maximum number of attempts to re-send a notification message  which failed to be delivered due to a recoverable error. 0 - No retry,  -1 - indefinite",reliability
+amqp_durable_queues,FALSE,Use durable queues in AMQP.,manageability
+amqp_auto_delete,FALSE,Auto-delete queues in AMQP.,manageability
+ssl,FALSE,Connect over SSL.,security
+ssl_version,'',"SSL version to use (valid only if SSL enabled). Valid values are  TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1, and TLSv1_2 may be available on some distributions.",security
+ssl_key_file,'',SSL key file (valid only if SSL enabled).,security
+ssl_cert_file,'',SSL cert file (valid only if SSL enabled).,security
+ssl_ca_file,'',SSL certification authority file (valid only if SSL enabled).,security
+kombu_reconnect_delay,1,How long to wait before reconnecting in response to an AMQP consumer cancel notification.,reliability
+kombu_compression,<None>,"EXPERIMENTAL: Possible values are: gzip, bz2. If not set compression  will not be used. This option may not be available in future versions.",performance
+kombu_missing_consumer_retry_timeout,60,How long to wait a missing client before abandoning to send it its  replies. This value should not be longer than rpc_response_timeout.,reliability
+kombu_failover_strategy,round-robin,Determines how the next RabbitMQ node is chosen in case the one we  are currently connected to becomes unavailable. Takes effect only if  more than one RabbitMQ node is provided in config.,reliability
+rabbit_login_method,AMQPLAIN,The RabbitMQ login method.,manageability
+rabbit_retry_interval,1,How frequently to retry connecting with RabbitMQ.,reliability
+rabbit_retry_backoff,2,How long to backoff for between retries when connecting to RabbitMQ.,reliability
+rabbit_interval_max,30,Maximum interval of RabbitMQ connection retries. Default is 30 seconds.,reliability
+rabbit_ha_queues,FALSE,"Try to use HA queues in RabbitMQ (x-ha-policy: all). If you change  this option, you must wipe the RabbitMQ database. In RabbitMQ 3.0, queue mirroring is no longer controlled by the x-ha-policy argument when  declaring a queue. If you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:  'rabbitmqctl set_policy HA '^(?!amq.).*' '{'ha-mode': 'all'}' '",manageability
+rabbit_transient_queues_ttl,1800,Positive integer representing duration in seconds for queue TTL  (x-expires). Queues which are unused for the duration of the TTL are  automatically deleted. The parameter affects only reply and fanout  queues.,performance
+rabbit_qos_prefetch_count,0,Specifies the number of messages to prefetch. Setting to zero allows unlimited messages.,performance
+heartbeat_timeout_threshold,60,Number of seconds after which the Rabbit broker is considered down if heartbeat's keep-alive fails (0 disable the heartbeat). EXPERIMENTAL,reliability
+heartbeat_rate,2,How often times during the heartbeat_timeout_threshold we check the heartbeat.,reliability
+enable_proxy_headers_parsing,FALSE,Whether the application is behind a proxy or not. This determines if the middleware should parse the headers or not.,manageability
+enforce_scope,FALSE,"This option controls whether or not to enforce scope when evaluating policies. If True, the scope of the token used in the request is compared to the scope_types of the policy being enforced. If the scopes do not match, an InvalidScope exception will be raised. If False, a message will be logged informing operators that policies are being invoked with mismatching scope.",manageability
+policy_file,policy.json,The file that defines policies.,manageability
+policy_default_rule,default,Default rule. Enforced when a requested rule is not found.,reliability
+policy_dirs,policy.d,"Directories where policy configuration files are stored. They can be  relative to any directory in the search path defined by the config_dir  option, or absolute paths. The file defined by policy_file must exist  for these directories to be searched.  Missing or empty directories are  ignored.",environment
+remote_content_type,application/x-www-form-urlencoded,Content Type to send and receive data for REST based policy check,manageability
+remote_ssl_verify_server_crt,FALSE,server identity verification for REST based policy check,security
+remote_ssl_ca_crt_file,<None>,Absolute path to ca cert file for REST based policy check,environment
+remote_ssl_client_crt_file,<None>,Absolute path to client cert for REST based policy check,environment
+remote_ssl_client_key_file,<None>,Absolute path client key file REST based policy check,environment
+user,<None>,User that the privsep daemon should run as.,others
+group,<None>,Group that the privsep daemon should run as.,manageability
+capabilities,[],List of Linux capabilities retained by the privsep daemon.,others
+thread_pool_size,8,The number of threads available for privsep to concurrently run processes. Defaults to the number of CPU cores in the system.,performance
+helper_command,<None>,"Command to invoke to start the privsep daemon if not using the 'fork' method. If not specified, a default is generated using 'sudo  privsep-helper' and arguments designed to recreate the current  configuration. This command must accept suitable --privsep_context and  --privsep_sock_path arguments.",manageability
+default_quota,-1,Default number of resource allowed per tenant. A negative value means unlimited.,reliability
+quota_network,100,Number of networks allowed per tenant. A negative value means unlimited.,performance
+quota_subnet,100,"Number of subnets allowed per tenant, A negative value means unlimited.",performance
+quota_port,500,Number of ports allowed per tenant. A negative value means unlimited.,reliability
+quota_driver,neutron.db.quota.driver.DbQuotaDriver,Default driver to use for quota checks.,manageability
+track_quota_usage,TRUE,Keep in track in the database of current resource quota usage.  Plugins which do not leverage the neutron database should set this flag  to False.,debuggability
+quota_router,10,Number of routers allowed per tenant. A negative value means unlimited.,reliability
+quota_floatingip,50,Number of floating IPs allowed per tenant. A negative value means unlimited.,performance
+quota_security_group,10,Number of security groups allowed per tenant. A negative value means unlimited.,reliability
+quota_security_group_rule,100,Number of security rules allowed per tenant. A negative value means unlimited.,reliability
+ca_file,<None>,CA certificate file to use to verify connecting clients.,security
+cert_file,<None>,Certificate file to use when starting the server securely.,security
+key_file,<None>,Private key file to use when starting the server securely.,security
+version,<None>,"SSL version to use (valid only if SSL enabled). Valid values are  TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1, and TLSv1_2 may be available on some distributions.",security
+ciphers,<None>,Sets the list of available ciphers. value should be a string in the OpenSSL cipher list format.,manageability

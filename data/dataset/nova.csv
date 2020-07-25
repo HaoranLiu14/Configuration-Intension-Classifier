@@ -1,0 +1,1042 @@
+name,default,description,label
+run_external_periodic_tasks,TRUE,Some periodic tasks can be run in a separate process. Should we run them here?,manageability
+backdoor_port,<None>,"Enable eventlet backdoor.  Acceptable values are 0, <port>, and <start>:<end>, where 0 results in listening on a random tcp port number; <port> results in listening on the specified port  number (and not enabling backdoor if that port is in use); and  <start>:<end> results in listening on the smallest unused  port number within the specified range of port numbers.  The chosen port is displayed in the service's log file.",environment
+backdoor_socket,<None>,"Enable eventlet backdoor, using the provided path as a unix socket  that can receive connections. This option is mutually exclusive with  'backdoor_port' in that only one should be provided. If both are  provided then the existence of this option overrides the usage of that  option.",security
+log_options,TRUE,Enables or disables logging values of all registered options when starting a service (at DEBUG level).,debuggability
+graceful_shutdown_timeout,60,Specify a timeout after which a gracefully shutdown server will exit. Zero value means endless wait.,reliability
+rpc_conn_pool_size,30,Size of RPC connection pool.,performance
+conn_pool_min_size,2,The pool size limit for connections expiration policy,reliability
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability
+executor_thread_pool_size,64,Size of executor thread pool when executor is threading or eventlet.,performance
+rpc_response_timeout,60,Seconds to wait for a response from a call.,reliability
+transport_url,rabbit://,"The network address and optional user credentials for connecting to  the messaging backend, in URL format. The expected format is:",environment
+control_exchange,openstack,The default exchange under which topics are scoped. May be overridden by an exchange name specified in the transport_url option.,security
+debug,FALSE,"If set to true, the logging level will be set to DEBUG instead of the default INFO level.",debuggability
+log_config_append,<None>,"The name of a logging configuration file. This file is appended to  any existing logging configuration files. For details about logging  configuration files, see the Python logging module documentation. Note  that when logging configuration files are used then all logging  configuration is set in the configuration file and other logging  configuration options are ignored (for example, log-date-format).",environment
+log_date_format,%Y-%m-%d %H:%M:%S,Defines the format string for %(asctime)s in log records. Default:  the value above . This option is ignored if log_config_append is set.,debuggability
+log_file,<None>,"(Optional) Name of log file to send logging output to. If no default  is set, logging will go to stderr as defined by use_stderr. This option  is ignored if log_config_append is set.",debuggability
+log_dir,<None>,(Optional) The base directory used for relative log_file  paths. This option is ignored if log_config_append is set.,environment
+watch_log_file,FALSE,Uses logging handler designed to watch file system. When log file is  moved or removed this handler will open a new log file with specified  path instantaneously. It makes sense only if log_file option is  specified and Linux platform is used. This option is ignored if  log_config_append is set.,debuggability
+use_syslog,FALSE,Use syslog for logging. Existing syslog format is DEPRECATED and will be changed later to honor RFC5424. This option is ignored if  log_config_append is set.,security
+use_journal,FALSE,Enable journald for logging. If running in a systemd environment you  may wish to enable journal support. Doing so will use the journal native protocol which includes structured metadata in addition to log  messages.This option is ignored if log_config_append is set.,debuggability
+syslog_log_facility,LOG_USER,Syslog facility to receive log lines. This option is ignored if log_config_append is set.,debuggability
+use_json,FALSE,Use JSON formatting for logging. This option is ignored if log_config_append is set.,manageability
+use_stderr,FALSE,Log output to standard error. This option is ignored if log_config_append is set.,debuggability
+use_eventlog,FALSE,Log output to Windows Event Log.,debuggability
+log_rotate_interval,1,The amount of time before the log files are rotated. This option is ignored unless log_rotation_type is setto 'interval'.,reliability
+log_rotate_interval_type,days,Rotation interval type. The time of the last file change (or the time when the service was started) is used when scheduling the next  rotation.,reliability
+max_logfile_count,30,Maximum number of rotated log files.,performance
+max_logfile_size_mb,200,Log file maximum size in MB. This option is ignored if 'log_rotation_type' is not set to 'size'.,performance
+log_rotation_type,none,Log rotation type.,debuggability
+logging_context_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [%(request_id)s %(user_identity)s] %(instance)s%(message)s,Format string to use for log messages with context. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_default_format_string,%(asctime)s.%(msecs)03d %(process)d %(levelname)s %(name)s [-] %(instance)s%(message)s,Format string to use for log messages when context is undefined. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_debug_format_suffix,%(funcName)s %(pathname)s:%(lineno)d,Additional data to append to log message when logging level for the  message is DEBUG. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_exception_prefix,%(asctime)s.%(msecs)03d %(process)d ERROR %(name)s %(instance)s,Prefix each line of exception output with this format. Used by oslo_log.formatters.ContextFormatter,debuggability
+logging_user_identity_format,%(user)s %(tenant)s %(domain)s %(user_domain)s %(project_domain)s,Defines the format string for %(user_identity)s that is used in  logging_context_format_string. Used by  oslo_log.formatters.ContextFormatter,debuggability
+default_log_levels,"amqp=WARN,amqplib=WARN,boto=WARN,qpid=WARN,sqlalchemy=WARN,suds=INFO,oslo.messaging=INFO,oslo_messaging=INFO,iso8601=WARN,requests.packages.urllib3.connectionpool=WARN,urllib3.connectionpool=WARN,websocket=WARN,requests.packages.urllib3.util.retry=WARN,urllib3.util.retry=WARN,keystonemiddleware=WARN,routes.middleware=WARN,stevedore=WARN,taskflow=WARN,keystoneauth=WARN,oslo.cache=INFO,oslo_policy=INFO,dogpile.core.dogpile=INFO",List of package logging levels in logger=LEVEL pairs. This option is ignored if log_config_append is set.,debuggability
+publish_errors,FALSE,Enables or disables publication of error events.,reliability
+instance_format,"""[instance: %(uuid)s] """,The format for an instance that is passed with the log message.,environment
+instance_uuid_format,"""[instance: %(uuid)s] """,The format for an instance UUID that is passed with the log message.,environment
+rate_limit_interval,0,"Interval, number of seconds, of log rate limiting.",reliability
+rate_limit_burst,0,Maximum number of logged messages per rate_limit_interval.,reliability
+rate_limit_except_level,CRITICAL,"Log level name used by rate limiting: CRITICAL, ERROR, INFO, WARNING, DEBUG or empty string. Logs with level greater or equal to  rate_limit_except_level are not filtered. An empty string means that all levels are filtered.",debuggability
+fatal_deprecations,FALSE,Enables or disables fatal status of deprecations.,debuggability
+internal_service_availability_zone,internal,Availability zone for internal services.,security
+default_availability_zone,nova,Default availability zone for compute services.,manageability
+default_schedule_zone,<None>,Default availability zone for instances.,environment
+password_length,12,Length of generated instance admin passwords.,environment
+instance_usage_audit_period,month,Time period to generate instance usages for. It is possible to define optional offset to given period by appending @ character followed by a number defining offset.,manageability
+use_rootwrap_daemon,FALSE,Start and use a daemon that can run the commands that need to be run with root privileges. This option is usually enabled on nodes that run nova compute processes.,performance
+rootwrap_config,/etc/nova/rootwrap.conf,Path to the rootwrap configuration file.,environment
+tempdir,<None>,Explicitly specify the temporary working directory.,environment
+compute_driver,<None>,Defines which driver to use for controlling virtualization.,manageability
+allow_resize_to_same_host,FALSE,Allow destination machine to match source for resize. Useful when testing in single-host environments. By default it is not allowed to resize to the same host. Setting this option to true will add the same host to the destination options. Also set to true if you allow the ServerGroupAffinityFilter and need to resize.,reliability
+non_inheritable_image_properties,"cache_in_nova,bittorrent,img_signature_hash_method,img_signature,img_signature_key_type,img_signature_certificate_uuid",Image properties that should not be inherited from the instance when taking a snapshot.,manageability
+max_local_block_devices,3,Maximum number of devices that will result in a local image being created on the hypervisor node.,performance
+compute_monitors,'',"A comma-separated list of monitors that can be used for getting compute metrics. You can use the alias/name from the setuptools entry points for nova.compute.monitors.* namespaces. If no namespace is supplied, the 'cpu.' namespace is assumed for backwards-compatibility.",manageability
+default_ephemeral_format,<None>,The default format an ephemeral_volume will be formatted with on creation.,manageability
+vif_plugging_is_fatal,TRUE,Determine if instance should boot or fail on VIF plugging timeout.,reliability
+vif_plugging_timeout,300,Timeout for Neutron VIF plugging event message arrival.,reliability
+injected_network_template,$pybasedir/nova/virt/interfaces.template,Path to '/etc/network/interfaces' template.,environment
+preallocate_images,none,The image preallocation mode to use.,environment
+use_cow_images,TRUE,Enable use of copy-on-write (cow) images.,manageability
+force_raw_images,TRUE,Force conversion of backing images to raw format.,manageability
+virt_mkfs,'',Name of the mkfs commands for ephemeral device.,others
+resize_fs_using_block_device,FALSE,Enable resizing of filesystems via a block device.,performance
+timeout_nbd,10,"Amount of time, in seconds, to wait for NBD device start up.",reliability
+image_cache_subdirectory_name,_base,Location of cached images.,environment
+remove_unused_base_images,TRUE,Should unused base images be removed?,manageability
+remove_unused_original_minimum_age_seconds,86400,Unused unresized base images younger than this will not be removed.,manageability
+pointer_model,usbtablet,Generic property to specify the pointer type.,manageability
+vcpu_pin_set,<None>,Defines which physical CPUs (pCPUs) can be used by instance virtual CPUs (vCPUs).,performance
+reserved_huge_pages,<None>,Number of huge/large memory pages to reserved per NUMA host cell.,performance
+reserved_host_disk_mb,0,"Amount of disk resources in MB to make them always available to host. The disk usage gets reported back to the scheduler from nova-compute running on the compute nodes. To prevent the disk resources from being considered as available, this option can be used to reserve disk space for that host.",performance
+reserved_host_memory_mb,512,"Amount of memory in MB to reserve for the host so that it is always available to host processes. The host resources usage is reported back to the scheduler continuously from nova-compute running on the compute node. To prevent the host memory from being considered as available, this option is used to reserve memory for the host.",performance
+reserved_host_cpus,0,"Number of physical CPUs to reserve for the host. The host resources usage is reported back to the scheduler continuously from nova-compute running on the compute node. To prevent the host CPU from being considered as available, this option is used to reserve random pCPU(s) for the host.",performance
+cpu_allocation_ratio,<None>,This option helps you specify virtual CPU to physical CPU allocation ratio.,performance
+ram_allocation_ratio,<None>,This option helps you specify virtual RAM to physical RAM allocation ratio.,performance
+disk_allocation_ratio,<None>,This option helps you specify virtual disk to physical disk allocation ratio.,performance
+initial_cpu_allocation_ratio,16,This option helps you specify initial virtual CPU to physical CPU allocation ratio.,performance
+initial_ram_allocation_ratio,1.5,This option helps you specify initial virtual RAM to physical RAM allocation ratio.,performance
+initial_disk_allocation_ratio,1,This option helps you specify initial virtual disk to physical disk allocation ratio.,performance
+console_host,<current_hostname>,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+default_access_ip_network_name,<None>,"Name of the network to be used to set access IPs for instances. If there are multiple IPs to choose from, an arbitrary one will be chosen.",performance
+instances_path,$state_path/instances,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+instance_usage_audit,FALSE,This option enables periodic compute.instance.exists notifications. Each compute node must be configured to generate system usage data. These notifications are consumed by OpenStack Telemetry service.,performance
+live_migration_retry_count,30,Maximum number of 1 second retries in live_migration. It specifies number of retries to iptables when it complains. It happens when an user continuously sends live-migration request to same host leading to concurrent request to iptables.,reliability
+resume_guests_state_on_host_boot,FALSE,This option specifies whether to start guests that were running before the host rebooted. It ensures that all of the instances on a Nova compute node resume their state each time the compute node boots or restarts.,manageability
+network_allocate_retries,0,Number of times to retry network allocation. It is required to attempt network allocation retries if the virtual interface plug fails.,reliability
+max_concurrent_builds,10,"Limits the maximum number of instance builds to run concurrently by nova-compute. Compute service can attempt to build an infinite number of instances, if asked to do so. This limit is enforced to avoid building unlimited instance concurrently on a compute node. This value can be set per compute node.",performance
+max_concurrent_live_migrations,1,Maximum number of live migrations to run concurrently. This limit is enforced to avoid outbound live migrations overwhelming the host/network and causing failures. It is not recommended that you change this unless you are very sure that doing so is safe and stable in your environment.,reliability
+block_device_allocate_retries,60,"Number of times to retry block device allocation on failures. Starting with Liberty, Cinder can use image volume cache. This may help with block device allocation performance. Look at the cinder image_volume_cache_enabled configuration option.",performance
+sync_power_state_pool_size,1000,Number of greenthreads available for use to sync power states.,performance
+image_cache_manager_interval,2400,Number of seconds to wait between runs of the image cache manager.,performance
+bandwidth_poll_interval,600,Interval to pull network bandwidth usage info.,manageability
+sync_power_state_interval,600,Interval to sync power states between the database and the hypervisor.,performance
+heal_instance_info_cache_interval,60,Interval between instance network information cache updates.,reliability
+reclaim_instance_interval,0,Interval for reclaiming deleted instances.,security
+volume_usage_poll_interval,0,Interval for gathering volume usages.,manageability
+shelved_poll_interval,3600,Interval for polling shelved instances to offload.,manageability
+shelved_offload_time,0,Time before a shelved instance is eligible for removal from a host.,reliability
+instance_delete_interval,300,Interval for retrying failed instance file deletes.,reliability
+block_device_allocate_retries_interval,3,Interval (in seconds) between block device allocation retries on failures.,reliability
+scheduler_instance_sync_interval,120,Interval between sending the scheduler a list of current instance UUIDs to verify that its view of instances is in sync with nova.,reliability
+update_resources_interval,0,Interval for updating compute resources.,reliability
+reboot_timeout,0,Time interval after which an instance is hard rebooted automatically.,reliability
+instance_build_timeout,0,Maximum time in seconds that an instance can take to build.,reliability
+rescue_timeout,0,Interval to wait before un-rescuing an instance stuck in RESCUE.,reliability
+resize_confirm_window,0,Automatically confirm resizes after N seconds.,reliability
+shutdown_timeout,60,Total time to wait in seconds for an instance to perform a clean shutdown.,reliability
+running_deleted_instance_action,reap,The compute service periodically checks for instances that have been deleted in the database but remain running on the compute node. The above option enables action to be taken when such instances are identified.,reliability
+running_deleted_instance_poll_interval,1800,"Time interval in seconds to wait between runs for the clean up action. If set to 0, above check will be disabled. If 'running_deleted_instance _action' is set to 'log' or 'reap', a value greater than 0 must be set.",reliability
+running_deleted_instance_timeout,0,Time interval in seconds to wait for the instances that have been marked as deleted in database to be eligible for cleanup.,reliability
+maximum_instance_delete_attempts,5,The number of times to attempt to reap an instance's files.,reliability
+osapi_compute_unique_server_name_scope,'',Sets the scope of the check for unique instance names.,security
+enable_new_services,TRUE,Enable new nova-compute services on this host automatically.,manageability
+instance_name_template,instance-%08x,Template string to be used to generate instance names.,environment
+migrate_max_retries,-1,Number of times to retry live-migration before failing.,reliability
+config_drive_format,iso9660,Configuration drive format,environment
+force_config_drive,FALSE,Force injection to take place on a config drive,performance
+mkisofs_cmd,genisoimage,Name or path of the tool used for ISO image creation,others
+default_flavor,m1.small,Default flavor to use for the EC2 API only. The Nova API does not support a default flavor.,manageability
+my_ip,<host_ipv4>,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+my_block_storage_ip,$my_ip,The IP address which is used to connect to the block storage network.,environment
+host,<current_hostname>,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",others
+dhcpbridge_flagfile,/etc/nova/nova-dhcpbridge.conf,"This option is a list of full paths to one or more configuration files for dhcpbridge. In most cases the default path of '/etc/nova/nova-dhcpbridge.conf' should be sufficient, but if you have special needs for configuring dhcpbridge, you can change or add to this list.",environment
+networks_path,$state_path/networks,The location where the network configuration files will be kept. The default is the 'networks' directory off of the location where nova's Python module is installed.,environment
+public_interface,eth0,This is the name of the network interface for public IP addresses. The default is 'eth0'.,others
+dhcpbridge,$bindir/nova-dhcpbridge,The location of the binary nova-dhcpbridge. By default it is the binary named 'nova-dhcpbridge' that is installed with all the other nova binaries.,environment
+routing_source_ip,$my_ip,The public IP address of the network host.,environment
+dhcp_lease_time,86400,"The lifetime of a DHCP lease, in seconds. The default is 86400 (one day).",reliability
+dns_server,'',"Despite the singular form of the name of this option, it is actually a list of zero or more server addresses that dnsmasq will use for DNS nameservers. If this is not empty, dnsmasq will not read /etc/resolv.conf, but will only use the servers specified in this option. If the option use_network_dns_servers is True, the dns1 and dns2 servers from the network will be appended to this list, and will be used as DNS servers, too.",environment
+use_network_dns_servers,FALSE,"When this option is set to True, the dns1 and dns2 servers for the network specified by the user on boot will be used for DNS, as well as any specified in the dns_server option.",security
+dmz_cidr,'',This option is a list of zero or more IP address ranges in your network's DMZ that should be accepted.,security
+force_snat_range,'',"This is a list of zero or more IP ranges that traffic from the routing_source_ip will be SNATted to. If the list is empty, then no SNAT rules are created.",reliability
+dnsmasq_config_file,'',"The path to the custom dnsmasq configuration file, if any.",environment
+linuxnet_interface_driver,nova.network.linux_net.LinuxBridgeInterfaceDriver,"This is the class used as the ethernet device driver for linuxnet bridge operations. The default value should be all you need for most cases, but if you wish to use a customized class, set this option to the full dot-separated import path for that class.",environment
+linuxnet_ovs_integration_bridge,br-int,The name of the Open vSwitch bridge that is used with linuxnet when connecting with Open vSwitch.',security
+send_arp_for_ha,FALSE,"When True, when a device starts up, and upon binding floating IP addresses, arp messages will be sent to ensure that the arp caches on the compute hosts are up-to-date.",reliability
+send_arp_for_ha_count,3,"When arp messages are configured to be sent, they will be sent with the count set to the value of this option. Of course, if this is set to zero, no arp messages will be sent.",manageability
+use_single_default_gateway,FALSE,"When set to True, only the firt nic of a VM will get its default gateway from the DHCP server.",security
+forward_bridge_interface,all,"One or more interfaces that bridges can forward traffic to. If any of the items in this list is the special keyword 'all', then all traffic will be forwarded.",manageability
+metadata_host,$my_ip,This option determines the IP address for the network metadata API server.,environment
+metadata_port,8775,This option determines the port used for the metadata API server.,manageability
+iptables_top_regex,'',"This expression, if defined, will select any matching iptables rules and place them at the top when applying metadata changes to the rules.",manageability
+iptables_bottom_regex,'',"This expression, if defined, will select any matching iptables rules and place them at the bottom when applying metadata changes to the rules.",manageability
+iptables_drop_action,DROP,"By default, packets that do not pass the firewall are DROPped. In many cases, though, an operator may find it more useful to change this from DROP to REJECT, so that the user issuing those packets may have a better idea as to what's going on, or LOGDROP in order to record the blocked traffic before DROPping.",performance
+defer_iptables_apply,FALSE,Defer application of IPTables rules until after init phase.,reliability
+ovs_vsctl_timeout,120,"This option represents the period of time, in seconds, that the ovs_vsctl calls will wait for a response from the database before timing out. A setting of 0 means that the utility should wait forever for a response.",reliability
+fake_network,FALSE,This option is used mainly in testing to avoid calls to the underlying network utilities.,security
+ebtables_exec_attempts,3,This option determines the number of times to retry ebtables commands before giving up. The minimum number of retries is 1.,reliability
+ebtables_retry_interval,1,"This option determines the time, in seconds, that the system will sleep in between ebtables retries. Note that each successive retry waits a multiple of this value, so for example, if this is set to the default of 1.0 seconds, and ebtables_exec_attempts is 4, after the first failure, the system will sleep for 1 * 1.0 seconds, after the second failure it will sleep 2 * 1.0 seconds, and after the third failure it will sleep 3 * 1.0 seconds.",reliability
+use_neutron,TRUE,Enable neutron as the backend for networking.,manageability
+flat_injected,FALSE,"This option determines whether the network setup information is injected into the VM before it is booted. While it was originally designed to be used only by nova-network, it is also used by the vmware and xenapi virt drivers to control whether network information is injected into a VM. The libvirt virt driver also uses it when we use config_drive to configure network to control whether network information is injected into a VM.",performance
+flat_network_bridge,<None>,This option determines the bridge used for simple network interfaces when no bridge is specified in the VM creation request.,manageability
+flat_network_dns,8.8.4.4,"This is the address of the DNS server for a simple network. If this option is not specified, the default of '8.8.4.4' is used.",environment
+flat_interface,<None>,"This option is the name of the virtual interface of the VM on which the bridge will be built. While it was originally designed to be used only by nova-network, it is also used by libvirt for the bridge interface name.",others
+vlan_start,100,"This is the VLAN number used for private networks. Note that the when creating the networks, if the specified number has already been assigned, nova-network will increment this number until it finds an available VLAN.",reliability
+vlan_interface,<None>,"This option is the name of the virtual interface of the VM on which the VLAN bridge will be built. While it was originally designed to be used only by nova-network, it is also used by libvirt and xenapi for the bridge interface name.",environment
+num_networks,1,"This option represents the number of networks to create if not explicitly specified when the network is created. The only time this is used is if a CIDR is specified, but an explicit network_size is not. In that case, the subnets are created by diving the IP address space of the CIDR by num_networks. The resulting subnet sizes cannot be larger than the configuration option network_size; in that event, they are reduced to network_size, and a warning is logged.",performance
+vpn_ip,$my_ip,This option is no longer used since the /os-cloudpipe API was removed in the 16.0.0 Pike release. This is the public IP address for the cloudpipe VPN servers. It defaults to the IP address of the host.,security
+vpn_start,1000,This is the port number to use as the first VPN port for private networks.,environment
+network_size,256,This option determines the number of addresses in each private subnet.,manageability
+fixed_range_v6,fd00::/48,This option determines the fixed IPv6 address block when creating a network.,reliability
+gateway,<None>,This is the default IPv4 gateway. It is used only in the testing suite.,others
+gateway_v6,<None>,This is the default IPv6 gateway. It is used only in the testing suite.,others
+cnt_vpn_clients,0,This option represents the number of IP addresses to reserve at the top of the address range for VPN clients. It also will be ignored if the configuration option for network_manager is not set to the default of 'nova.network.manager.VlanManager'.,security
+fixed_ip_disassociate_timeout,600,"This is the number of seconds to wait before disassociating a deallocated fixed IP address. This is only used with the nova-network service, and has no effect when using neutron for networking.",reliability
+create_unique_mac_address_attempts,5,This option determines how many times nova-network will attempt to create a unique MAC address before giving up and raising a VirtualInterfaceMacAddressException error.,reliability
+teardown_unused_network_gateway,FALSE,"Determines whether unused gateway devices, both VLAN and bridge, are deleted if the network is in nova-network VLAN mode and is multi-hosted.",manageability
+force_dhcp_release,TRUE,"When this option is True, a call is made to release the DHCP for the instance when that instance is terminated.",reliability
+update_dns_entries,FALSE,"When this option is True, whenever a DNS entry must be updated, a fanout cast message is sent to all network hosts to update their DNS entries in multi-host mode.",reliability
+dns_update_periodic_interval,-1,"This option determines the time, in seconds, to wait between refreshing DNS entries for the network.",reliability
+dhcp_domain,novalocal,This option allows you to specify the domain for the DHCP server.,environment
+l3_lib,nova.network.l3.LinuxNetL3,This option allows you to specify the L3 management library to be used.,manageability
+share_dhcp_address,FALSE,THIS VALUE SHOULD BE SET WHEN CREATING THE NETWORK.,manageability
+ldap_dns_url,ldap://ldap.example.com:389,URL for LDAP server which will store DNS entries,environment
+ldap_dns_user,"uid=admin,ou=people,dc=example,dc=org",Bind user for LDAP server,security
+ldap_dns_password,password,Bind user's password for LDAP server,environment
+ldap_dns_soa_hostmaster,hostmaster@example.org,Hostmaster for LDAP DNS driver Statement of Authority,security
+ldap_dns_servers,dns.example.org,DNS Servers for LDAP DNS driver,reliability
+ldap_dns_base_dn,"ou=hosts,dc=example,dc=org",Base distinguished name for the LDAP search query,others
+ldap_dns_soa_refresh,1800,Refresh interval (in seconds) for LDAP DNS driver Start of Authority,reliability
+ldap_dns_soa_retry,3600,Retry interval (in seconds) for LDAP DNS driver Start of Authority,reliability
+ldap_dns_soa_expiry,86400,Expiry interval (in seconds) for LDAP DNS driver Start of Authority,reliability
+ldap_dns_soa_minimum,7200,Minimum interval (in seconds) for LDAP DNS driver Start of Authority,reliability
+multi_host,FALSE,Default value for multi_host in networks.,environment
+network_driver,nova.network.linux_net,Driver to use for network creation.,performance
+firewall_driver,nova.virt.firewall.NoopFirewallDriver,Firewall driver to use with nova-network service.,environment
+allow_same_net_traffic,TRUE,Determine whether to allow network traffic from same network.,manageability
+default_floating_pool,nova,Default pool for floating IPs.,reliability
+auto_assign_floating_ip,FALSE,Autoassigning floating IP to VM,manageability
+floating_ip_dns_manager,nova.network.noop_dns_driver.NoopDNSDriver,Full class name for the DNS Manager for floating IPs.,security
+instance_dns_manager,nova.network.noop_dns_driver.NoopDNSDriver,Full class name for the DNS Manager for instance IPs.,security
+instance_dns_domain,'',"If specified, Nova checks if the availability_zone of every instance matches what the database says the availability_zone should be for the specified dns_domain.",security
+use_ipv6,FALSE,Assign IPv6 and IPv4 addresses when creating instances.,security
+ipv6_backend,rfc2462,Abstracts out IPv6 address generation to pluggable backends.,manageability
+enable_network_quota,FALSE,This option is used to enable or disable quota checking for tenant networks.,manageability
+quota_networks,3,This option controls the number of private networks that can be created per project (or per tenant).,performance
+network_manager,nova.network.manager.VlanManager,Full class name for the Manager for network,others
+record,<None>,"Filename that will be used for storing websocket frames received and sent by a proxy service (like VNC, spice, serial) running on this host. If this is not set, no recording will be done.",environment
+daemon,FALSE,Run as a background process.,manageability
+ssl_only,FALSE,Disallow non-encrypted connections.,security
+source_is_ipv6,FALSE,Set to True if source host is addressed with IPv6.,security
+cert,self.pem,Path to SSL certificate file.,environment
+key,<None>,SSL key file (if separate from cert).,environment
+web,/usr/share/spice-html5,Path to directory with content which will be served by a web server.,environment
+pybasedir,<Path>,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+bindir,/home/zuul/src/opendev.org/openstack/nova/.tox/docs/local/bin,The directory where the Nova binaries are installed.,environment
+state_path,$pybasedir,The top-level directory for maintaining Nova's state.,manageability
+long_rpc_timeout,1800,"This option allows setting an alternate timeout value for RPC calls that have the potential to take a long time. If set, RPC calls to other services will use this value for the timeout (in seconds) instead of the global rpc_response_timeout value.",reliability
+report_interval,10,Number of seconds indicating how frequently the state of services on a given hypervisor is reported. Nova needs to know this to determine the overall health of the deployment.,reliability
+service_down_time,60,Maximum time in seconds since last check-in for up service,reliability
+periodic_enable,TRUE,Enable periodic tasks.,reliability
+periodic_fuzzy_delay,60,Number of seconds to randomly delay when starting the periodic task scheduler to reduce stampeding.,performance
+enabled_apis,"osapi_compute,metadata",List of APIs to be enabled by default.,manageability
+enabled_ssl_apis,'',List of APIs with enabled SSL.,security
+osapi_compute_listen,0.0.0.0,IP address on which the OpenStack API will listen.,environment
+osapi_compute_listen_port,8774,Port on which the OpenStack API will listen.,environment
+osapi_compute_workers,<None>,Number of workers for OpenStack API service. The default will be the number of CPUs available.,performance
+metadata_listen,0.0.0.0,IP address on which the metadata API will listen.,environment
+metadata_listen_port,8775,Port on which the metadata API will listen.,environment
+metadata_workers,<None>,Number of workers for metadata service. If not specified the number of available CPUs will be used.,performance
+servicegroup_driver,db,This option specifies the driver to be used for the servicegroup service.,manageability
+auth_strategy,keystone,Determine the strategy to use for authentication.,manageability
+use_forwarded_for,FALSE,"When True, the 'X-Forwarded-For' header is treated as the canonical remote address. When False (the default), the 'remote_address' header is used.",manageability
+config_drive_skip_versions,1.0 2007-01-19 2007-03-01 2007-08-29 2007-10-10 2007-12-15 2008-02-01 2008-09-01,"When gathering the existing metadata for a config drive, the EC2-style metadata is returned for all versions that don't appear in this option. As of the Liberty release, the available versions are:",reliability
+vendordata_providers,StaticJSON,A list of vendordata providers.,manageability
+vendordata_dynamic_targets,'',A list of targets for the dynamic vendordata provider. These targets are of the form <name>@<url>.,manageability
+vendordata_dynamic_ssl_certfile,'',Path to an optional certificate file or CA bundle to verify dynamic vendordata REST services ssl certificates against.,environment
+vendordata_dynamic_connect_timeout,5,Maximum wait time for an external REST service to connect.,reliability
+vendordata_dynamic_read_timeout,5,Maximum wait time for an external REST service to return data once connected.,reliability
+vendordata_dynamic_failure_fatal,FALSE,Should failures to fetch dynamic vendordata be fatal to instance boot?,manageability
+metadata_cache_expiration,15,"This option is the time (in seconds) to cache metadata. When set to 0, metadata caching is disabled entirely; this is generally not recommended for performance reasons. Increasing this setting should improve response times of the metadata API when under heavy load. Higher values may increase memory usage, and result in longer times for host metadata changes to take effect.",performance
+local_metadata_per_cell,FALSE,"Indicates that the nova-metadata API service has been deployed per-cell, so that we can have better performance and data isolation in a multi-cell deployment. Users should consider the use of this configuration depending on how neutron is setup. If you have networks that span cells, you might need to run nova-metadata API service globally. If your networks are segmented along cell boundaries, then you can run nova-metadata API service per cell. When running nova-metadata API service per cell, you should also configure each Neutron metadata-agent to point to the corresponding nova-metadata API service.",performance
+vendordata_jsonfile_path,<None>,"Cloud providers may store custom data in vendor data file that will then be available to the instances via the metadata service, and to the rendering of config-drive. The default class for this, JsonFileVendorData, loads this information from a JSON file, whose path is configured by this option. If there is no path set by this option, the class returns an empty dictionary.",manageability
+max_limit,1000,"As a query can potentially return many thousands of items, you can limit the maximum number of items in a single response by setting this option.",performance
+compute_link_prefix,<None>,"This string is prepended to the normal URL that is returned in links to the OpenStack Compute API. If it is empty (the default), the URLs are returned unchanged.",manageability
+glance_link_prefix,<None>,"This string is prepended to the normal URL that is returned in links to Glance resources. If it is empty (the default), the URLs are returned unchanged.",manageability
+instance_list_per_project_cells,FALSE,"When enabled, this will cause the API to only query cell databases in which the tenant has mapped instances. This requires an additional (fast) query in the API database before each list, but also (potentially) limits the number of cell databases that must be queried to provide the result. If you have a small number of cells, or tenants are likely to have instances in all cells, then this should be False. If you have many cells, especially if you confine tenants to a small subset of those cells, this should be True.",manageability
+instance_list_cells_batch_strategy,distributed,"This controls the method by which the API queries cell databases in smaller batches during large instance list operations. If batching is performed, a large instance list operation will request some fraction of the overall API limit from each cell database initially, and will re-request that same batch size as records are consumed (returned) from each cell as necessary. Larger batches mean less chattiness between the API and the database, but potentially more wasted effort processing the results from the database which will not be returned to the user. Any strategy will yield a batch size of at least 100 records, to avoid a user causing many tiny database queries in their request.",performance
+instance_list_cells_batch_fixed_size,100,"This controls the batch size of instances requested from each cell database if instance_list_cells_batch_strategy` is set to fixed. This integral value will define the limit issued to each cell every time a batch of instances is requested, regardless of the number of cells in the system or any other factors. Per the general logic called out in the documentation for instance_list_cells_batch_strategy, the minimum value for this is 100 records per batch.",performance
+list_records_by_skipping_down_cells,TRUE,"When set to False, this will cause the API to return a 500 error if there is an infrastructure failure like non-responsive cells. If you want the API to skip the down cells and return the results from the up cells set this option to True.",reliability
+use_neutron_default_nets,FALSE,"When True, the TenantNetworkController will query the Neutron API to get the default networks to use.",manageability
+neutron_default_tenant_id,default,Tenant ID for getting the default network from Neutron API (also referred in some places as the 'project ID') to use.,manageability
+enable_instance_password,TRUE,"Enables returning of the instance password by the relevant server API calls such as create, rebuild, evacuate, or rescue. If the hypervisor does not support password injection, then the password returned will not be correct, so if your hypervisor does not support password injection, set this to False.",debuggability
+connection,<None>,The SQLAlchemy connection string to use to connect to the database. Do not set this for the nova-compute service.,manageability
+connection_parameters,'',Optional URL parameters to append onto the connection URL at connect time; specify as param1=value1&param2=value2&',manageability
+sqlite_synchronous,TRUE,"If True, SQLite uses synchronous mode.",reliability
+slave_connection,<None>,The SQLAlchemy connection string to use to connect to the slave database.,environment
+mysql_sql_mode,TRADITIONAL,"The SQL mode to be used for MySQL sessions. This option, including  the default, overrides any server-set SQL mode. To use whatever SQL mode is set by the server configuration, set this to no value. Example:  mysql_sql_mode=",security
+connection_recycle_time,3600,Connections which have been present in the connection pool longer  than this number of seconds will be replaced with a new one the next  time they are checked out from the pool.,reliability
+max_pool_size,<None>,Maximum number of SQL connections to keep open in a pool. Setting a value of 0 indicates no limit.,reliability
+max_retries,10,Maximum number of database connection retries during startup. Set to -1 to specify an infinite retry count.,reliability
+retry_interval,10,Interval between retries of opening a SQL connection.,reliability
+max_overflow,<None>,"If set, use this value for max_overflow with SQLAlchemy.",performance
+connection_debug,0,"Verbosity of SQL debugging information: 0=None, 100=Everything.",debuggability
+connection_trace,FALSE,Add Python stack traces to SQL as comment strings.,manageability
+pool_timeout,<None>,"If set, use this value for pool_timeout with SQLAlchemy.",reliability
+barbican_endpoint,<None>,"Use this endpoint to connect to Barbican, for example: 'http://localhost:9311/'",manageability
+barbican_api_version,<None>,"Version of the Barbican API, for example: 'v1'",others
+auth_endpoint,http://localhost/identity/v3,Use this endpoint to connect to Keystone,manageability
+retry_delay,1,Number of seconds to wait before retrying poll for key creation completion,reliability
+number_of_retries,60,Number of times to retry poll for key creation completion,reliability
+verify_ssl,TRUE,"Specifies if insecure TLS (https) requests. If False, the server's certificate will not be validated",security
+barbican_endpoint_type,public,"Specifies the type of endpoint.  Allowed values are: public, private, and admin",security
+config_prefix,cache.oslo,Prefix for building the configuration dictionary for the cache  region. This should not need to be changed unless there is another  dogpile.cache region with the same configuration name.,performance
+expiration_time,600,"Default TTL, in seconds, for any cached item in the dogpile.cache  region. This applies to any cached method that doesn't have an explicit  cache expiration time defined for it.",performance
+backend,dogpile.cache.null,"Cache backend module. For eventlet-based or environments with  hundreds of threaded servers, Memcache with pooling  (oslo_cache.memcache_pool) is recommended. For environments with less  than 100 threaded servers, Memcached (dogpile.cache.memcached) or Redis  (dogpile.cache.redis) is recommended. Test environments with a single  instance of the server can use the dogpile.cache.memory backend.",performance
+backend_argument,'',Arguments supplied to the backend module. Specify this option once  per argument to be passed to the dogpile.cache backend. Example format:  '<argname>:<value>'.,performance
+proxies,'',Proxy classes to import that will affect the way the dogpile.cache  backend functions. See the dogpile.cache documentation on  changing-backend-behavior.,environment
+enabled,FALSE,Global toggle for caching.,security
+debug_cache_backend,FALSE,"Extra debugging from the cache backend (cache keys,  get/set/delete/etc calls). This is only really useful if you need to see the specific cache-backend get/set/delete calls with the keys/values.   Typically this should be left set to false.",debuggability
+memcache_servers,localhost:11211,Memcache servers in the format of 'host:port'. (dogpile.cache.memcache and oslo_cache.memcache_pool backends only).,environment
+memcache_dead_retry,300,Number of seconds memcached server is considered dead before it is  tried again. (dogpile.cache.memcache and oslo_cache.memcache_pool  backends only).,reliability
+memcache_socket_timeout,3,Timeout in seconds for every call to a server. (dogpile.cache.memcache and oslo_cache.memcache_pool backends only).,reliability
+memcache_pool_maxsize,10,Max total number of open connections to every memcached server. (oslo_cache.memcache_pool backend only).,reliability
+memcache_pool_unused_timeout,60,Number of seconds a connection to memcached is held unused in the  pool before it is closed. (oslo_cache.memcache_pool backend only).,reliability
+memcache_pool_connection_get_timeout,10,Number of seconds that an operation will wait to get a memcache client connection.,reliability
+enable,FALSE,Enable cell v1 functionality.,manageability
+name,nova,Name of the current cell.,others
+capabilities,"hypervisor=xenserver;kvm,os=linux;windows",Cell capabilities.,manageability
+call_timeout,60,Call timeout.,reliability
+reserve_percent,10,Reserve percentage,manageability
+cell_type,compute,Type of cell.,manageability
+mute_child_interval,300,Mute child interval.,reliability
+bandwidth_update_interval,600,Bandwidth update interval.,reliability
+instance_update_sync_database_limit,100,Instance update sync database limit.,reliability
+mute_weight_multiplier,-10000,Mute weight multiplier.,reliability
+ram_weight_multiplier,10,Ram weight multiplier.,performance
+offset_weight_multiplier,1,Offset weight multiplier,performance
+instance_updated_at_threshold,3600,Instance updated at threshold,reliability
+instance_update_num_instances,1,Instance update num instances,manageability
+max_hop_count,10,Maximum hop count,reliability
+scheduler,nova.cells.scheduler.CellsScheduler,Cells scheduler.,manageability
+rpc_driver_queue_base,cells.intercell,RPC driver queue base.,environment
+scheduler_filter_classes,nova.cells.filters.all_filters,Scheduler filter classes.,manageability
+scheduler_weight_classes,nova.cells.weights.all_weighers,Scheduler weight classes.,manageability
+scheduler_retries,10,Scheduler retries.,manageability
+scheduler_retry_delay,2,Scheduler retry delay.,reliability
+db_check_interval,60,DB check interval.,reliability
+cells_config,<None>,Optional cells configuration.,security
+catalog_info,volumev3::publicURL,Info to match when looking for cinder in the service catalog.,debuggability
+endpoint_template,<None>,If this option is set then it will override service catalog lookup with this template for cinder endpoint,manageability
+os_region_name,<None>,Region name of this node. This is used when picking the URL in the service catalog.,others
+http_retries,3,Number of times cinderclient should retry on any failed http call. 0 means connection is attempted only once. Setting it to any positive integer means that on failure connection is retried that many times e.g. setting it to 3 means total attempts to connect will be 4.,reliability
+cross_az_attach,TRUE,Allow attach between instance and volume in different availability zones.,manageability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,manageability
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+tenant_id,<None>,Tenant ID,environment
+tenant_name,<None>,Tenant Name,others
+consecutive_build_service_disable_threshold,10,Enables reporting of build failures to the scheduler.,reliability
+shutdown_retry_interval,10,Time to wait in seconds before resending an ACPI shutdown signal to instances.,reliability
+resource_provider_association_refresh,300,"Interval for updating nova-compute-side cache of the compute node resource provider's inventories, aggregates, and traits.",performance
+cpu_shared_set,<None>,Defines which physical CPUs (pCPUs) will be used for best-effort guest vCPU resources.,performance
+live_migration_wait_for_vif_plug,TRUE,Determine if the source compute host should wait for a network-vif-plugged event from the (neutron) networking service before starting the actual transfer of the guest to the destination compute host.,reliability
+max_concurrent_disk_ops,0,"Number of concurrent disk-IO-intensive operations (glance image downloads, image format conversions, etc.) that we will do in parallel.  If this is set too high then response time suffers. The default value of 0 means no limit.",performance
+max_disk_devices_to_attach,-1,"Maximum number of disk devices allowed to attach to a single server. Note that the number of disks supported by an server depends on the bus used. For example, the ide disk bus is limited to 4 attached devices. The configured maximum is enforced during server create, rebuild, evacuate, unshelve, live migrate, and attach volume.",performance
+workers,<None>,Number of workers for OpenStack Conductor service. The default will be the number of CPUs available.,performance
+allowed_origins,'',Adds list of allowed origins to the console websocket proxy to allow connections from other origin hostnames. Websocket proxy matches the host header with the origin header to prevent cross-site requests. This list specifies if any there are values other than host are allowed in the origin header.,security
+token_ttl,600,The lifetime of a console auth token (in seconds).,security
+allowed_origin,<None>,"Indicate whether this resource may be shared with the domain received in the requests 'origin' header. Format:  '<protocol>://<host>[:<port>]', no trailing slash.  Example: https://horizon.example.com",manageability
+allow_credentials,TRUE,Indicate that the actual request can include user credentials,manageability
+expose_headers,"X-Auth-Token,X-Openstack-Request-Id,X-Subject-Token,X-Service-Token",Indicate which headers are safe to expose to the API. Defaults to HTTP Simple Headers.,manageability
+max_age,3600,Maximum cache age of CORS preflight requests.,performance
+allow_methods,"GET,PUT,POST,DELETE,PATCH",Indicate which methods can be used during the actual request.,manageability
+allow_headers,"X-Auth-Token,X-Openstack-Request-Id,X-Identity-Status,X-Roles,X-Service-Catalog,X-User-Id,X-Tenant-Id",Indicate which header field names may be used during the actual request.,manageability
+sqlite_synchronous,TRUE,"If True, SQLite uses synchronous mode.",reliability
+backend,sqlalchemy,The back end to use for the database.,environment
+connection,<None>,The SQLAlchemy connection string to use to connect to the database.,manageability
+slave_connection,<None>,The SQLAlchemy connection string to use to connect to the slave database.,environment
+mysql_sql_mode,TRADITIONAL,"The SQL mode to be used for MySQL sessions. This option, including  the default, overrides any server-set SQL mode. To use whatever SQL mode is set by the server configuration, set this to no value. Example:  mysql_sql_mode=",security
+mysql_enable_ndb,FALSE,"If True, transparently enables support for handling MySQL Cluster (NDB).",security
+connection_recycle_time,3600,Connections which have been present in the connection pool longer  than this number of seconds will be replaced with a new one the next  time they are checked out from the pool.,reliability
+min_pool_size,1,Minimum number of SQL connections to keep open in a pool.,performance
+max_pool_size,5,Maximum number of SQL connections to keep open in a pool. Setting a value of 0 indicates no limit.,reliability
+max_retries,10,Maximum number of database connection retries during startup. Set to -1 to specify an infinite retry count.,reliability
+retry_interval,10,Interval between retries of opening a SQL connection.,reliability
+max_overflow,50,"If set, use this value for max_overflow with SQLAlchemy.",performance
+connection_debug,0,"Verbosity of SQL debugging information: 0=None, 100=Everything.",debuggability
+connection_trace,FALSE,Add Python stack traces to SQL as comment strings.,manageability
+pool_timeout,<None>,"If set, use this value for pool_timeout with SQLAlchemy.",reliability
+use_db_reconnect,FALSE,Enable the experimental use of database reconnect on connection lost.,reliability
+db_retry_interval,1,Seconds between retries of a database transaction.,reliability
+db_inc_retry_interval,TRUE,"If True, increases the interval between retries of a database operation up to db_max_retry_interval.",reliability
+db_max_retry_interval,10,"If db_inc_retry_interval is set, the maximum seconds between retries of a database operation.",reliability
+db_max_retries,20,Maximum retries in case of connection error or deadlock error before  error is raised. Set to -1 to specify an infinite retry count.,reliability
+connection_parameters,'',Optional URL parameters to append onto the connection URL at connect time; specify as param1=value1&param2=value2&',manageability
+use_tpool,FALSE,Enable the experimental use of thread pooling for all DB API calls,manageability
+enabled_vgpu_types,'',The vGPU types enabled in the compute node.,performance
+enabled,FALSE,Enables/disables LVM ephemeral storage encryption.,security
+cipher,aes-xts-plain64,Cipher-mode string to be used.,environment
+key_size,512,Encryption key length in bits.,security
+host_subset_size,1,Size of subset of best hosts selected by scheduler.,manageability
+max_io_ops_per_host,8,The number of instances that can be actively performing IO on a host.,performance
+max_instances_per_host,50,Maximum number of instances that be active on a host.,performance
+track_instance_changes,TRUE,Enable querying of individual hosts for instance information.,manageability
+available_filters,nova.scheduler.filters.all_filters,Filters that the scheduler can use.,performance
+enabled_filters,"RetryFilter,AvailabilityZoneFilter,ComputeFilter,ComputeCapabilitiesFilter,ImagePropertiesFilter,ServerGroupAntiAffinityFilter,ServerGroupAffinityFilter",Filters that the scheduler will use.,performance
+weight_classes,nova.scheduler.weights.all_weighers,Weighers that the scheduler will use.,manageability
+ram_weight_multiplier,1,RAM weight multipler ratio.,performance
+cpu_weight_multiplier,1,CPU weight multiplier ratio.,performance
+disk_weight_multiplier,1,Disk weight multipler ratio.,performance
+io_ops_weight_multiplier,-1,IO operations weight multipler ratio.,performance
+pci_weight_multiplier,1,PCI device affinity weight multiplier.,performance
+soft_affinity_weight_multiplier,1,Multiplier used for weighing hosts for group soft-affinity.,performance
+soft_anti_affinity_weight_multiplier,1,Multiplier used for weighing hosts for group soft-anti-affinity.,performance
+build_failure_weight_multiplier,1000000,Multiplier used for weighing hosts that have had recent build failures.,reliability
+shuffle_best_same_weighed_hosts,FALSE,Enable spreading the instances between hosts with the same best weight.,manageability
+image_properties_default_architecture,<None>,The default architecture to be used when using the image properties filter.,manageability
+isolated_images,'',List of UUIDs for images that can only be run on certain hosts.,manageability
+isolated_hosts,'',List of hosts that can only run certain images.,manageability
+restrict_isolated_hosts_to_isolated_images,TRUE,Prevent non-isolated images from being built on isolated hosts.,manageability
+aggregate_image_properties_isolation_namespace,<None>,Image property namespace for use in the host aggregate.,manageability
+aggregate_image_properties_isolation_separator,.,Separator character(s) for image property namespace and name.,manageability
+api_servers,<None>,List of glance api servers endpoints available to nova.,manageability
+num_retries,0,Enable glance operation retries.,reliability
+allowed_direct_url_schemes,'',List of url schemes that can be directly accessed.,security
+verify_glance_signatures,FALSE,Enable image signature verification.,debuggability
+enable_certificate_validation,FALSE,Enable certificate validation for image signature verification.,security
+default_trusted_certificate_ids,'',List of certificate IDs for certificates that should be trusted.,security
+debug,FALSE,Enable or disable debug logging with glanceclient.,debuggability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+service_type,image,The default service_type for endpoint URL discovery.,environment
+service_name,<None>,The default service_name for endpoint URL discovery.,others
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",manageability
+region_name,<None>,The default region_name for endpoint URL discovery.,others
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",manageability
+debug,FALSE,Enable/disables guestfs logging.,debuggability
+path,/healthcheck,The path to respond to healtcheck requests on.,others
+detailed,FALSE,Show more detailed information as part of the response. Security  note: Enabling this option may expose sensitive details about the  service being monitored. Be sure to verify that it will not violate your security policies.,manageability
+backends,'',Additional backends that can perform health checks and report that information back as part of a request.,debuggability
+disable_by_file_path,<None>,Check the presence of a file to determine if an application is running on a port. Used by DisableByFileHealthcheck plugin.,reliability
+disable_by_file_paths,'',Check the presence of a file based on a port to determine if an  application is running on a port. Expects a 'port:path' list of strings. Used by DisableByFilesPortsHealthcheck plugin.,environment
+dynamic_memory_ratio,1,Dynamic memory ratio,performance
+enable_instance_metrics_collection,FALSE,Enable instance metrics collection,manageability
+instances_path_share,'',Instances path share,security
+limit_cpu_features,FALSE,Limit CPU features,performance
+mounted_disk_query_retry_count,10,Mounted disk query retry count,reliability
+mounted_disk_query_retry_interval,5,Mounted disk query retry interval,reliability
+power_state_check_timeframe,60,Power state check timeframe,reliability
+power_state_event_polling_interval,2,Power state event polling interval,reliability
+qemu_img_cmd,qemu-img.exe,qemu-img command,reliability
+vswitch_name,<None>,External virtual switch name,environment
+wait_soft_reboot_seconds,60,Wait soft reboot seconds,reliability
+config_drive_cdrom,FALSE,Configuration drive cdrom,environment
+config_drive_inject_password,FALSE,Configuration drive inject password,security
+volume_attach_retry_count,10,Volume attach retry count,reliability
+volume_attach_retry_interval,5,Volume attach retry interval,reliability
+enable_remotefx,FALSE,Enable RemoteFX feature,manageability
+use_multipath_io,FALSE,Use multipath connections when attaching iSCSI or FC disks.,manageability
+iscsi_initiator_list,'',List of iSCSI initiators that will be used for estabilishing iSCSI sessions.,security
+api_endpoint,http://ironic.example.org:6385/,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+api_max_retries,60,"The number of times to retry when a request conflicts. If set to 0, only try once, no retries.",reliability
+api_retry_interval,2,The number of seconds to wait before retrying the request.,reliability
+serial_console_state_timeout,10,Timeout (seconds) to wait for node serial console state changed. Set to 0 to disable timeout.,reliability
+partition_key,<None>,"Case-insensitive key to limit the set of nodes that may be managed by this service to the set of nodes in Ironic which have a matching  conductor_group property. If unset, all available nodes will be eligible to be managed by this service. Note that setting this to the empty  string ("""") will match the default conductor group, and is different than leaving the option unset.",security
+peer_list,'',"List of hostnames for all nova-compute services (including this host) with this partition_key config value. Nodes matching the partition_key  value will be distributed between all services specified here. If  partition_key is unset, this option is ignored.",manageability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+service_type,baremetal,The default service_type for endpoint URL discovery.,environment
+service_name,<None>,The default service_name for endpoint URL discovery.,others
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",manageability
+region_name,<None>,The default region_name for endpoint URL discovery.,others
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",manageability
+fixed_key,<None>,"Fixed key returned by key manager, specified in hex.",security
+backend,barbican,Specify the key manager implementation. Options are 'barbican' and  'vault'. Default is  'barbican'. Will support the  values earlier set  using [key_manager]/api_class for some time.,manageability
+auth_type,<None>,"The type of authentication credential to create. Possible values are  'token', 'password', 'keystone_token', and 'keystone_password'. Required if no context is passed to the credential factory.",security
+token,<None>,Token for authentication. Required for 'token' and 'keystone_token' auth_type if no context is passed to the credential factory.,security
+username,<None>,Username for authentication. Required for 'password' auth_type. Optional for the 'keystone_password' auth_type.,security
+password,<None>,Password for authentication. Required for 'password' and 'keystone_password' auth_type.,security
+auth_url,<None>,Use this endpoint to connect to Keystone.,manageability
+user_id,<None>,User ID for authentication. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+user_domain_id,<None>,User's domain ID for authentication. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+user_domain_name,<None>,User's domain name for authentication. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+trust_id,<None>,Trust ID for trust scoping. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+domain_id,<None>,Domain ID for domain scoping. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+domain_name,<None>,Domain name for domain scoping. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+project_id,<None>,Project ID for project scoping. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+project_name,<None>,Project name for project scoping. Optional for 'keystone_token' and 'keystone_password' auth_type.,others
+project_domain_id,<None>,Project's domain ID for project. Optional for 'keystone_token' and 'keystone_password' auth_type.,security
+project_domain_name,<None>,Project's domain name for project. Optional for 'keystone_token' and 'keystone_password' auth_type.,others
+reauthenticate,TRUE,Allow fetching a new token if the current one is going to expire.  Optional for 'keystone_token' and 'keystone_password' auth_type.,reliability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+service_type,identity,The default service_type for endpoint URL discovery.,environment
+service_name,<None>,The default service_name for endpoint URL discovery.,others
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",manageability
+region_name,<None>,The default region_name for endpoint URL discovery.,others
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",manageability
+www_authenticate_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint.",manageability
+auth_uri,<None>,"Complete 'public' Identity API endpoint. This endpoint should not be  an 'admin' endpoint, as it should be accessible by all end users.  Unauthenticated clients are redirected to this endpoint to authenticate. Although this endpoint should ideally be unversioned, client support in the wild varies. If you're using a versioned v2 endpoint here, then  this should not be the same endpoint the service user utilizes  for validating tokens, because normal end users may not be able to reach that endpoint. This option is deprecated in favor of  www_authenticate_uri and will be removed in the S release.",security
+auth_version,<None>,API version of the admin Identity API endpoint.,environment
+delay_auth_decision,FALSE,"Do not handle authorization requests within the middleware, but  delegate the authorization decision to downstream WSGI components.",security
+http_connect_timeout,<None>,Request timeout value for communicating with Identity API server.,reliability
+http_request_max_retries,3,How many times are we trying to reconnect when communicating with Identity API Server.,reliability
+cache,<None>,"Request environment key where the Swift cache object is stored. When  auth_token middleware is deployed with a Swift cache, use this option to have the middleware share a caching backend with swift. Otherwise, use  the memcached_servers option instead.",performance
+certfile,<None>,Required if identity server requires client certificate,manageability
+keyfile,<None>,Required if identity server requires client certificate,manageability
+cafile,<None>,A PEM encoded Certificate Authority to use when verifying HTTPs connections. Defaults to system CAs.,manageability
+insecure,FALSE,Verify HTTPS connections.,manageability
+region_name,<None>,The region in which the identity server can be found.,environment
+signing_dir,<None>,Directory used to cache files related to PKI tokens. This option has  been deprecated in the Ocata release and will be removed in the P  release.,manageability
+memcached_servers,<None>,"Optionally specify a list of memcached server(s) to use for caching.  If left undefined, tokens will instead be cached in-process.",performance
+token_cache_time,300,"In order to prevent excessive effort spent validating tokens, the  middleware caches previously-seen tokens for a configurable duration (in seconds). Set to -1 to disable caching completely.",performance
+memcache_security_strategy,None,"(Optional) If defined, indicate whether token data should be  authenticated or authenticated and encrypted. If MAC, token data is  authenticated (with HMAC) in the cache. If ENCRYPT, token data is  encrypted and authenticated in the cache. If the value is not one of  these options or empty, auth_token will raise an exception on  initialization.",security
+memcache_secret_key,<None>,"(Optional, mandatory if memcache_security_strategy is defined) This string is used for key derivation.",security
+memcache_pool_dead_retry,300,(Optional) Number of seconds memcached server is considered dead before it is tried again.,reliability
+memcache_pool_maxsize,10,(Optional) Maximum total number of open connections to every memcached server.,reliability
+memcache_pool_socket_timeout,3,(Optional) Socket timeout in seconds for communicating with a memcached server.,reliability
+memcache_pool_unused_timeout,60,(Optional) Number of seconds a connection to memcached is held unused in the pool before it is closed.,reliability
+memcache_pool_conn_get_timeout,10,(Optional) Number of seconds that an operation will wait to get a memcached client connection from the pool.,reliability
+memcache_use_advanced_pool,FALSE,(Optional) Use the advanced (eventlet safe) memcached client pool. The advanced pool will only work under python 2.x.,reliability
+include_service_catalog,TRUE,"(Optional) Indicate whether to set the X-Service-Catalog header. If  False, middleware will not ask for service catalog on token validation  and will not set the X-Service-Catalog header.",manageability
+enforce_token_bind,permissive,Used to control the use and type of token binding. Can be set to:  'disabled' to not check token binding. 'permissive' (default) to  validate binding information if the bind type is of a form known to the  server and ignore it if not. 'strict' like 'permissive' but if the bind  type is unknown the token will be rejected. 'required' any form of token binding is needed to be allowed. Finally the name of a binding method  that must be present in tokens.,security
+hash_algorithms,md5,"Hash algorithms to use for hashing PKI tokens. This may be a single  algorithm or multiple. The algorithms are those supported by Python  standard hashlib.new(). The hashes will be tried in the order given, so  put the preferred one first for performance. The result of the first  hash will be stored in the cache. This will typically be set to multiple values only while migrating from a less secure algorithm to a more  secure one. Once all the old tokens are expired this option should be  set to a single value for better performance.",performance
+service_token_roles,service,A choice of roles that must be present in a service token. Service  tokens are allowed to request that an expired token can be used and so  this check should tightly control that only actual services should be  sending this token. Roles here are applied as an ANY check so any role  in this list must be present. For backwards compatibility reasons this  currently only affects the allow_expired check.,security
+service_token_roles_required,FALSE,For backwards compatibility reasons we must let valid service tokens  pass that don't pass the service_token_roles check as valid. Setting  this true will become the default in a future release and should be  enabled if possible.,security
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+rescue_image_id,<None>,The ID of the image to boot from to rescue data from a corrupted instance.,environment
+rescue_kernel_id,<None>,The ID of the kernel (AKI) image to use with the rescue image.,environment
+rescue_ramdisk_id,<None>,The ID of the RAM disk (ARI) image to use with the rescue image.,environment
+virt_type,kvm,Describes the virtualization type (or so called domain type) libvirt should use.,manageability
+connection_uri,'',Overrides the default libvirt URI of the chosen virtualization type.,environment
+inject_password,FALSE,Allow the injection of an admin password for instance only at create and rebuild process.,security
+inject_key,FALSE,Allow the injection of an SSH key at boot time.,reliability
+inject_partition,-2,Determines the way how the file system is chosen to inject data into it.,manageability
+use_usb_tablet,TRUE,Enable a mouse cursor within a graphical VNC or SPICE sessions.,manageability
+live_migration_scheme,<None>,URI scheme used for live migration.,reliability
+live_migration_inbound_addr,<None>,Target used for live migration traffic.,reliability
+live_migration_uri,<None>,Live migration target URI to use.,performance
+live_migration_tunnelled,FALSE,Enable tunnelled migration.,manageability
+live_migration_bandwidth,0,Maximum bandwidth(in MiB/s) to be used during migration.,reliability
+live_migration_downtime,500,"Maximum permitted downtime, in milliseconds, for live migration switchover.",reliability
+live_migration_downtime_steps,10,Number of incremental steps to reach max downtime value.,performance
+live_migration_downtime_delay,75,"Time to wait, in seconds, between each step increase of the migration downtime.",reliability
+live_migration_completion_timeout,800,"Time to wait, in seconds, for migration to successfully complete transferring data before aborting the operation.",reliability
+live_migration_timeout_action,abort,"This option will be used to determine what action will be taken against a VM after live_migration_completion_timeout expires. By default, the live migrate operation will be aborted after completion timeout. If it is set to force_complete, the compute service will either pause the VM or trigger post-copy depending on if post copy is enabled and available (live_migration_permit_post_copy is set to True).",reliability
+live_migration_permit_post_copy,FALSE,"This option allows nova to switch an on-going live migration to post-copy mode, i.e., switch the active VM to the one on the destination node before the migration is complete, therefore ensuring an upper bound on the memory that needs to be transferred. Post-copy requires libvirt>=1.3.3 and QEMU>=2.5.0.",reliability
+live_migration_permit_auto_converge,FALSE,This option allows nova to start live migration with auto converge on.,reliability
+snapshot_image_format,<None>,Determine the snapshot image format when sending to the image service.,manageability
+live_migration_with_native_tls,FALSE,Use QEMU-native TLS encryption when live migrating.,reliability
+disk_prefix,<None>,Override the default disk prefix for the devices attached to an instance.,environment
+wait_soft_reboot_seconds,120,Number of seconds to wait for instance to shut down after soft reboot request is made. We fall back to hard reboot if instance does not  shutdown within this window.,reliability
+cpu_mode,<None>,Is used to set the CPU mode an instance should have.,performance
+cpu_model,<None>,Set the name of the libvirt CPU model the instance should use.,performance
+cpu_model_extra_flags,'',"This allows specifying granular CPU feature flags when configuring CPU models.  For example, to explicitly specify the pcid (Process-Context ID, an Intel processor feature -- which is now required to address the guest performance degradation as a result of applying the 'Meltdown' CVE fixes to certain Intel CPU models) flag to the 'IvyBridge' virtual CPU model:",performance
+snapshots_directory,$instances_path/snapshots,Location where libvirt driver will store snapshots before uploading them to image service,environment
+xen_hvmloader_path,/usr/lib/xen/boot/hvmloader,Location where the Xen hvmloader is kept,environment
+disk_cachemodes,'',Specific cache modes to use for different disk types.,performance
+rng_dev_path,/dev/urandom,"The path to an RNG (Random Number Generator) device that will be used as the source of entropy on the host.  Since libvirt 1.3.4, any path (that returns random numbers when read) is accepted.  The recommended source of entropy is /dev/urandom -- it is non-blocking, therefore relatively fast; and avoids the limitations of /dev/random, which is a legacy interface.  For more details (and comparision between different RNG sources), refer to the 'Usage' section in the Linux kernel API documentation for [u]random: http://man7.org/linux/man-pages/man4/urandom.4.html and http://man7.org/linux/man-pages/man7/random.7.html.",environment
+hw_machine_type,<None>,"For qemu or KVM guests, set this option to specify a default machine  type per host architecture. You can find a list of supported machine  types in your environment by checking the output of the 'virsh  capabilities' command. The format of the value for this config option is host-arch=machine-type. For example:  x86_64=machinetype1,armv7l=machinetype2",performance
+sysinfo_serial,unique,"The data source used to the populate the host 'serial' UUID exposed to guest in the virtual BIOS. All choices except unique will change the serial when migrating the instance to another host. Changing the choice of this option will also affect existing instances on this host once they are stopped and started again. It is recommended to use the default choice (unique) since that will not change when an instance is migrated. However, if you have a need for per-host serials in addition to per-instance serial numbers, then consider restricting flavors via host aggregates.",security
+mem_stats_period_seconds,10,A number of seconds to memory usage statistics period. Zero or negative value mean to disable memory usage statistics.,performance
+uid_maps,'',List of uid targets and ranges.Syntax is guest-uid:host-uid:count. Maximum of 5 allowed.,manageability
+gid_maps,'',List of guid targets and ranges.Syntax is guest-gid:host-gid:count. Maximum of 5 allowed.,manageability
+realtime_scheduler_priority,1,In a realtime host context vCPUs for guest will run in that  scheduling priority. Priority depends on the host kernel (usually 1-99),performance
+enabled_perf_events,'',"This will allow you to specify a list of events to monitor low-level performance of guests, and collect related statsitics via the libvirt driver, which in turn uses the Linux kernel's perf infrastructure. With this config attribute set, Nova will generate libvirt guest XML to monitor the specified events.  For more information, refer to the 'Performance monitoring events' section here: https://libvirt.org/formatdomain.html#elementsPerf.  And here: https://libvirt.org/html/libvirt-libvirt-domain.html -- look for VIR_PERF_PARAM_*",manageability
+num_pcie_ports,0,The number of PCIe ports an instance will get.,performance
+file_backed_memory,0,Available capacity in MiB for file-backed memory.,environment
+images_type,default,VM Images format.,environment
+images_volume_group,<None>,"LVM Volume Group that is used for VM images, when you specify images_type=lvm",manageability
+sparse_logical_volumes,FALSE,Create sparse logical volumes (with virtualsize) if this flag is set to True.,manageability
+images_rbd_pool,rbd,The RADOS pool in which rbd volumes are stored,performance
+images_rbd_ceph_conf,'',Path to the ceph configuration file to use,environment
+hw_disk_discard,<None>,Discard option for nova managed disks.,reliability
+image_info_filename_pattern,$instances_path/$image_cache_subdirectory_name/%(image)s.info,Allows image information files to be stored in non-standard locations,environment
+remove_unused_resized_minimum_age_seconds,3600,Unused resized base images younger than this will not be removed,manageability
+checksum_base_images,FALSE,Write a checksum for files in _base to disk,manageability
+checksum_interval_seconds,3600,How frequently to checksum base images,reliability
+volume_clear,zero,Method used to wipe ephemeral disks when they are deleted. Only takes effect if LVM is set as backing storage.,performance
+volume_clear_size,0,"Size of area in MiB, counting from the beginning of the allocated volume, that will be cleared using method set in volume_clear option.",performance
+snapshot_compression,FALSE,Enable snapshot compression for qcow2 images.,performance
+use_virtio_for_bridges,TRUE,Use virtio for bridge interfaces with KVM/QEMU,manageability
+volume_use_multipath,FALSE,Use multipath connection of the iSCSI or FC volume,performance
+num_volume_scan_tries,5,Number of times to scan given storage protocol to find volume.,reliability
+num_aoe_discover_tries,3,Number of times to rediscover AoE target to find volume.,performance
+iscsi_iface,<None>,The iSCSI transport iface to use to connect to target in case offload support is desired.,security
+num_iser_scan_tries,5,Number of times to scan iSER target to find volume.,performance
+iser_use_multipath,FALSE,Use multipath connection of the iSER volume.,security
+rbd_user,<None>,The RADOS client name for accessing rbd(RADOS Block Devices) volumes.,security
+rbd_secret_uuid,<None>,The libvirt UUID of the secret for the rbd_user volumes.,security
+nfs_mount_point_base,$state_path/mnt,Directory where the NFS volume is mounted on the compute node. The default is 'mnt' directory of the location where nova's Python module is installed.,environment
+nfs_mount_options,<None>,Mount options passed to the NFS client. See section of the nfs man page for details.,manageability
+quobyte_mount_point_base,$state_path/mnt,Directory where the Quobyte volume is mounted on the compute node.,manageability
+quobyte_client_cfg,<None>,Path to a Quobyte Client configuration file.,environment
+smbfs_mount_point_base,$state_path/mnt,Directory where the SMBFS shares are mounted on the compute node.,environment
+smbfs_mount_options,'',Mount options passed to the SMBFS client.,manageability
+remote_filesystem_transport,ssh,libvirt's transport method for remote file operations.,environment
+vzstorage_mount_point_base,$state_path/mnt,Directory where the Virtuozzo Storage clusters are mounted on the compute node.,performance
+vzstorage_mount_user,stack,Mount owner user name.,others
+vzstorage_mount_group,qemu,Mount owner group name.,environment
+vzstorage_mount_perms,770,Mount access mode.,security
+vzstorage_log_path,/var/log/vstorage/%(cluster_name)s/nova.log.gz,Path to vzstorage client log.,debuggability
+vzstorage_cache_path,<None>,Path to the SSD cache file.,environment
+vzstorage_mount_opts,'',Extra mount options for pstorage-mount,performance
+rx_queue_size,<None>,Configure virtio rx queue size.,performance
+tx_queue_size,<None>,Configure virtio tx queue size.,performance
+num_nvme_discover_tries,5,Number of times to rediscover NVMe target to find volume,performance
+weight_multiplier,1,"When using metrics to weight the suitability of a host, you can use this option to change how the calculated weight influences the weight assigned to a host as follows:",performance
+weight_setting,'',"This setting specifies the metrics to be weighed and the relative ratios for each metric. This should be a single string value, consisting of a series of one or more 'name=ratio' pairs, separated by commas, where 'name' is the name of the metric to be weighed, and 'ratio' is the relative weight for that metric.",manageability
+required,TRUE,"This setting determines how any unavailable metrics are treated. If this option is set to True, any hosts for which a metric is unavailable will raise an exception, so it is recommended to also use the MetricFilter to filter out those hosts before weighing.",manageability
+weight_of_unavailable,-10000,"When any of the following conditions are met, this value will be used in place of any actual metric value:",manageability
+mksproxy_base_url,http://127.0.0.1:6090/,Location of MKS web console proxy,environment
+enabled,FALSE,Enables graphical console access for virtual machines.,manageability
+url,http://127.0.0.1:9696,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",environment
+ovs_bridge,br-int,Default name for the Open vSwitch integration bridge.,environment
+default_floating_pool,nova,Default name for the floating IP pool.,others
+extension_sync_interval,600,Integer value representing the number of seconds to wait before querying Neutron for extensions.  After this number of seconds the next time Nova needs to create a resource in Neutron it will requery Neutron for the extensions that it has loaded.  Setting value to 0 will refresh the extensions with no wait.,reliability
+physnets,'',List of physnets present on this host.,security
+http_retries,3,Number of times neutronclient should retry on any failed http call.,reliability
+service_metadata_proxy,FALSE,"When set to True, this option indicates that Neutron will be used to proxy metadata requests and resolve instance ids. Otherwise, the instance ID must be passed to the metadata request in the 'X-Instance-ID' header.",manageability
+metadata_proxy_shared_secret,'',"This option holds the shared secret string used to validate proxy requests to Neutron metadata requests. In order to be used, the 'X-Metadata-Provider-Signature' header must be supplied in the request.",security
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,manageability
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+tenant_id,<None>,Tenant ID,environment
+tenant_name,<None>,Tenant Name,others
+service_type,network,The default service_type for endpoint URL discovery.,environment
+service_name,<None>,The default service_name for endpoint URL discovery.,others
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",manageability
+region_name,<None>,The default region_name for endpoint URL discovery.,others
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",manageability
+notify_on_state_change,<None>,"If set, send compute.instance.update notifications on instance state changes.",manageability
+default_level,INFO,Default notification level for outgoing notifications.,debuggability
+notification_format,both,Specifies which notification format shall be used by nova.,manageability
+versioned_notifications_topics,versioned_notifications,Specifies the topics for the versioned notifications issued by nova.,manageability
+bdms_in_notifications,FALSE,"If enabled, include block device information in the versioned notification payload. Sending block device information is disabled by default as providing that information can incur some overhead on the system since the information may need to be loaded from the database.",debuggability
+project_id_regex,<None>,"This option is a string representing a regular expression (regex) that matches the project_id as contained in URLs. If not set, it will match normal UUIDs created by keystone.",environment
+disable_process_locking,FALSE,Enables or disables inter-process locks.,security
+lock_path,<None>,"Directory to use for lock files.  For security, the specified  directory should only be writable by the user running the processes that need locking. Defaults to environment variable OSLO_LOCK_PATH. If  external locks are used, a lock path must be set.",security
+container_name,<None>,Name for the AMQP container. must be globally unique. Defaults to a generated UUID,others
+idle_timeout,0,Timeout for inactive connections (in seconds),reliability
+trace,FALSE,Debug: dump AMQP frames to stdout,manageability
+ssl,FALSE,"Attempt to connect via SSL. If no other ssl-related parameters are  given, it will use the system's CA-bundle to verify the server's  certificate.",security
+ssl_ca_file,'',CA certificate PEM file used to verify the server's certificate,security
+ssl_cert_file,'',Self-identifying certificate PEM file for client authentication,security
+ssl_key_file,'',Private key PEM file used to sign ssl_cert_file certificate (optional),environment
+ssl_key_password,<None>,Password for decrypting ssl_key_file (if encrypted),security
+ssl_verify_vhost,FALSE,"By default SSL checks that the name in the server's certificate  matches the hostname in the transport_url. In some configurations it may be preferable to use the virtual hostname instead, for example if the  server uses the Server Name Indication TLS extension (rfc6066) to  provide a certificate per virtual host. Set ssl_verify_vhost to True if  the server's SSL certificate uses the virtual host name instead of the  DNS name.",security
+sasl_mechanisms,'',Space separated list of acceptable SASL mechanisms,security
+sasl_config_dir,'',Path to directory that contains the SASL configuration,environment
+sasl_config_name,'',Name of configuration file (without .conf suffix),security
+sasl_default_realm,'',SASL realm to use if no realm present in username,security
+connection_retry_interval,1,Seconds to pause before attempting to re-connect.,reliability
+connection_retry_backoff,2,Increase the connection_retry_interval by this many seconds after each unsuccessful failover attempt.,reliability
+connection_retry_interval_max,30,Maximum limit for connection_retry_interval + connection_retry_backoff,reliability
+link_retry_delay,10,Time to pause between re-connecting an AMQP 1.0 link that failed due to a recoverable error.,reliability
+default_reply_retry,0,The maximum number of attempts to re-send a reply message which failed due to a recoverable error.,reliability
+default_reply_timeout,30,The deadline for an rpc reply message delivery.,reliability
+default_send_timeout,30,The deadline for an rpc cast or call message delivery. Only used when caller does not provide a timeout expiry.,reliability
+default_notify_timeout,30,The deadline for a sent notification message delivery. Only used when caller does not provide a timeout expiry.,reliability
+default_sender_link_timeout,600,The duration to schedule a purge of idle sender links. Detach link after expiry.,reliability
+addressing_mode,dynamic,Indicates the addressing mode used by the driver. Permitted values: 'legacy'   - use legacy non-routable addressing 'routable' - use routable addresses 'dynamic'  - use legacy addresses if the message bus does not support routing otherwise use routable addressing,security
+pseudo_vhost,TRUE,"Enable virtual host support for those message buses that do not  natively support virtual hosting (such as qpidd). When set to true the  virtual host name will be added to all message bus addresses,  effectively creating a private 'subnet' per virtual host. Set to False  if the message bus supports virtual hosting using the 'hostname' field  in the AMQP 1.0 Open performative as the name of the virtual host.",security
+server_request_prefix,exclusive,address prefix used when sending to a specific server,manageability
+broadcast_prefix,broadcast,address prefix used when broadcasting to all servers,manageability
+group_request_prefix,unicast,address prefix when sending to any server in group,manageability
+rpc_address_prefix,openstack.org/om/rpc,Address prefix for all generated RPC addresses,others
+notify_address_prefix,openstack.org/om/notify,Address prefix for all generated Notification addresses,manageability
+multicast_address,multicast,Appended to the address prefix when sending a fanout message. Used by the message bus to identify fanout messages.,manageability
+unicast_address,unicast,Appended to the address prefix when sending to a particular  RPC/Notification server. Used by the message bus to identify messages  sent to a single destination.,environment
+anycast_address,anycast,Appended to the address prefix when sending to a group of consumers.  Used by the message bus to identify messages that should be delivered in a round-robin fashion across consumers.,environment
+default_notification_exchange,<None>,Exchange name used in notification addresses. Exchange name resolution precedence: Target.exchange if set else default_notification_exchange if set else control_exchange if set else 'notify',reliability
+default_rpc_exchange,<None>,Exchange name used in RPC addresses. Exchange name resolution precedence: Target.exchange if set else default_rpc_exchange if set else control_exchange if set else 'rpc',security
+reply_link_credit,200,Window size for incoming RPC Reply messages.,reliability
+rpc_server_credit,100,Window size for incoming RPC Request messages,performance
+notify_server_credit,100,Window size for incoming Notification messages,manageability
+pre_settled,rpc-cast,Send messages of this type pre-settled. Pre-settled messages will not receive acknowledgement from the peer. Note well: pre-settled messages may be silently discarded if the delivery fails. Permitted values: 'rpc-call' - send RPC Calls pre-settled 'rpc-reply'- send RPC Replies pre-settled 'rpc-cast' - Send RPC Casts pre-settled 'notify'   - Send Notifications pre-settled,reliability
+kafka_max_fetch_bytes,1048576,Max fetch bytes of Kafka consumer,performance
+kafka_consumer_timeout,1,Default timeout(s) for Kafka consumers,reliability
+pool_size,10,Pool Size for Kafka Consumers,performance
+conn_pool_min_size,2,The pool size limit for connections expiration policy,reliability
+conn_pool_ttl,1200,The time-to-live in sec of idle connections in the pool,reliability
+consumer_group,oslo_messaging_consumer,Group id for Kafka consumer. Consumers in one group will coordinate message consumption,performance
+producer_batch_timeout,0,Upper bound on the delay for KafkaProducer batching in seconds,reliability
+producer_batch_size,16384,Size of batch for the producer async send,performance
+enable_auto_commit,FALSE,Enable asynchronous consumer commits,performance
+max_poll_records,500,The maximum number of records returned in a poll call,reliability
+security_protocol,PLAINTEXT,Protocol used to communicate with brokers,security
+sasl_mechanism,PLAIN,Mechanism when security protocol is SASL,security
+ssl_cafile,'',CA certificate PEM file used to verify the server certificate,security
+driver,'',"The Drivers(s) to handle sending notifications. Possible values are messaging, messagingv2, routing, log, test, noop",environment
+transport_url,<None>,"A URL representing the messaging driver to use for notifications. If  not set, we fall back to the same configuration used for RPC.",environment
+topics,notifications,AMQP topic used for OpenStack notifications.,manageability
+retry,-1,"The maximum number of attempts to re-send a notification message  which failed to be delivered due to a recoverable error. 0 - No retry,  -1 - indefinite",reliability
+amqp_durable_queues,FALSE,Use durable queues in AMQP.,security
+amqp_auto_delete,FALSE,Auto-delete queues in AMQP.,manageability
+ssl,FALSE,Connect over SSL.,security
+ssl_version,'',"SSL version to use (valid only if SSL enabled). Valid values are  TLSv1 and SSLv23. SSLv2, SSLv3, TLSv1_1, and TLSv1_2 may be available on some distributions.",security
+ssl_key_file,'',SSL key file (valid only if SSL enabled).,security
+ssl_cert_file,'',SSL cert file (valid only if SSL enabled).,security
+ssl_ca_file,'',SSL certification authority file (valid only if SSL enabled).,security
+kombu_reconnect_delay,1,How long to wait before reconnecting in response to an AMQP consumer cancel notification.,reliability
+kombu_compression,<None>,"EXPERIMENTAL: Possible values are: gzip, bz2. If not set compression  will not be used. This option may not be available in future versions.",performance
+kombu_missing_consumer_retry_timeout,60,How long to wait a missing client before abandoning to send it its  replies. This value should not be longer than rpc_response_timeout.,reliability
+kombu_failover_strategy,round-robin,Determines how the next RabbitMQ node is chosen in case the one we  are currently connected to becomes unavailable. Takes effect only if  more than one RabbitMQ node is provided in config.,reliability
+rabbit_login_method,AMQPLAIN,The RabbitMQ login method.,debuggability
+rabbit_retry_interval,1,How frequently to retry connecting with RabbitMQ.,reliability
+rabbit_retry_backoff,2,How long to backoff for between retries when connecting to RabbitMQ.,reliability
+rabbit_interval_max,30,Maximum interval of RabbitMQ connection retries. Default is 30 seconds.,reliability
+rabbit_ha_queues,FALSE,"Try to use HA queues in RabbitMQ (x-ha-policy: all). If you change  this option, you must wipe the RabbitMQ database. In RabbitMQ 3.0, queue mirroring is no longer controlled by the x-ha-policy argument when  declaring a queue. If you just want to make sure that all queues (except those with auto-generated names) are mirrored across all nodes, run:  'rabbitmqctl set_policy HA '^(?!amq.).*' '{'ha-mode': 'all'}' '",manageability
+rabbit_transient_queues_ttl,1800,Positive integer representing duration in seconds for queue TTL  (x-expires). Queues which are unused for the duration of the TTL are  automatically deleted. The parameter affects only reply and fanout  queues.,performance
+rabbit_qos_prefetch_count,0,Specifies the number of messages to prefetch. Setting to zero allows unlimited messages.,reliability
+heartbeat_timeout_threshold,60,Number of seconds after which the Rabbit broker is considered down if heartbeat's keep-alive fails (0 disable the heartbeat). EXPERIMENTAL,reliability
+heartbeat_rate,2,How often times during the heartbeat_timeout_threshold we check the heartbeat.,reliability
+max_request_body_size,114688,"The maximum body size for each  request, in bytes.",reliability
+secure_proxy_ssl_header,X-Forwarded-Proto,"The HTTP Header that will be used to determine what the original  request protocol scheme was, even if it was hidden by a SSL termination  proxy.",security
+enable_proxy_headers_parsing,FALSE,Whether the application is behind a proxy or not. This determines if the middleware should parse the headers or not.,manageability
+enforce_scope,FALSE,"This option controls whether or not to enforce scope when evaluating policies. If True, the scope of the token used in the request is compared to the scope_types of the policy being enforced. If the scopes do not match, an InvalidScope exception will be raised. If False, a message will be logged informing operators that policies are being invoked with mismatching scope.",manageability
+policy_file,policy.json,The file that defines policies.,manageability
+policy_default_rule,default,Default rule. Enforced when a requested rule is not found.,reliability
+policy_dirs,policy.d,"Directories where policy configuration files are stored. They can be  relative to any directory in the search path defined by the config_dir  option, or absolute paths. The file defined by policy_file must exist  for these directories to be searched.  Missing or empty directories are  ignored.",environment
+remote_content_type,application/x-www-form-urlencoded,Content Type to send and receive data for REST based policy check,manageability
+remote_ssl_verify_server_crt,FALSE,server identity verification for REST based policy check,security
+remote_ssl_ca_crt_file,<None>,Absolute path to ca cert file for REST based policy check,environment
+remote_ssl_client_crt_file,<None>,Absolute path to client cert for REST based policy check,environment
+remote_ssl_client_key_file,<None>,Absolute path client key file REST based policy check,environment
+alias,'',An alias for a PCI passthrough device requirement.,others
+passthrough_whitelist,'',White list of PCI devices available to VMs.,manageability
+randomize_allocation_candidates,FALSE,"If True, when limiting allocation candidate results, the results will be a random sampling of the full result set. If False, allocation candidates are returned in a deterministic but undefined order. That is, all things being equal, two requests for allocation candidates will return the same results in the same order; but no guarantees are made as to how that order is determined.",performance
+policy_file,placement-policy.yaml,The file that defines placement policies. This can be an absolute path or relative to the configuration file.,environment
+incomplete_consumer_project_id,00000000-0000-0000-0000-000000000000,"Early API microversions (<1.8) allowed creating allocations and not specifying a project or user identifier for the consumer. In cleaning up the data modeling, we no longer allow missing project and user information. If an older client makes an allocation, we'll use this in place of the information it doesn't provide.",debuggability
+incomplete_consumer_user_id,00000000-0000-0000-0000-000000000000,"Early API microversions (<1.8) allowed creating allocations and not specifying a project or user identifier for the consumer. In cleaning up the data modeling, we no longer allow missing project and user information. If an older client makes an allocation, we'll use this in place of the information it doesn't provide.",reliability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,manageability
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+tenant_id,<None>,Tenant ID,environment
+tenant_name,<None>,Tenant Name,others
+service_type,placement,The default service_type for endpoint URL discovery.,environment
+service_name,<None>,The default service_name for endpoint URL discovery.,others
+valid_interfaces,"internal,public","List of interfaces, in order of preference, for endpoint URL.",manageability
+region_name,<None>,The default region_name for endpoint URL discovery.,others
+endpoint_override,<None>,"Always use this endpoint URL for requests for this client. NOTE: The  unversioned endpoint should be specified here; to request a particular  API version, use the version, min-version, and/or max-version options.",manageability
+connection,<None>,The SQLAlchemy connection string to use to connect to the database.,manageability
+connection_parameters,'',Optional URL parameters to append onto the connection URL at connect time; specify as param1=value1&param2=value2&',manageability
+sqlite_synchronous,TRUE,"If True, SQLite uses synchronous mode.",reliability
+slave_connection,<None>,The SQLAlchemy connection string to use to connect to the slave database.,environment
+mysql_sql_mode,TRADITIONAL,"The SQL mode to be used for MySQL sessions. This option, including  the default, overrides any server-set SQL mode. To use whatever SQL mode is set by the server configuration, set this to no value. Example:  mysql_sql_mode=",security
+connection_recycle_time,3600,Connections which have been present in the connection pool longer  than this number of seconds will be replaced with a new one the next  time they are checked out from the pool.,reliability
+max_pool_size,<None>,Maximum number of SQL connections to keep open in a pool. Setting a value of 0 indicates no limit.,reliability
+max_retries,10,Maximum number of database connection retries during startup. Set to -1 to specify an infinite retry count.,reliability
+retry_interval,10,Interval between retries of opening a SQL connection.,reliability
+max_overflow,<None>,"If set, use this value for max_overflow with SQLAlchemy.",performance
+connection_debug,0,"Verbosity of SQL debugging information: 0=None, 100=Everything.",debuggability
+connection_trace,FALSE,Add Python stack traces to SQL as comment strings.,manageability
+pool_timeout,<None>,"If set, use this value for pool_timeout with SQLAlchemy.",reliability
+proc_units_factor,0.1,"Factor used to calculate the amount of physical processor compute power given to each vCPU. E.g. A value of 1.0 means a whole physical processor, whereas 0.05 means 1/20th of a physical processor.",performance
+disk_driver,localdisk,The disk driver to use for PowerVM disks. PowerVM provides support for localdisk and PowerVM Shared Storage Pool disk drivers.,environment
+volume_group_name,'',"Volume Group to use for block device operations. If disk_driver is localdisk, then this attribute must be specified. It is strongly recommended NOT to use rootvg since that is used by the management partition and filling it will cause failures.",manageability
+user,<None>,User that the privsep daemon should run as.,others
+group,<None>,Group that the privsep daemon should run as.,manageability
+capabilities,[],List of Linux capabilities retained by the privsep daemon.,others
+thread_pool_size,8,The number of threads available for privsep to concurrently run processes. Defaults to the number of CPU cores in the system.,performance
+helper_command,<None>,"Command to invoke to start the privsep daemon if not using the 'fork' method. If not specified, a default is generated using 'sudo  privsep-helper' and arguments designed to recreate the current  configuration. This command must accept suitable --privsep_context and  --privsep_sock_path arguments.",manageability
+enabled,FALSE,Enable the profiling for all services on this node.,manageability
+trace_sqlalchemy,FALSE,Enable SQL requests profiling in services.,debuggability
+hmac_keys,SECRET_KEY,Secret key(s) to use for encrypting context data for performance profiling.,security
+connection_string,messaging://,Connection string for a notifier backend.,environment
+es_doc_type,notification,Document type for notification indexing in elasticsearch.,manageability
+es_scroll_time,2m,"This parameter is a time value parameter (for example: es_scroll_time=2m), indicating for how long the nodes that participate in the search will maintain relevant resources in order to continue and support it.",manageability
+es_scroll_size,10000,Elasticsearch splits large requests in batches. This parameter defines maximum size of each batch (for example: es_scroll_size=10000).,performance
+socket_timeout,0.1,Redissentinel provides a timeout option on the connections. This parameter defines that timeout (for example: socket_timeout=0.1).,reliability
+sentinel_service_name,mymaster,Redissentinel uses a service name to identify a master redis service. This parameter defines the name (for example: sentinal_service_name=mymaster).,environment
+filter_error_trace,FALSE,Enable filter traces that contain error/exception to a separated place.,debuggability
+instances,10,The number of instances allowed per project.,manageability
+cores,20,The number of instance cores or vCPUs allowed per project.,performance
+ram,51200,The number of megabytes of instance RAM allowed per project.,performance
+floating_ips,10,The number of floating IPs allowed per project.,manageability
+fixed_ips,-1,The number of fixed IPs allowed per project.,manageability
+metadata_items,128,The number of metadata items allowed per instance.,manageability
+injected_files,5,The number of injected files allowed.,performance
+injected_file_content_bytes,10240,The number of bytes allowed per injected file.,performance
+injected_file_path_length,255,The maximum allowed injected file path length.,reliability
+security_groups,10,The number of security groups per project.,performance
+security_group_rules,20,The number of security rules per security group.,manageability
+key_pairs,100,The maximum number of key pairs allowed per user.,security
+server_groups,10,The maxiumum number of server groups per project.,manageability
+server_group_members,10,The maximum number of servers per server group.,manageability
+driver,nova.quota.DbQuotaDriver,Provides abstraction for quota checks. Users can configure a specific driver to use for quota checks.,manageability
+recheck_quota,TRUE,Recheck quota after resource creation to prevent allowing quota to be exceeded.,performance
+enabled,FALSE,Enable Remote Desktop Protocol (RDP) related features.,manageability
+html5_proxy_base_url,http://127.0.0.1:6083/,The URL an end user would use to connect to the RDP HTML5 console proxy. The console proxy service is called with this token-embedded URL and establishes the connection to the proper instance.,environment
+host,<None>,Debug host (IP or name) to connect to. This command line parameter is used when you want to connect to a nova service via a debugger running on a different host.,environment
+port,<None>,Debug port to connect to. This command line parameter allows you to specify the port you want to use to connect to a nova service via a debugger running on different host.,environment
+driver,filter_scheduler,"The class of the driver used by the scheduler. This should be chosen from one of the entrypoints under the namespace 'nova.scheduler.driver' of file 'setup.cfg'. If nothing is specified in this option, the 'filter_scheduler' is used.",others
+periodic_task_interval,60,Periodic task interval.,reliability
+max_attempts,3,"This is the maximum number of attempts that will be made for a given instance build/move operation. It limits the number of alternate hosts returned by the scheduler. When that list of hosts is exhausted, a MaxRetriesExceeded exception is raised and the instance is set to an error state.",performance
+discover_hosts_in_cells_interval,-1,Periodic task interval.,reliability
+max_placement_results,1000,This setting determines the maximum limit on results received from the placement service during a scheduling operation. It effectively limits the number of hosts that may be considered for scheduling requests that match a large number of candidates.,reliability
+workers,<None>,"Number of workers for the nova-scheduler service. The default will be the number of CPUs available if using the 'filter_scheduler' scheduler driver, otherwise the default will be 1.",performance
+limit_tenants_to_placement_aggregate,FALSE,"This setting causes the scheduler to look up a host aggregate with the metadata key of filter_tenant_id set to the project of an incoming request, and request results from placement be limited to that aggregate. Multiple tenants may be added to a single aggregate by appending a serial number to the key, such as filter_tenant_id:123.",environment
+placement_aggregate_required_for_tenants,FALSE,"This setting, when limit_tenants_to_placement_aggregate=True, will control whether or not a tenant with no aggregate affinity will be allowed to schedule to any available node. If aggregates are used to limit some tenants but not all, then this should be False. If all tenants should be confined via aggregate, then this should be True to prevent them from receiving unrestricted scheduling to any available node.",manageability
+query_placement_for_availability_zone,FALSE,"This setting causes the scheduler to look up a host aggregate with the metadata key of availability_zone set to the value provided by an incoming request, and request results from placement be limited to that aggregate.",manageability
+enabled,FALSE,Enable the serial console feature.,security
+port_range,10000:20000,A range of TCP ports a guest can use for its backend.,environment
+base_url,ws://127.0.0.1:6083/,The URL an end user would use to connect to the nova-serialproxy service.,environment
+proxyclient_address,127.0.0.1,The IP address to which proxy clients (like nova-serialproxy) should connect to get the serial console of an instance.,environment
+serialproxy_host,0.0.0.0,The IP address which is used by the nova-serialproxy service to listen for incoming requests.,environment
+serialproxy_port,6083,The port number which is used by the nova-serialproxy service to listen for incoming requests.,environment
+send_service_user_token,FALSE,"When True, if sending a user token to a REST API, also send a service token.",manageability
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,manageability
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+tenant_id,<None>,Tenant ID,environment
+tenant_name,<None>,Tenant Name,others
+enabled,FALSE,Enable SPICE related features.,manageability
+agent_enabled,TRUE,Enable the SPICE guest agent support on the instances.,manageability
+html5proxy_base_url,http://127.0.0.1:6082/spice_auto.html,Location of the SPICE HTML5 console proxy.,environment
+server_listen,127.0.0.1,The  address where the SPICE server running on the instances should listen.,environment
+server_proxyclient_address,127.0.0.1,The address used by nova-spicehtml5proxy client to connect to instance console.,environment
+keymap,<None>,A keyboard layout which is supported by the underlying hypervisor on this node.,security
+html5proxy_host,0.0.0.0,IP address or a hostname on which the nova-spicehtml5proxy service listens for incoming requests.,environment
+html5proxy_port,6082,Port on which the nova-spicehtml5proxy service listens for incoming requests.,environment
+compute,<None>,Compute RPC API version cap.,manageability
+cells,<None>,Cells RPC API version cap.,environment
+intercell,<None>,Intercell RPC API version cap.,environment
+cert,<None>,Cert RPC API version cap.,environment
+scheduler,<None>,Scheduler RPC API version cap.,manageability
+conductor,<None>,Conductor RPC API version cap.,environment
+console,<None>,Console RPC API version cap.,environment
+consoleauth,<None>,Consoleauth RPC API version cap.,environment
+network,<None>,Network RPC API version cap.,environment
+baseapi,<None>,Base API RPC API version cap.,manageability
+root_token_id,<None>,root token for vault,security
+approle_role_id,<None>,AppRole role_id for authentication with vault,manageability
+approle_secret_id,<None>,AppRole secret_id for authentication with vault,security
+kv_mountpoint,secret,"Mountpoint of KV store in Vault to use, for example: secret",environment
+vault_url,http://127.0.0.1:8200,"Use this endpoint to connect to Vault, for example: 'http://127.0.0.1:8200'",environment
+ssl_ca_crt_file,<None>,Absolute path to ca cert file,environment
+use_ssl,FALSE,SSL Enabled/Disabled,security
+cafile,<None>,PEM encoded Certificate Authority to use when verifying HTTPs connections.,manageability
+certfile,<None>,PEM encoded client certificate cert file,environment
+keyfile,<None>,PEM encoded client certificate key file,environment
+insecure,FALSE,Verify HTTPS connections.,manageability
+timeout,<None>,Timeout value for http requests,reliability
+collect_timing,FALSE,Collect per-API call timing information.,debuggability
+split_loggers,FALSE,Log requests to multiple loggers.,debuggability
+auth_type,<None>,Authentication type to load,security
+auth_section,<None>,Config Section from which to load plugin specific options,environment
+auth_url,<None>,Authentication URL,security
+system_scope,<None>,Scope for system operations,environment
+domain_id,<None>,Domain ID to scope to,environment
+domain_name,<None>,Domain name to scope to,others
+project_id,<None>,Project ID to scope to,environment
+project_name,<None>,Project name to scope to,others
+project_domain_id,<None>,Domain ID containing project,others
+project_domain_name,<None>,Domain name containing project,others
+trust_id,<None>,Trust ID,security
+default_domain_id,<None>,Optional domain ID to use with v3 and v2 parameters. It will be used  for both the user and project domain in v3 and ignored in v2  authentication.,manageability
+default_domain_name,<None>,Optional domain name to use with v3 API and v2 parameters. It will be used for both the user and project domain in v3 and ignored in v2  authentication.,environment
+user_id,<None>,User ID,others
+username,<None>,Username,others
+user_domain_id,<None>,User's domain id,others
+user_domain_name,<None>,User's domain name,environment
+password,<None>,User's password,security
+tenant_id,<None>,Tenant ID,environment
+tenant_name,<None>,Tenant Name,others
+vlan_interface,vmnic0,This option specifies the physical ethernet adapter name for VLAN networking.,security
+integration_bridge,<None>,This option should be configured only when using the NSX-MH Neutron plugin. This is the name of the integration bridge on the ESXi server or host. This should not be set for any other Neutron plugin. Hence the default value is not set.,performance
+console_delay_seconds,<None>,Set this value if affected by an increased network latency causing repeated characters when typing in a remote console.,reliability
+serial_port_service_uri,<None>,Identifies the remote system where the serial port traffic will be sent.,environment
+serial_port_proxy_uri,<None>,Identifies a proxy service that provides network access to the serial_port_service_uri.,environment
+serial_log_dir,/opt/vmware/vspc,Specifies the directory where the Virtual Serial Port Concentrator is storing console log files. It should match the 'serial_log_dir' config value of VSPC.,environment
+host_ip,<None>,Hostname or IP address for connection to VMware vCenter host.,environment
+host_port,443,Port for connection to VMware vCenter host.,environment
+host_username,<None>,Username for connection to VMware vCenter host.,environment
+host_password,<None>,Password for connection to VMware vCenter host.,environment
+ca_file,<None>,Specifies the CA bundle file to be used in verifying the vCenter server certificate.,environment
+insecure,FALSE,"If true, the vCenter server certificate is not verified. If false, then the default CA truststore is used for verification.",security
+cluster_name,<None>,Name of a VMware Cluster ComputeResource.,others
+datastore_regex,<None>,Regular expression pattern to match the name of datastore.,environment
+task_poll_interval,0.5,Time interval in seconds to poll remote tasks invoked on VMware VC server.,performance
+api_retry_count,10,"Number of times VMware vCenter server API must be retried on connection failures, e.g. socket error, etc.",reliability
+vnc_port,5900,This option specifies VNC starting port.,environment
+vnc_port_total,10000,Total number of VNC ports.,performance
+vnc_keymap,en-us,Keymap for VNC.,security
+use_linked_clone,TRUE,This option enables/disables the use of linked clone.,manageability
+connection_pool_size,10,This option sets the http connection pool size,manageability
+pbm_enabled,FALSE,This option enables or disables storage policy based placement of instances.,security
+pbm_wsdl_location,<None>,This option specifies the PBM service WSDL file location URL.,environment
+pbm_default_policy,<None>,This option specifies the default policy to be used.,manageability
+maximum_objects,100,This option specifies the limit on the maximum number of objects to return in a single result.,performance
+cache_prefix,<None>,This option adds a prefix to the folder where cached images are stored,manageability
+enabled,TRUE,Enable VNC related features.,manageability
+keymap,<None>,Keymap for VNC.,environment
+server_listen,127.0.0.1,The IP address or hostname on which an instance should listen to for incoming VNC connection requests on this node.,environment
+server_proxyclient_address,127.0.0.1,"Private, internal IP address or hostname of VNC console proxy.",environment
+novncproxy_base_url,http://127.0.0.1:6080/vnc_auto.html,Public address of noVNC VNC console proxy.,environment
+xvpvncproxy_host,0.0.0.0,IP address or hostname that the XVP VNC console proxy should bind to.,environment
+xvpvncproxy_port,6081,Port that the XVP VNC console proxy should bind to.,environment
+xvpvncproxy_base_url,http://127.0.0.1:6081/console,Public URL address of XVP VNC console proxy.,environment
+novncproxy_host,0.0.0.0,IP address that the noVNC console proxy should bind to.,environment
+novncproxy_port,6080,Port that the noVNC console proxy should bind to.,environment
+auth_schemes,none,The authentication schemes to use with the compute node.,security
+vencrypt_client_key,<None>,The path to the client certificate PEM file (for x509),security
+vencrypt_client_cert,<None>,The path to the client key file (for x509),environment
+vencrypt_ca_certs,<None>,The path to the CA certificate PEM file,environment
+disable_rootwrap,FALSE,Use sudo instead of rootwrap.,manageability
+disable_libvirt_livesnapshot,FALSE,Disable live snapshots when using the libvirt driver.,reliability
+handle_virt_lifecycle_events,TRUE,Enable handling of events emitted from compute drivers.,performance
+disable_group_policy_check_upcall,FALSE,Disable the server group policy check upcall in compute.,reliability
+enable_consoleauth,FALSE,Enable the consoleauth service to avoid resetting unexpired consoles.,reliability
+enable_numa_live_migration,FALSE,Enable live migration of instances with NUMA topologies.,manageability
+ensure_libvirt_rbd_instance_dir_cleanup,FALSE,Ensure the instance directory is removed during clean up when using rbd.,security
+api_paste_config,api-paste.ini,This option represents a file name for the paste.deploy config for nova-api.,environment
+wsgi_log_format,"%(client_ip)s ""%(request_line)s"" status: %(status_code)s len: %(body_length)s time: %(wall_seconds).7f","It represents a python format string that is used as the template to generate log lines. The following values can be formatted into it: client_ip, date_time, request_line, status_code, body_length, wall_seconds.",environment
+secure_proxy_ssl_header,<None>,"This option specifies the HTTP header used to determine the protocol scheme for the original request, even if it was removed by a SSL terminating proxy.",security
+ssl_ca_file,<None>,This option allows setting path to the CA certificate file that should be used to verify connecting clients.,environment
+ssl_cert_file,<None>,This option allows setting path to the SSL certificate of API server.,environment
+ssl_key_file,<None>,This option specifies the path to the file where SSL private key of API server is stored when SSL is in effect.,environment
+tcp_keepidle,600,This option sets the value of TCP_KEEPIDLE in seconds for each server socket. It specifies the duration of time to keep connection active. TCP generates a KEEPALIVE transmission for an application that requests to keep connection active. Not supported on OS X.,reliability
+default_pool_size,1000,This option specifies the size of the pool of greenthreads used by wsgi. It is possible to limit the number of concurrent connections using this option.,performance
+max_header_line,16384,This option specifies the maximum line size of message headers to be accepted. max_header_line may need to be increased when using large tokens (typically those generated by the Keystone v3 API with big service catalogs).,performance
+keep_alive,TRUE,"This option allows using the same TCP connection to send and receive multiple HTTP requests/responses, as opposed to opening a new one for every single request/response pair. HTTP keep-alive indicates HTTP connection reuse.",reliability
+client_socket_timeout,900,This option specifies the timeout for client connections' socket operations. If an incoming connection is idle for this number of seconds it will be closed. It indicates timeout on individual read/writes on the socket connection. To wait forever set to 0.,reliability
+agent_timeout,30,Number of seconds to wait for agent's reply to a request.,reliability
+agent_version_timeout,300,Number of seconds to wait for agent't reply to version request.,reliability
+agent_resetnetwork_timeout,60,Number of seconds to wait for agent's reply to resetnetwork request.,reliability
+agent_path,usr/sbin/xe-update-networking,Path to locate guest agent on the server.,security
+disable_agent,FALSE,Disables the use of XenAPI agent.,security
+use_agent_default,FALSE,Whether or not to use the agent by default when its usage is enabled but not indicated by the image.,manageability
+login_timeout,10,Timeout in seconds for XenAPI login.,reliability
+connection_concurrent,5,Maximum number of concurrent XenAPI connections.,reliability
+cache_images,all,Cache glance images locally.,environment
+image_compression_level,<None>,Compression level for images.,manageability
+default_os_type,linux,Default OS type used when uploading an image to glance,environment
+block_device_creation_timeout,10,Time in secs to wait for a block device to be created,reliability
+max_kernel_ramdisk_size,16777216,Maximum size in bytes of kernel or ramdisk images.,performance
+sr_matching_filter,default-sr:true,Filter for finding the SR to be used to install guest instances on.,manageability
+sparse_copy,TRUE,Whether to use sparse_copy for copying data on a resize down. (False will use standard dd). This speeds up resizes down considerably since large runs of zeros won't have to be rsynced.,manageability
+num_vbd_unplug_retries,10,"Maximum number of retries to unplug VBD. If set to 0, should try once, no retries.",reliability
+ipxe_network_name,<None>,Name of network to use for booting iPXE ISOs.,environment
+ipxe_boot_menu_url,<None>,URL to the iPXE boot menu.,environment
+ipxe_mkisofs_cmd,mkisofs,Name and optionally path of the tool used for ISO image creation.,environment
+connection_url,<None>,URL for connection to XenServer/Xen Cloud Platform. A special value of unix://local can be used to connect to the local unix socket.,environment
+connection_username,root,Username for connection to XenServer/Xen Cloud Platform,environment
+connection_password,<None>,Password for connection to XenServer/Xen Cloud Platform,environment
+vhd_coalesce_poll_interval,5,The interval used for polling of coalescing vhds.,reliability
+check_host,TRUE,Ensure compute service is running on host XenAPI connects to. This option must be set to false if the 'independent_compute' option is set to true.,security
+vhd_coalesce_max_attempts,20,Max number of times to poll for VHD to coalesce.,reliability
+sr_base_path,/var/run/sr-mount,Base path to the storage repository on the XenServer host.,environment
+target_host,<None>,The iSCSI Target Host.,environment
+target_port,3260,The iSCSI Target Port.,environment
+independent_compute,FALSE,"Used to prevent attempts to attach VBDs locally, so Nova can be run in a VM on a different host.",manageability
+running_timeout,60,Wait time for instances to go to running state.,reliability
+image_upload_handler,'',Dom0 plugin driver used to handle image uploads.,environment
+image_handler,direct_vhd,The plugin used to handle image uploads and downloads.,environment
+introduce_vdi_retry_wait,20,Number of seconds to wait for SR to settle if the VDI does not exist when first introduced.,reliability
+ovs_integration_bridge,<None>,The name of the integration Bridge that is used with xenapi when connecting with Open vSwitch.,security
+use_join_force,TRUE,"When adding new host to a pool, this will append a --force flag to the command, forcing hosts to join a pool, even if they have different CPUs.",manageability
+console_public_hostname,<current_hostname>,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+console_xvp_conf_template,$pybasedir/nova/console/xvp.conf.template,XVP conf template,environment
+console_xvp_conf,/etc/xvp.conf,Generated XVP conf file,environment
+console_xvp_pid,/var/run/xvp.pid,XVP master process pid file,environment
+console_xvp_log,/var/log/xvp.log,XVP log file,debuggability
+console_xvp_multiplex_port,5900,Port for XVP to multiplex VNC connections on,environment
+cloud_connector_url,http://zvm.example.org:8080/,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+ca_file,<None>,CA certificate file to be verified in httpd server with TLS enabled,environment
+image_tmp_path,$state_path/images,"This option has a sample default set, which means that its actual default value may vary from the one documented above.",manageability
+reachable_timeout,300,Timeout (seconds) to wait for an instance to start.,reliability
